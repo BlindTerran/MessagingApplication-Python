@@ -40,6 +40,7 @@ def login_user():
     if not request.is_json:
         abort(404)
 
+    # retrieve the user name from the JSON data of the POST request
     username = request.json.get("username")
     password = request.json.get("password")
 
@@ -50,6 +51,7 @@ def login_user():
     if user.password != password:
         return "Error: Password does not match!"
 
+    # if the login is successful, returns the url for the home page with the username included as aquery parameter
     return url_for('home', username=request.json.get("username"))
 
 # handles a get request to the signup page
@@ -81,6 +83,26 @@ def home():
     if request.args.get("username") is None:
         abort(404)
     return render_template("home.jinja", username=request.args.get("username"))
+
+# add friend backend handler
+@app.route("/add_friend", methods=["POST"])
+def add_friend():
+    friend_username = request.json.get("friend_username")
+    username = request.json.get("username")
+    
+    if friend_username is None:
+        return "Error: The friend field cannot be empty!"
+    
+    if username is None:
+        return "Error: Current user not found!"
+    
+    friend = db.get_user(friend_username)
+    if friend is None:
+        return f"Error: User [{friend_username}] does not exist!"
+    
+    db.add_friend(username, friend_username)
+    return f"Successfully added [{friend_username}] as a friend."
+    
 
 
 

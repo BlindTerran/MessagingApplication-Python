@@ -57,6 +57,13 @@
         <button onclick="send()">Send</button>
         <button onclick="leave()">Leave Room</button>
     </section>
+
+    <!-- Add friend section-->
+    <section id="add_friend_box" style="float: right; margin-left: 20px;">
+        <p class="text">Add Friend: </p>
+        <input id="friend_username" placeholder="friend's username">
+        <button onclick="addFriend()">Add Friend</button>
+    </section>
 </main>
 
 <script src="/static/js/libs/socket.io.min.js"></script>
@@ -156,6 +163,31 @@
         let box = $("#message_box");
         let child = $(`<p style="color:${color}; margin: 0px;"></p>`).text(message);
         box.append(child);
+    }
+
+    function isSuccessfulAddFriend(string) {
+        if (string.startsWith("Successfully ")) {
+            return true;
+        }
+        if (string.startsWith("Error: ")) {
+            return false;
+        }
+        return false;
+    }
+
+    async function addFriend() {
+        let friendUsername = $("#friend_username").val();
+        let addFriendURL = "{{ url_for('add_friend') }}";
+        // pass the friend's username and the current user's username to the server
+        let res = await axios.post(addFriendURL, {
+            friend_username: friendUsername,
+            username: Cookies.get('username')
+        });
+        if (!isSuccessfulAddFriend(res.data)) {
+            alert(res.data);
+            return;
+        }
+        alert(`Successfully added ${friendUsername} as a friend.`);
     }
     
 </script>
