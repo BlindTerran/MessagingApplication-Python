@@ -96,9 +96,11 @@ def add_friend():
     if username is None:
         return "Error: Current user not found!"
     
-    friend = db.get_user(friend_username)
-    if friend is None:
+    if db.get_user(friend_username) is None:
         return f"Error: User [{friend_username}] does not exist!"
+    
+    if db.is_duplicate_friendship(username, friend_username):
+        return f"Error: User [{friend_username}] is already your friend!"
     
     db.add_friend(username, friend_username)
     return f"Successfully added [{friend_username}] as a friend."
