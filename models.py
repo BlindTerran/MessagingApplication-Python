@@ -39,6 +39,14 @@ class Friendship(Base):
     # the combination of user_id and friend_id is the primary key, they have to be unique in this table
     user_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)
     friend_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)
+    status: Mapped[str] = mapped_column(String, default="pending")
+    
+    def to_dict(self):
+        return {
+            "user_id": self.user_id,
+            "friend_id": self.friend_id,
+            "status": self.status
+        }
 
 # stateful counter used to generate the room id
 class Counter():
