@@ -39,3 +39,14 @@ def add_friend(username: str, friend_username: str):
         friendship = Friendship(user_id=username, friend_id=friend_username)
         session.add(friendship)
         session.commit()
+        
+def is_duplicate_friendship(username: str, friend_username: str):
+    with Session(engine) as session:
+        firendship = session.query(Friendship).filter(
+            ((Friendship.user_id == username) & (Friendship.friend_id == friend_username)) | 
+            ((Friendship.user_id == friend_username) & (Friendship.friend_id == username))
+        ).first() 
+        # if the friendship already exists in the database, return true
+        if firendship is not None:
+            return True
+        return False
