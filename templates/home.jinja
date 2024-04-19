@@ -20,10 +20,6 @@
         float: left;
     }
 
-    #chat_box {
-        clear: both;
-    }
-
     #friend-requests-container {
         float: right;
     }
@@ -50,16 +46,6 @@
 <main>
     <!-- The messages are displayed here -->
     <section id="message_box"></section>
-
-    <!-- These part ideally should be a form element, 
-    but I wrote this code a year ago and I don't want to break anything...-->
-    <section id="chat_box">
-        <p class="text">Chat with: </p>
-        <input id="receiver" placeholder="username">
-        <!-- MDN says its bad practice to use the onclick attribute,
-        but we're using it anyways coz its easy :)-->
-        <button onclick="join_room()">Chat</button>
-    </section>
 
     <!-- The (message) input box is set to display: none initially, 
     this means the input box is "invisible" initially-->
@@ -101,6 +87,7 @@
             <thead>
                 <tr>
                     <th>Friends List</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="friends">
@@ -122,15 +109,6 @@
             send();
         }
     })
-
-    // when the user presses the enter key inside of the "receiver box"
-    // the user joins a (socket) room
-     $("#receiver").on("keyup", (e) => {
-        if (e.key == "Enter") {
-            join_room();
-        }
-    })
-
 
     $(document).ready(() => {
         // room_id is undefined if the user hasn't joined a room
@@ -168,12 +146,8 @@
     } 
 
     // we emit a join room event to the server to join a room
-    function join_room() {
+    function join_room(receiver) {
        
-        let receiver = $("#receiver").val();
-
-        // pass in the receiver of our message to the server
-        // as well as the current user's username
         socket.emit("join", username, receiver, (res) => {
             // res is a string with the error message if the error occurs
             // this is a pretty bad way of doing error handling, but watevs
@@ -323,9 +297,15 @@
             table.append(row);
         } else {
             for (let friend of res.data) {
-                let row = $(`<tr><td>${friend.friend_id}</td></tr>`);
+                let row = $(`<tr><td>${friend.friend_id}</td><td><button class="chat-button" data-friend="${friend.friend_id}">Chat</button></td></tr>`);
                 table.append(row);
             }
+            
+            // click event handler for the chat button
+            $(".chat-button").click(function() {
+                let receiver = $(this).data("friend");
+                join_room(receiver);
+            });
         }
     }
 
