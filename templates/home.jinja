@@ -17,6 +17,14 @@
         width: 800px; 
         overflow: auto;
         padding: 2px;
+        float: left;
+    }
+
+    #friend-requests-container {
+        float: right;
+    }
+    #friend-requests-table th.border-left {
+        border-left: 1px solid black;
     }
 
     .text  {
@@ -39,16 +47,6 @@
     <!-- The messages are displayed here -->
     <section id="message_box"></section>
 
-    <!-- These part ideally should be a form element, 
-    but I wrote this code a year ago and I don't want to break anything...-->
-    <section id="chat_box">
-        <p class="text">Chat with: </p>
-        <input id="receiver" placeholder="username">
-        <!-- MDN says its bad practice to use the onclick attribute,
-        but we're using it anyways coz its easy :)-->
-        <button onclick="join_room()">Chat</button>
-    </section>
-
     <!-- The (message) input box is set to display: none initially, 
     this means the input box is "invisible" initially-->
     <section id="input_box" style="display: none" >
@@ -58,12 +56,46 @@
         <button onclick="leave()">Leave Room</button>
     </section>
 
-    <!-- Add friend section-->
-    <section id="add_friend_box" style="float: right; margin-left: 20px;">
-        <p class="text">Add Friend: </p>
+    <!-- Send friend request section-->
+    <section id="send_friend_request_box" style="float: right; margin-left: 20px;">
+        <p class="text">Send Friend Request: </p>
         <input id="friend_username" placeholder="friend's username">
-        <button onclick="addFriend()">Add Friend</button>
+        <button onclick="addFriend()">Send Friend Request</button>
     </section>
+
+    <!-- Friend request list section -->
+    <div id="friend-requests-container">
+        <button id="refresh">Refresh</button>
+        <table id="friend-requests-table">
+            <thead>
+                <tr>
+                    <th>Friend Requests Sent</th>
+                    <th class="border-left">Friend Requests Received</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="friend-requests">
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Friends list section -->
+    <div id="friends-container">
+        <button id="refresh-friends">Refresh</button>
+        <table id="friends-table">
+            <thead>
+                <tr>
+                    <th>Friends List</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="friends">
+
+            </tbody>
+        </table>
+    </div>
+
 </main>
 
 <script src="/static/js/libs/socket.io.min.js"></script>
@@ -77,15 +109,6 @@
             send();
         }
     })
-
-    // when the user presses the enter key inside of the "receiver box"
-    // the user joins a (socket) room
-     $("#receiver").on("keyup", (e) => {
-        if (e.key == "Enter") {
-            join_room();
-        }
-    })
-
 
     $(document).ready(() => {
         // room_id is undefined if the user hasn't joined a room
@@ -123,12 +146,8 @@
     } 
 
     // we emit a join room event to the server to join a room
-    function join_room() {
+    function join_room(receiver) {
        
-        let receiver = $("#receiver").val();
-
-        // pass in the receiver of our message to the server
-        // as well as the current user's username
         socket.emit("join", username, receiver, (res) => {
             // res is a string with the error message if the error occurs
             // this is a pretty bad way of doing error handling, but watevs
@@ -177,7 +196,7 @@
 
     async function addFriend() {
         let friendUsername = $("#friend_username").val();
-        let addFriendURL = "{{ url_for('add_friend') }}";
+        let addFriendURL = "{{ url_for('send_friend_request') }}";
         // pass the friend's username and the current user's username to the server
         let res = await axios.post(addFriendURL, {
             friend_username: friendUsername,
@@ -187,8 +206,114 @@
             alert(res.data);
             return;
         }
-        alert(`Successfully added ${friendUsername} as a friend.`);
+        alert(`Successfully send friend request to ${friendUsername}.`);
     }
+
+    async function acceptFriendRequest(friend_id) {
+        let acceptFriendRequestURL = "{{ url_for('accept_friend_request') }}";
+        let res = await axios.post(acceptFriendRequestURL, {
+            username: Cookies.get('username'),
+            friend_username: friend_id
+        });
+        if (res.status == 200) {
+            alert(`Successfully accepted friend request from ${friend_id}`);
+            // remove the buttons and display the "Approved" status next to the friend request
+            $(`#buttons-${friend_id}`).remove();
+            $(`#request-${friend_id}`).append('<span> (Approved)</span>');
+        } else if (res.status == 404) {
+            alert(`Error: Friendship does not exist.`);
+        } 
+    }
+
+    async function rejectFriendRequest(friend_id) {
+        let rejectFriendRequestURL = "{{ url_for('reject_friend_request') }}";
+        let res = await axios.post(rejectFriendRequestURL, {
+            username: Cookies.get('username'),
+            friend_username: friend_id
+        });
+        if (res.status == 200) {
+            alert(`Successfully rejected friend request from ${friend_id}`);
+            $(`#buttons-${friend_id}`).remove();
+            $(`#request-${friend_id}`).append('<span> (Rejected)</span>');
+        } else if (res.status == 404) {
+            alert(`Error: Friendship does not exist.`);
+        }
+    } 
+
+    async function refreshFriendRequests() {
+        let incomingRequestsURL = "{{ url_for('get_incoming_friend_requests') }}";
+        let outgoingRequestsURL = "{{ url_for('get_outgoing_friend_requests') }}";
+
+        let incomingRes = await axios.post(incomingRequestsURL, { username: Cookies.get('username') });
+        let outgoingRes = await axios.post(outgoingRequestsURL, { username: Cookies.get('username') });
+        
+        // clear the table when refresh is clicked
+        let table = $("#friend-requests");
+        table.empty();
+        
+        if (outgoingRes.data.no_outgoing_friend_requests) {
+            let row = $(`<tr><td>No outgoing friend requests</td><td></td></tr>`);
+            table.append(row);
+        } else {
+            for (let request of outgoingRes.data) {
+                let row = $(`<tr><td>${request.friend_id} (${request.status})</td><td></td></tr>`);
+                table.append(row);
+            }
+        }
+
+        if (incomingRes.data.no_incoming_friend_requests) {
+            let row = $(`<tr><td></td><td>No incoming friend requests</td></tr>`);
+            table.append(row);
+        } else {
+            // in incoming requests, the user_id field is who sent the request, and the friend_id field is the current user
+            for (let request of incomingRes.data) {
+                // if the requeste is pending, display the approve and reject buttons
+                if (request.status == "pending") {
+                    let row = $(`<tr><td></td><td id="request-${request.user_id}">${request.user_id} <span id="buttons-${request.user_id}"><button onclick="acceptFriendRequest('${request.user_id}')">Approve</button> <button onclick="rejectFriendRequest('${request.user_id}')">Reject</button></span></td></tr>`);
+                    table.append(row);
+                } else {
+                    // if the request has been approved or rejected, display the status
+                    let row = $(`<tr><td></td><td>${request.user_id} (${request.status})</td></tr>`);
+                    table.append(row);
+                }
+            }
+        }
+    }
+
+    $("#refresh").click(refreshFriendRequests);
+
+    // call refreshFriendRequests when the page loads to refresh the friend requests
+    $(document).ready(refreshFriendRequests);
+
+    async function refreshFriends() {
+        let friendsURL = "{{ url_for('get_friends') }}";
+        let res = await axios.post(friendsURL, { username: Cookies.get('username') });
+
+        let table = $("#friends");
+        table.empty();
+
+        if (res.data.no_friends) {
+            let row = $(`<tr><td>You don't have any friend yet</td></tr>`);
+            table.append(row);
+        } else {
+            for (let friend of res.data) {
+                let row = $(`<tr><td>${friend.friend_id}</td><td><button class="chat-button" data-friend="${friend.friend_id}">Chat</button></td></tr>`);
+                table.append(row);
+            }
+            
+            // click event handler for the chat button
+            $(".chat-button").click(function() {
+                let receiver = $(this).data("friend");
+                join_room(receiver);
+            });
+        }
+    }
+
+    $("#refresh-friends").click(refreshFriends);
+    $(document).ready(refreshFriends);
+
+
+
     
 </script>
 {% endblock %}
