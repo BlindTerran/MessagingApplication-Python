@@ -217,7 +217,7 @@
             alert(res.data);
             return;
         }
-        alert(`Successfully added ${friendUsername} as a friend.`);
+        alert(`Successfully send friend request to ${friendUsername}.`);
     }
 
     async function acceptFriendRequest(friend_id) {
@@ -278,8 +278,15 @@
         } else {
             // in incoming requests, the user_id field is who sent the request, and the friend_id field is the current user
             for (let request of incomingRes.data) {
-                let row = $(`<tr><td></td><td id="request-${request.user_id}">${request.user_id} <span id="buttons-${request.user_id}"><button onclick="acceptFriendRequest('${request.user_id}')">Approve</button> <button onclick="rejectFriendRequest('${request.user_id}')">Reject</button></span></td></tr>`);
-                table.append(row);
+                // if the requeste is pending, display the approve and reject buttons
+                if (request.status == "pending") {
+                    let row = $(`<tr><td></td><td id="request-${request.user_id}">${request.user_id} <span id="buttons-${request.user_id}"><button onclick="acceptFriendRequest('${request.user_id}')">Approve</button> <button onclick="rejectFriendRequest('${request.user_id}')">Reject</button></span></td></tr>`);
+                    table.append(row);
+                } else {
+                    // if the request has been approved or rejected, display the status
+                    let row = $(`<tr><td></td><td>${request.user_id} (${request.status})</td></tr>`);
+                    table.append(row);
+                }
             }
         }
     }
