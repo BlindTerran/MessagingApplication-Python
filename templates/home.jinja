@@ -77,7 +77,7 @@
         <button onclick="addFriend()">Send Friend Request</button>
     </section>
 
-    <!-- Friend list section -->
+    <!-- Friend request list section -->
     <div id="friend-requests-container">
         <button id="refresh">Refresh</button>
         <table id="friend-requests-table">
@@ -89,6 +89,21 @@
                 </tr>
             </thead>
             <tbody id="friend-requests">
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Friends list section -->
+    <div id="friends-container">
+        <button id="refresh-friends">Refresh</button>
+        <table id="friends-table">
+            <thead>
+                <tr>
+                    <th>Friends List</th>
+                </tr>
+            </thead>
+            <tbody id="friends">
 
             </tbody>
         </table>
@@ -295,6 +310,30 @@
 
     // call refreshFriendRequests when the page loads to refresh the friend requests
     $(document).ready(refreshFriendRequests);
+
+    async function refreshFriends() {
+        let friendsURL = "{{ url_for('get_friends') }}";
+        let res = await axios.post(friendsURL, { username: Cookies.get('username') });
+
+        let table = $("#friends");
+        table.empty();
+
+        if (res.data.no_friends) {
+            let row = $(`<tr><td>You don't have any friend yet</td></tr>`);
+            table.append(row);
+        } else {
+            for (let friend of res.data) {
+                let row = $(`<tr><td>${friend.friend_id}</td></tr>`);
+                table.append(row);
+            }
+        }
+    }
+
+    $("#refresh-friends").click(refreshFriends);
+    $(document).ready(refreshFriends);
+
+
+
     
 </script>
 {% endblock %}

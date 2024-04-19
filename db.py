@@ -88,3 +88,12 @@ def is_duplicate_friendship(username: str, friend_username: str):
             if f.status != "rejected":
                 return True
         return False
+
+# get all the friends of a user, a friend is a user that has accepted the friendship request
+def get_friends(username: str):
+    with Session(engine) as session:
+        friends = session.query(Friendship).filter(
+            ((Friendship.user_id == username) | (Friendship.friend_id == username)) &
+            (Friendship.status == "accepted")
+        ).all()
+        return friends

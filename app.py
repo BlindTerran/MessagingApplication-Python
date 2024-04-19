@@ -141,5 +141,21 @@ def get_outgoing_friend_requests():
     outgoing_friendships_json = [f.to_dict() for f in outgoing_friendships]
     return jsonify(outgoing_friendships_json)
 
+@app.route("/get_friends", methods=["POST"])
+def get_friends():
+    username = request.json.get("username")
+    friendships = db.get_friends(username)
+    if not friendships:
+        return jsonify({"no_friends": True})
+    firends_json = []
+    for f in friendships:
+        if f.friend_id == username:
+            friend_name = f.user_id
+            firends_json.append({"friend_id": friend_name})
+        if f.user_id == username:
+            friend_name = f.friend_id
+            firends_json.append({"friend_id": friend_name})
+    return jsonify(firends_json)
+
 if __name__ == '__main__':
     socketio.run(app)
