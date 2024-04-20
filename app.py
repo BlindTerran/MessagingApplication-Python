@@ -4,7 +4,8 @@ this is where you'll find all of the get/post request handlers
 the socket event handlers are inside of socket_routes.py
 '''
 
-from flask import Flask, render_template, request, abort, url_for, jsonify, session
+
+from flask import Flask, render_template, request, abort, url_for, jsonify, make_response, session
 from flask_socketio import SocketIO
 import db
 from models import *
@@ -41,7 +42,7 @@ def verify_hmac(secret_key: bytes, data: bytes, provided_hmac: str, hash_functio
     return hmac.compare_digest(computed_hmac, provided_hmac)
 
 
-def generate_password(unprocessed_password : str) -> bytes:
+def generate_password_hash(unprocessed_password : str) -> bytes:
     """
     Hash and salt a password
     """
@@ -109,12 +110,23 @@ def signup_user():
     if not request.is_json:
         abort(404)
     username = request.json.get("username")
-    unnprocessed_password : str = request.json.get("password")
-    hashed_password : bytes = generate_password(unnprocessed_password)
-
+    password = request.json.get("password")
+    public_key = request.json.get("public_key")
+    private_key = request.json.get("private_key")
+    
+    hashed_password : bytes = generate_password_hash(unnprocessed_password)
+    
     if db.get_user(username) is None:
-        db.insert_user(username, hashed_password)
-        return url_for('home', username=username)
+        # here only send the public key to the database
+        db.insert_user(username, hashed_password, public_key)
+        
+        # the response is a redirect to the home page with the username as a query parameter
+        response = make_response(url_for('home', username=username))
+        
+        # set the private key as a secure httponly cookie
+        response.set_cookie("privateKey", private_key, secure=True, httponly=True)
+        
+        return response
     return "Error: User already exists."
 
 # handler when a "404" error happens

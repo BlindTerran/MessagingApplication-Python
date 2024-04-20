@@ -25,10 +25,24 @@ Sign up page, pretty much the same as login.
 
         // this function is identical to login(), see login.jinja
         async function signup() {
-            let loginURL = "{{ url_for('signup_user') }}";
-            let res = await axios.post(loginURL, {
-                username: $("#username").val(),
-                password: $("#password").val()
+            let username = $("#username").val();
+            let password = $("#password").val();
+
+            let seed = sha256.array(password);
+
+            // generate public and private key pair from seed
+            let keyPair = nacl.box.keyPair.fromSecretKey(new Uint8Array(seed));
+
+            // convert the keys to a Base64 string
+            let publicKeyBase64 = btoa(String.fromCharCode.apply(null, keyPair.publicKey));
+            let privateKeyBase64 = btoa(String.fromCharCode.apply(null, keyPair.secretKey));
+
+            let signupURL = "{{ url_for('signup_user') }}";
+            let res = await axios.post(signupURL, {
+                username: username,
+                password: password,  // send the plaintext password to the server, hash is done on server
+                public_key: publicKeyBase64,
+                private_key: privateKeyBase64
             });
             if (!isValidURL(res.data)) {
                 alert(res.data);
