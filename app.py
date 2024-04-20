@@ -4,7 +4,7 @@ this is where you'll find all of the get/post request handlers
 the socket event handlers are inside of socket_routes.py
 '''
 
-from flask import Flask, render_template, request, abort, url_for, jsonify
+from flask import Flask, render_template, request, abort, url_for, jsonify, make_response
 from flask_socketio import SocketIO
 import db
 from models import *
@@ -67,10 +67,20 @@ def signup_user():
         abort(404)
     username = request.json.get("username")
     password = request.json.get("password")
-
+    public_key = request.json.get("public_key")
+    private_key = request.json.get("private_key")
+    
     if db.get_user(username) is None:
-        db.insert_user(username, password)
-        return url_for('home', username=username)
+        # here only send the public key to the database
+        db.insert_user(username, password, public_key)
+        
+        # the response is a redirect to the home page with the username as a query parameter
+        response = make_response(url_for('home', username=username))
+        
+        # set the private key as a secure httponly cookie
+        response.set_cookie("privateKey", private_key, secure=True, httponly=True)
+        
+        return response
     return "Error: User already exists."
 
 # handler when a "404" error happens
