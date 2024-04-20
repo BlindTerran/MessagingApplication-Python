@@ -4,7 +4,7 @@ this is where you'll find all of the get/post request handlers
 the socket event handlers are inside of socket_routes.py
 '''
 
-from flask import Flask, render_template, request, abort, url_for, jsonify, session
+from flask import Flask, render_template, request, abort, url_for, jsonify, session, redirect
 from flask_socketio import SocketIO
 import db
 from models import *
@@ -125,9 +125,20 @@ def page_not_found(_):
 # home page, where the messaging app is
 @app.route("/home")
 def home():
-    if request.args.get("username") is None:
+    if "username" in session:
+        username = session["username"]
+    else:
+        return redirect(url_for("login_user"))
+     
+    print(username)
+    print(request.args)
+    print(request.args.get("username"))
+    if (request.args.get("username") is None):
         abort(404)
+    if session["username"] != request.args.get("username"):
+        abort(401)
     return render_template("home.jinja", username=request.args.get("username"))
+
 
 @app.route("/send_friend_request", methods=["POST"])
 def send_friend_request():
