@@ -25,6 +25,25 @@ Base.metadata.create_all(engine)
 # Base.metadata.create_all(engine, [Friendship.__table__])
 
 # inserts a user to the database
+
+def insert_message(sender_id : str, receiver_id : str, encryped_message : str):
+    with Session(engine) as session:
+        message : Conversation = Conversation(sender_id=sender_id, receiver_id=receiver_id, encryped_message=encryped_message)
+        session.add(message)
+        session.commit()
+
+def get_message(reader_id : str):
+    #TODO #TODO
+    # I suppose both the sender and the reciver are primary so
+    # This should get all messages available
+    with Session(engine) as session:
+        message = session.query(Conversation).filter(
+            (Conversation.sender_id == reader_id) |
+            (Conversation.receiver_id == reader_id)
+        )#.first()
+        return message
+    
+
 def insert_user(username: str, password: str):
     with Session(engine) as session:
         user = User(username=username, password=password)

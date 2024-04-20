@@ -48,6 +48,26 @@ class Friendship(Base):
             "status": self.status
         }
 
+# relative entity to store the friendship between user and user
+
+class Conversation(Base):
+    """
+    sender | receiver | message
+    """
+    __tablename__ = "conversation"
+    
+    # the combination of user_id and friend_id is the primary key, they have to be unique in this table
+    sender_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)
+    receiver_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)
+    encrypted_message: Mapped[str] = mapped_column(String) # this must be encryped at front-end
+    
+    def to_dict(self):
+        return {
+            "sender_id": self.sender_id,
+            "receiver_id": self.receiver_id,
+            "message": self.message
+        }
+
 # stateful counter used to generate the room id
 class Counter():
     def __init__(self):
