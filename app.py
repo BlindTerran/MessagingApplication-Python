@@ -9,6 +9,10 @@ from flask_socketio import SocketIO
 import db
 from models import *
 import secrets
+#
+import bcrypt
+import hmac
+import hashlib
 
 # import logging
 
@@ -24,6 +28,31 @@ socketio = SocketIO(app)
 
 # don't remove this!!
 import socket_routes
+
+#By default we use SHA256, but others might be used as well guaranteeing consistency 
+def generate_hmac(secret_key: bytes, data: bytes, hash_function=hashlib.sha256) -> str:
+    computed_hmac = hmac.new(secret_key, data, hash_function).hexdigest()
+    return computed_hmac
+
+
+def verify_hmac(secret_key: bytes, data: bytes, provided_hmac: str, hash_function=hashlib.sha256) -> bool:
+    computed_hmac = generate_hmac(secret_key, data, hash_function)
+    """it is recommended to use the compare_digest() function instead of the == operator to reduce the vulnerability to timing attacks."""
+    return hmac.compare_digest(computed_hmac, provided_hmac)
+
+
+def generate_password(unprocessed_password : str) -> bytes:
+    """
+    Hash and salt a password
+    """
+    byte : bytes = unprocessed_password.encode('utf-8')
+    salt : bytes = bcrypt.gensalt()
+    hash : bytes = bcrypt.hashpw(byte, salt)
+    return hash
+
+def verify_password(unprocessed_password : str, hash : bytes) -> bool:
+    result : bool = bcrypt.checkpw(unprocessed_password, hash)
+    return result
 
 # index page
 @app.route("/")
@@ -43,13 +72,13 @@ def login_user():
 
     # retrieve the user name from the JSON data of the POST request
     username = request.json.get("username")
-    password = request.json.get("password")
-
-    user =  db.get_user(username)
+    unprocessed_password : str = request.json.get("password")
+    
+    # compare it with the user in the database
+    user = db.get_user(username)
     if user is None:
         return "Error: User does not exist!"
-
-    if user.password != password:
+    if verify_password(unprocessed_password,user.password) != True:
         return "Error: Password does not match!"
 
     # if the login is successful, returns the url for the home page with the username included as aquery parameter
@@ -66,10 +95,11 @@ def signup_user():
     if not request.is_json:
         abort(404)
     username = request.json.get("username")
-    password = request.json.get("password")
+    unnprocessed_password : str = request.json.get("password")
+    hashed_password : bytes = generate_password(unnprocessed_password)
 
     if db.get_user(username) is None:
-        db.insert_user(username, password)
+        db.insert_user(username, hashed_password)
         return url_for('home', username=username)
     return "Error: User already exists."
 
@@ -158,4 +188,6 @@ def get_friends():
     return jsonify(firends_json)
 
 if __name__ == '__main__':
-    socketio.run(app)
+    ssl_certificate : str = 'certificate.crt'
+    ssl_private_key : str = 'private.key'
+    socketio.run(app, ssl_context=(ssl_certificate, ssl_private_key))
