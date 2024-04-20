@@ -56,6 +56,14 @@
         "documentation": {}
     },
     {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "request",
         "importPath": "flask",
         "description": "flask",
@@ -365,7 +373,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def page_not_found(_):\n    return render_template('404.jinja'), 404\n# home page, where the messaging app is\n@app.route(\"/home\")\ndef home():\n    if request.args.get(\"username\") is None:\n        abort(404)\n    return render_template(\"home.jinja\", username=request.args.get(\"username\"))\n@app.route(\"/send_friend_request\", methods=[\"POST\"])\ndef send_friend_request():",
+        "peekOfCode": "def page_not_found(_):\n    return render_template('404.jinja'), 404\n# home page, where the messaging app is\n@app.route(\"/home\")\ndef home():\n    if \"username\" in session:\n        username = session[\"username\"]\n    else:\n        return redirect(url_for(\"login_user\"))\n    print(username)",
         "detail": "app",
         "documentation": {}
     },
@@ -374,7 +382,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def home():\n    if request.args.get(\"username\") is None:\n        abort(404)\n    return render_template(\"home.jinja\", username=request.args.get(\"username\"))\n@app.route(\"/send_friend_request\", methods=[\"POST\"])\ndef send_friend_request():\n    friend_username = request.json.get(\"friend_username\")\n    username = request.json.get(\"username\")\n    if friend_username is None:\n        return \"Error: The friend field cannot be empty.\"",
+        "peekOfCode": "def home():\n    if \"username\" in session:\n        username = session[\"username\"]\n    else:\n        return redirect(url_for(\"login_user\"))\n    print(username)\n    print(request.args)\n    print(request.args.get(\"username\"))\n    if (request.args.get(\"username\") is None):\n        abort(404)",
         "detail": "app",
         "documentation": {}
     },
@@ -457,6 +465,24 @@
         "description": "app",
         "peekOfCode": "socketio = SocketIO(app)\n# don't remove this!!\nimport socket_routes\n#By default we use SHA256, but others might be used as well guaranteeing consistency \ndef generate_hmac(secret_key: bytes, data: bytes, hash_function=hashlib.sha256) -> str:\n    computed_hmac = hmac.new(secret_key, data, hash_function).hexdigest()\n    return computed_hmac\ndef verify_hmac(secret_key: bytes, data: bytes, provided_hmac: str, hash_function=hashlib.sha256) -> bool:\n    computed_hmac = generate_hmac(secret_key, data, hash_function)\n    \"\"\"it is recommended to use the compare_digest() function instead of the == operator to reduce the vulnerability to timing attacks.\"\"\"",
         "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "insert_message",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def insert_message(sender_id : str, receiver_id : str, encryped_message : str):\n    with Session(engine) as session:\n        message : Conversation = Conversation(sender_id=sender_id, receiver_id=receiver_id, encryped_message=encryped_message)\n        session.add(message)\n        session.commit()\ndef get_message(reader_id : str):\n    #TODO #TODO\n    # I suppose both the sender and the reciver are primary so\n    # This should get all messages available\n    with Session(engine) as session:",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_message",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_message(reader_id : str):\n    #TODO #TODO\n    # I suppose both the sender and the reciver are primary so\n    # This should get all messages available\n    with Session(engine) as session:\n        message = session.query(Conversation).filter(\n            (Conversation.sender_id == reader_id) |\n            (Conversation.receiver_id == reader_id)\n        )#.first()\n        return message",
+        "detail": "db",
         "documentation": {}
     },
     {
@@ -545,7 +571,7 @@
         "kind": 5,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "engine = create_engine(\"sqlite:///database/main.db\", echo=False)\n# initializes the database\nBase.metadata.create_all(engine)\n# Base.metadata.drop_all(engine, [Friendship.__table__])\n# Base.metadata.create_all(engine, [Friendship.__table__])\n# inserts a user to the database\ndef insert_user(username: str, password: str):\n    with Session(engine) as session:\n        user = User(username=username, password=password)\n        session.add(user)",
+        "peekOfCode": "engine = create_engine(\"sqlite:///database/main.db\", echo=False)\n# initializes the database\nBase.metadata.create_all(engine)\n# Base.metadata.drop_all(engine, [Friendship.__table__])\n# Base.metadata.create_all(engine, [Friendship.__table__])\n# inserts a user to the database\ndef insert_message(sender_id : str, receiver_id : str, encryped_message : str):\n    with Session(engine) as session:\n        message : Conversation = Conversation(sender_id=sender_id, receiver_id=receiver_id, encryped_message=encryped_message)\n        session.add(message)",
         "detail": "db",
         "documentation": {}
     },
@@ -573,6 +599,15 @@
         "importPath": "models",
         "description": "models",
         "peekOfCode": "class Friendship(Base):\n    __tablename__ = \"friendship\"\n    # the combination of user_id and friend_id is the primary key, they have to be unique in this table\n    user_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)\n    friend_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)\n    status: Mapped[str] = mapped_column(String, default=\"pending\")\n    def to_dict(self):\n        return {\n            \"user_id\": self.user_id,\n            \"friend_id\": self.friend_id,",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Conversation",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Conversation(Base):\n    \"\"\"\n    sender | receiver | message\n    \"\"\"\n    __tablename__ = \"conversation\"\n    # the combination of user_id and friend_id is the primary key, they have to be unique in this table\n    sender_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)\n    receiver_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)\n    encrypted_message: Mapped[str] = mapped_column(String) # this must be encryped at front-end\n    def to_dict(self):",
         "detail": "models",
         "documentation": {}
     },

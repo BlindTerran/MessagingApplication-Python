@@ -1,2 +1,120 @@
-Address already in use
-Port 5000 is in use by another program. Either identify and stop that program, or start the server with a different port.
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+127.0.0.1 - - [20/Apr/2024 16:11:17] "GET /socket.io/?EIO=4&transport=polling&t=Oxw8Mgp HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:17] "POST /socket.io/?EIO=4&transport=polling&t=Oxw8MhA&sid=zo4qIzZWEaw5iSteAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:17] "GET /socket.io/?EIO=4&transport=polling&t=Oxw8MhA.0&sid=zo4qIzZWEaw5iSteAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:21] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:21] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:21] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:21] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:21] "GET /socket.io/?EIO=4&transport=websocket&sid=zo4qIzZWEaw5iSteAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:23] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:23] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:23] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:23] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:24] "POST /login/user HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:24] "GET /home?username=hash3 HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:24] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:24] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:24] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:24] "[36mGET /static/js/libs/socket.io.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:24] "GET /socket.io/?EIO=4&transport=polling&t=Oxw8OKt HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:24] "POST /get_incoming_friend_requests HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:24] "POST /get_friends HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:24] "POST /socket.io/?EIO=4&transport=polling&t=Oxw8OLL&sid=zveSvm_UfK0i62rvAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:24] "GET /socket.io/?EIO=4&transport=polling&t=Oxw8OLM&sid=zveSvm_UfK0i62rvAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:24] "POST /get_outgoing_friend_requests HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:27] "GET /socket.io/?EIO=4&transport=websocket&sid=zveSvm_UfK0i62rvAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:27] "[31m[1mGET /home?username=asjdasldjlkasjdlkasjdlkasjdlkalkda HTTP/1.1[0m" 401 -
+127.0.0.1 - - [20/Apr/2024 16:11:31] "GET /home?username=hash3 HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:31] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:31] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:31] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:31] "[36mGET /static/js/libs/socket.io.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:11:31] "GET /socket.io/?EIO=4&transport=polling&t=Oxw8Q6M HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:31] "POST /get_incoming_friend_requests HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:31] "POST /get_friends HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:31] "POST /socket.io/?EIO=4&transport=polling&t=Oxw8Q6p&sid=9k9Wp8y5sLh8NthOAAAE HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:31] "GET /socket.io/?EIO=4&transport=polling&t=Oxw8Q6p.0&sid=9k9Wp8y5sLh8NthOAAAE HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:11:31] "POST /get_outgoing_friend_requests HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:13:53] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:13:53] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:13:53] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:13:53] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:15:06] "[33mGET /static/js/libs/axios.min.js.map HTTP/1.1[0m" 404 -
+127.0.0.1 - - [20/Apr/2024 16:15:06] "[33mGET /static/js/libs/socket.io.min.js.map HTTP/1.1[0m" 404 -
+127.0.0.1 - - [20/Apr/2024 16:21:06] "GET /socket.io/?EIO=4&transport=websocket&sid=9k9Wp8y5sLh8NthOAAAE HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:25:42] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2024 16:25:42] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:25:42] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:25:42] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [20/Apr/2024 16:25:48] "[33mGET /static/js/libs/axios.min.js.map HTTP/1.1[0m" 404 -
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/models.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/models.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/models.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/models.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/models.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/db.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/db.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/db.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/db.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/models.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/db.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/db.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/db.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/db.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 563-132-196
+ * Detected change in '/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/db.py', reloading
+ * Restarting with stat
+Traceback (most recent call last):
+  File "/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/app.py", line 9, in <module>
+    import db
+  File "/mnt/c/Users/76100/OneDrive/桌面/INFO2222/INFO2222-Scaffold-main/db.py", line 35
+    def get_message()
+                     ^
+SyntaxError: expected ':'
