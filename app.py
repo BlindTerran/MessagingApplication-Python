@@ -4,11 +4,16 @@ this is where you'll find all of the get/post request handlers
 the socket event handlers are inside of socket_routes.py
 '''
 
-from flask import Flask, render_template, request, abort, url_for, jsonify, make_response
+
+from flask import Flask, render_template, request, abort, url_for, jsonify, make_response, session
 from flask_socketio import SocketIO
 import db
 from models import *
 import secrets
+#
+import bcrypt
+import hmac
+import hashlib
 
 # import logging
 
@@ -24,6 +29,31 @@ socketio = SocketIO(app)
 
 # don't remove this!!
 import socket_routes
+
+#By default we use SHA256, but others might be used as well guaranteeing consistency 
+def generate_hmac(secret_key: bytes, data: bytes, hash_function=hashlib.sha256) -> str:
+    computed_hmac = hmac.new(secret_key, data, hash_function).hexdigest()
+    return computed_hmac
+
+
+def verify_hmac(secret_key: bytes, data: bytes, provided_hmac: str, hash_function=hashlib.sha256) -> bool:
+    computed_hmac = generate_hmac(secret_key, data, hash_function)
+    """it is recommended to use the compare_digest() function instead of the == operator to reduce the vulnerability to timing attacks."""
+    return hmac.compare_digest(computed_hmac, provided_hmac)
+
+
+def generate_password_hash(unprocessed_password : str) -> bytes:
+    """
+    Hash and salt a password
+    """
+    byte : bytes = unprocessed_password.encode('utf-8')
+    salt : bytes = bcrypt.gensalt()
+    hash : bytes = bcrypt.hashpw(byte, salt)
+    return hash
+
+def verify_password(unprocessed_password : str, hash : bytes) -> bool:
+    result : bool = bcrypt.checkpw(unprocessed_password, hash)
+    return result
 
 # index page
 @app.route("/")
@@ -43,17 +73,31 @@ def login_user():
 
     # retrieve the user name from the JSON data of the POST request
     username = request.json.get("username")
-    password = request.json.get("password")
-
-    user =  db.get_user(username)
+    unprocessed_password : str = request.json.get("password")
+    
+    # compare it with the user in the database
+    user = db.get_user(username)
+    # To test the hashed password in the data base
+    # print(user.password)
+    # print(bytes(user.password))
     if user is None:
         return "Error: User does not exist!"
-
-    if user.password != password:
+    if verify_password(unprocessed_password.encode('utf-8'), bytes(user.password)) != True:
         return "Error: Password does not match!"
 
-    # if the login is successful, returns the url for the home page with the username included as aquery parameter
+    # if the login is successful
+    #
+    session['username'] = username
+    # returns the url for the home page with the username included as aquery parameter
     return url_for('home', username=request.json.get("username"))
+
+@app.route('/protected')
+def protected():
+    if 'username' in session:
+        return f'Welcome, {session["username"]}!'
+    else:
+        return 'Unauthorized', 401
+
 
 # handles a get request to the signup page
 @app.route("/signup")
@@ -70,9 +114,11 @@ def signup_user():
     public_key = request.json.get("public_key")
     private_key = request.json.get("private_key")
     
+    hashed_password : bytes = generate_password_hash(unnprocessed_password)
+    
     if db.get_user(username) is None:
         # here only send the public key to the database
-        db.insert_user(username, password, public_key)
+        db.insert_user(username, hashed_password, public_key)
         
         # the response is a redirect to the home page with the username as a query parameter
         response = make_response(url_for('home', username=username))
@@ -168,4 +214,6 @@ def get_friends():
     return jsonify(firends_json)
 
 if __name__ == '__main__':
-    socketio.run(app)
+    ssl_certificate : str = 'certs/localhost.crt'
+    ssl_private_key : str = 'certs/localhost.key'
+    socketio.run(app, debug=True, ssl_context=(ssl_certificate, ssl_private_key))
