@@ -23,11 +23,13 @@ Base.metadata.create_all(engine)
 
 # Base.metadata.drop_all(engine, [Friendship.__table__])
 # Base.metadata.create_all(engine, [Friendship.__table__])
+# Base.metadata.drop_all(engine, [User.__table__])
+# Base.metadata.create_all(engine, [User.__table__])
 
 # inserts a user to the database
-def insert_user(username: str, password: str):
+def insert_user(username: str, password: str, public_key: str):
     with Session(engine) as session:
-        user = User(username=username, password=password)
+        user = User(username=username, password=password, public_key=public_key)
         session.add(user)
         session.commit()
 

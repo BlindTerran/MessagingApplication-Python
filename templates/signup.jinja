@@ -1,54 +1,70 @@
 <!-- 
-Sign up page, pretty much the same as login.
--->
-{% extends 'base.jinja' %}
+    Sign up page, pretty much the same as login.
+    -->
+    {% extends 'base.jinja' %}
+    
+    
+    {% block content %} 
+        <h1>Sign Up</h1>
+        <p>Username</p>
+        <input id="username"/>
+        <p>Password</p>
+        <input id="password" type="password"/>
+        <button id="signupButton">Sign up</button>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tweetnacl/1.0.3/nacl.min.js"></script>
 
-{% block content %} 
-    <h1>Sign Up</h1>
-    <p>Username</p>
-    <input id="username"/>
-    <p>Password</p>
-    <input id="password" type="password"/>
-    <button onclick="signup()">Sign up</button>
-
-    <script>
-         function isValidURL(string) {
-            if (string.length == 0) {
+        <script>
+             function isValidURL(string) {
+                if (string.length == 0) {
+                    return false;
+                }
+                if (string[0] == "/") {
+                    return true;
+                }
                 return false;
             }
-            if (string[0] == "/") {
-                return true;
+    
+            // this function is identical to login(), see login.jinja
+            async function signup() {
+                let username = $("#username").val();
+                let password = $("#password").val();
+                
+                // make sure that each user has a unique hash 
+                let hash = CryptoJS.SHA256(password + username);
+                let seed = hash.toString(CryptoJS.enc.Hex).split('').map(c => c.charCodeAt(0));
+
+                // the resulting secretKey is used to generate the public and private key pair
+                let secretKey = new Uint8Array(seed.slice(0, 32));
+    
+                // generate public and private key pair from seed
+                let keyPair = nacl.box.keyPair.fromSecretKey(new Uint8Array(secretKey));
+    
+                // convert the keys to a Base64 string
+                let publicKeyBase64 = btoa(String.fromCharCode.apply(null, keyPair.publicKey));
+                let privateKeyBase64 = btoa(String.fromCharCode.apply(null, keyPair.secretKey));
+    
+                let signupURL = "{{ url_for('signup_user') }}";
+                let res = await axios.post(signupURL, {
+                    username: username,
+                    password: password,  
+                    public_key: publicKeyBase64,
+                    private_key: privateKeyBase64
+                });
+                if (!isValidURL(res.data)) {
+                    alert(res.data);
+                    return;
+                }
+                window.open(res.data, "_self")
             }
-            return false;
-        }
-
-        // this function is identical to login(), see login.jinja
-        async function signup() {
-            let username = $("#username").val();
-            let password = $("#password").val();
-
-            let seed = sha256.array(password);
-
-            // generate public and private key pair from seed
-            let keyPair = nacl.box.keyPair.fromSecretKey(new Uint8Array(seed));
-
-            // convert the keys to a Base64 string
-            let publicKeyBase64 = btoa(String.fromCharCode.apply(null, keyPair.publicKey));
-            let privateKeyBase64 = btoa(String.fromCharCode.apply(null, keyPair.secretKey));
-
-            let signupURL = "{{ url_for('signup_user') }}";
-            let res = await axios.post(signupURL, {
-                username: username,
-                password: password,  // send the plaintext password to the server, hash is done on server
-                public_key: publicKeyBase64,
-                private_key: privateKeyBase64
+    
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('signupButton').addEventListener('click', () => {
+                    signup();
+                });
             });
-            if (!isValidURL(res.data)) {
-                alert(res.data);
-                return;
-            }
-            window.open(res.data, "_self")
-        }
-    </script>
-{% endblock %}
+        </script>
+    {% endblock %}
+    
+    
