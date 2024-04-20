@@ -4,7 +4,7 @@ this is where you'll find all of the get/post request handlers
 the socket event handlers are inside of socket_routes.py
 '''
 
-from flask import Flask, render_template, request, abort, url_for, jsonify
+from flask import Flask, render_template, request, abort, url_for, jsonify, session
 from flask_socketio import SocketIO
 import db
 from models import *
@@ -76,13 +76,27 @@ def login_user():
     
     # compare it with the user in the database
     user = db.get_user(username)
+    # To test the hashed password in the data base
+    # print(user.password)
+    # print(bytes(user.password))
     if user is None:
         return "Error: User does not exist!"
-    if verify_password(unprocessed_password,user.password) != True:
+    if verify_password(unprocessed_password.encode('utf-8'), bytes(user.password)) != True:
         return "Error: Password does not match!"
 
-    # if the login is successful, returns the url for the home page with the username included as aquery parameter
+    # if the login is successful
+    #
+    session['username'] = username
+    # returns the url for the home page with the username included as aquery parameter
     return url_for('home', username=request.json.get("username"))
+
+@app.route('/protected')
+def protected():
+    if 'username' in session:
+        return f'Welcome, {session["username"]}!'
+    else:
+        return 'Unauthorized', 401
+
 
 # handles a get request to the signup page
 @app.route("/signup")
@@ -188,6 +202,6 @@ def get_friends():
     return jsonify(firends_json)
 
 if __name__ == '__main__':
-    ssl_certificate : str = 'certificate.crt'
-    ssl_private_key : str = 'private.key'
-    socketio.run(app, ssl_context=(ssl_certificate, ssl_private_key))
+    ssl_certificate : str = 'certs/localhost.crt'
+    ssl_private_key : str = 'certs/localhost.key'
+    socketio.run(app, debug=True, ssl_context=(ssl_certificate, ssl_private_key))

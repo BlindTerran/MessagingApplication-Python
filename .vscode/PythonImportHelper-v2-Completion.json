@@ -1,0 +1,651 @@
+[
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "abort",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "SocketIO",
+        "importPath": "flask_socketio",
+        "description": "flask_socketio",
+        "isExtraImport": true,
+        "detail": "flask_socketio",
+        "documentation": {}
+    },
+    {
+        "label": "join_room",
+        "importPath": "flask_socketio",
+        "description": "flask_socketio",
+        "isExtraImport": true,
+        "detail": "flask_socketio",
+        "documentation": {}
+    },
+    {
+        "label": "emit",
+        "importPath": "flask_socketio",
+        "description": "flask_socketio",
+        "isExtraImport": true,
+        "detail": "flask_socketio",
+        "documentation": {}
+    },
+    {
+        "label": "leave_room",
+        "importPath": "flask_socketio",
+        "description": "flask_socketio",
+        "isExtraImport": true,
+        "detail": "flask_socketio",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "db",
+        "description": "db",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Room",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "secrets",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "secrets",
+        "description": "secrets",
+        "detail": "secrets",
+        "documentation": {}
+    },
+    {
+        "label": "bcrypt",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "bcrypt",
+        "description": "bcrypt",
+        "detail": "bcrypt",
+        "documentation": {}
+    },
+    {
+        "label": "hmac",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hmac",
+        "description": "hmac",
+        "detail": "hmac",
+        "documentation": {}
+    },
+    {
+        "label": "hashlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hashlib",
+        "description": "hashlib",
+        "detail": "hashlib",
+        "documentation": {}
+    },
+    {
+        "label": "socket_routes",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "sqlalchemy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Table",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "DeclarativeBase",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Mapped",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "mapped_column",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "generate_hmac",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def generate_hmac(secret_key: bytes, data: bytes, hash_function=hashlib.sha256) -> str:\n    computed_hmac = hmac.new(secret_key, data, hash_function).hexdigest()\n    return computed_hmac\ndef verify_hmac(secret_key: bytes, data: bytes, provided_hmac: str, hash_function=hashlib.sha256) -> bool:\n    computed_hmac = generate_hmac(secret_key, data, hash_function)\n    \"\"\"it is recommended to use the compare_digest() function instead of the == operator to reduce the vulnerability to timing attacks.\"\"\"\n    return hmac.compare_digest(computed_hmac, provided_hmac)\ndef generate_password(unprocessed_password : str) -> bytes:\n    \"\"\"\n    Hash and salt a password",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "verify_hmac",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def verify_hmac(secret_key: bytes, data: bytes, provided_hmac: str, hash_function=hashlib.sha256) -> bool:\n    computed_hmac = generate_hmac(secret_key, data, hash_function)\n    \"\"\"it is recommended to use the compare_digest() function instead of the == operator to reduce the vulnerability to timing attacks.\"\"\"\n    return hmac.compare_digest(computed_hmac, provided_hmac)\ndef generate_password(unprocessed_password : str) -> bytes:\n    \"\"\"\n    Hash and salt a password\n    \"\"\"\n    byte : bytes = unprocessed_password.encode('utf-8')\n    salt : bytes = bcrypt.gensalt()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "generate_password",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def generate_password(unprocessed_password : str) -> bytes:\n    \"\"\"\n    Hash and salt a password\n    \"\"\"\n    byte : bytes = unprocessed_password.encode('utf-8')\n    salt : bytes = bcrypt.gensalt()\n    hash : bytes = bcrypt.hashpw(byte, salt)\n    return hash\ndef verify_password(unprocessed_password : str, hash : bytes) -> bool:\n    result : bool = bcrypt.checkpw(unprocessed_password, hash)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "verify_password",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def verify_password(unprocessed_password : str, hash : bytes) -> bool:\n    result : bool = bcrypt.checkpw(unprocessed_password, hash)\n    return result\n# index page\n@app.route(\"/\")\ndef index():\n    return render_template(\"index.jinja\")\n# login page\n@app.route(\"/login\")\ndef login():    ",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "index",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def index():\n    return render_template(\"index.jinja\")\n# login page\n@app.route(\"/login\")\ndef login():    \n    return render_template(\"login.jinja\")\n# handles a post request when the user clicks the log in button\n@app.route(\"/login/user\", methods=[\"POST\"])\ndef login_user():\n    if not request.is_json:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "login",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def login():    \n    return render_template(\"login.jinja\")\n# handles a post request when the user clicks the log in button\n@app.route(\"/login/user\", methods=[\"POST\"])\ndef login_user():\n    if not request.is_json:\n        abort(404)\n    # retrieve the user name from the JSON data of the POST request\n    username = request.json.get(\"username\")\n    unprocessed_password : str = request.json.get(\"password\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "login_user",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def login_user():\n    if not request.is_json:\n        abort(404)\n    # retrieve the user name from the JSON data of the POST request\n    username = request.json.get(\"username\")\n    unprocessed_password : str = request.json.get(\"password\")\n    # compare it with the user in the database\n    user = db.get_user(username)\n    # To test the hashed password in the data base\n    # print(user.password)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "protected",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def protected():\n    if 'username' in session:\n        return f'Welcome, {session[\"username\"]}!'\n    else:\n        return 'Unauthorized', 401\n# handles a get request to the signup page\n@app.route(\"/signup\")\ndef signup():\n    return render_template(\"signup.jinja\")\n# handles a post request when the user clicks the signup button",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "signup",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def signup():\n    return render_template(\"signup.jinja\")\n# handles a post request when the user clicks the signup button\n@app.route(\"/signup/user\", methods=[\"POST\"])\ndef signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    unnprocessed_password : str = request.json.get(\"password\")\n    hashed_password : bytes = generate_password(unnprocessed_password)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "signup_user",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    unnprocessed_password : str = request.json.get(\"password\")\n    hashed_password : bytes = generate_password(unnprocessed_password)\n    if db.get_user(username) is None:\n        db.insert_user(username, hashed_password)\n        return url_for('home', username=username)\n    return \"Error: User already exists.\"",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "page_not_found",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def page_not_found(_):\n    return render_template('404.jinja'), 404\n# home page, where the messaging app is\n@app.route(\"/home\")\ndef home():\n    if request.args.get(\"username\") is None:\n        abort(404)\n    return render_template(\"home.jinja\", username=request.args.get(\"username\"))\n@app.route(\"/send_friend_request\", methods=[\"POST\"])\ndef send_friend_request():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def home():\n    if request.args.get(\"username\") is None:\n        abort(404)\n    return render_template(\"home.jinja\", username=request.args.get(\"username\"))\n@app.route(\"/send_friend_request\", methods=[\"POST\"])\ndef send_friend_request():\n    friend_username = request.json.get(\"friend_username\")\n    username = request.json.get(\"username\")\n    if friend_username is None:\n        return \"Error: The friend field cannot be empty.\"",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "send_friend_request",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def send_friend_request():\n    friend_username = request.json.get(\"friend_username\")\n    username = request.json.get(\"username\")\n    if friend_username is None:\n        return \"Error: The friend field cannot be empty.\"\n    if db.get_user(friend_username) is None:\n        return f\"Error: User [{friend_username}] does not exist.\"\n    if db.is_duplicate_friendship(username, friend_username):\n        return f\"Error: User [{friend_username}] is already your friend or is a pending friend.\"\n    db.send_friend_request(username, friend_username)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "accept_friend_request",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def accept_friend_request():\n    user_id = request.json.get(\"username\")\n    friend_id = request.json.get(\"friend_username\")\n    friendship = db.approve_friend(user_id, friend_id)\n    if friendship is None:\n        return jsonify({\"msg\": \"Friendship does not exist!\"}), 404\n    return jsonify({\"msg\": f\"Successfully accepted friend request from [{friend_id}].\"}), 200\n@app.route(\"/reject_friend_request\", methods=[\"POST\"])\ndef reject_friend_request():\n    user_id = request.json.get(\"username\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "reject_friend_request",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def reject_friend_request():\n    user_id = request.json.get(\"username\")\n    friend_id = request.json.get(\"friend_username\")\n    friendship = db.reject_friend(user_id, friend_id)\n    if friendship is None:\n        return jsonify({\"msg\": \"Friendship does not exist!\"}), 404\n    return jsonify({\"msg\": f\"Successfully rejected friend request from [{friend_id}].\"}), 200\n@app.route(\"/get_incoming_friend_requests\", methods=[\"POST\"])\ndef get_incoming_friend_requests():\n    username = request.json.get(\"username\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_incoming_friend_requests",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_incoming_friend_requests():\n    username = request.json.get(\"username\")\n    incoming_friendships = db.fetch_incoming_friend_requests(username)\n    # if the incoming_friendships list is either empty or None\n    if not incoming_friendships:\n        return jsonify({\"no_incoming_friend_requests\": True})\n    # convert the list of friendship objects to a list of dictionaries\n    incoming_friendships_json = [f.to_dict() for f in incoming_friendships]\n    # parse the list of dictionaries to a json object to the frontend\n    return jsonify(incoming_friendships_json)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_outgoing_friend_requests",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_outgoing_friend_requests():\n    username = request.json.get(\"username\")\n    outgoing_friendships = db.fetch_outgoing_friend_requests(username)\n    if not outgoing_friendships:\n        return jsonify({\"no_outgoing_friend_requests\": True})\n    outgoing_friendships_json = [f.to_dict() for f in outgoing_friendships]\n    return jsonify(outgoing_friendships_json)\n@app.route(\"/get_friends\", methods=[\"POST\"])\ndef get_friends():\n    username = request.json.get(\"username\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_friends",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_friends():\n    username = request.json.get(\"username\")\n    friendships = db.get_friends(username)\n    if not friendships:\n        return jsonify({\"no_friends\": True})\n    firends_json = []\n    for f in friendships:\n        if f.friend_id == username:\n            friend_name = f.user_id\n            firends_json.append({\"friend_id\": friend_name})",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__)\n# secret key used to sign the session cookie\napp.config['SECRET_KEY'] = secrets.token_hex()\nsocketio = SocketIO(app)\n# don't remove this!!\nimport socket_routes\n#By default we use SHA256, but others might be used as well guaranteeing consistency \ndef generate_hmac(secret_key: bytes, data: bytes, hash_function=hashlib.sha256) -> str:\n    computed_hmac = hmac.new(secret_key, data, hash_function).hexdigest()\n    return computed_hmac",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SECRET_KEY']",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.config['SECRET_KEY'] = secrets.token_hex()\nsocketio = SocketIO(app)\n# don't remove this!!\nimport socket_routes\n#By default we use SHA256, but others might be used as well guaranteeing consistency \ndef generate_hmac(secret_key: bytes, data: bytes, hash_function=hashlib.sha256) -> str:\n    computed_hmac = hmac.new(secret_key, data, hash_function).hexdigest()\n    return computed_hmac\ndef verify_hmac(secret_key: bytes, data: bytes, provided_hmac: str, hash_function=hashlib.sha256) -> bool:\n    computed_hmac = generate_hmac(secret_key, data, hash_function)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "socketio",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "socketio = SocketIO(app)\n# don't remove this!!\nimport socket_routes\n#By default we use SHA256, but others might be used as well guaranteeing consistency \ndef generate_hmac(secret_key: bytes, data: bytes, hash_function=hashlib.sha256) -> str:\n    computed_hmac = hmac.new(secret_key, data, hash_function).hexdigest()\n    return computed_hmac\ndef verify_hmac(secret_key: bytes, data: bytes, provided_hmac: str, hash_function=hashlib.sha256) -> bool:\n    computed_hmac = generate_hmac(secret_key, data, hash_function)\n    \"\"\"it is recommended to use the compare_digest() function instead of the == operator to reduce the vulnerability to timing attacks.\"\"\"",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "insert_user",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def insert_user(username: str, password: str):\n    with Session(engine) as session:\n        user = User(username=username, password=password)\n        session.add(user)\n        session.commit()\n# gets a user from the database\ndef get_user(username: str):\n    with Session(engine) as session:\n        return session.get(User, username)\ndef send_friend_request(username: str, friend_username: str):",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_user",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_user(username: str):\n    with Session(engine) as session:\n        return session.get(User, username)\ndef send_friend_request(username: str, friend_username: str):\n    with Session(engine) as session:\n        friendship = Friendship(user_id=username, friend_id=friend_username, status=\"pending\")\n        session.add(friendship)\n        session.commit()\ndef approve_friend(username: str, friend_username: str):\n    with Session(engine) as session:",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "send_friend_request",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def send_friend_request(username: str, friend_username: str):\n    with Session(engine) as session:\n        friendship = Friendship(user_id=username, friend_id=friend_username, status=\"pending\")\n        session.add(friendship)\n        session.commit()\ndef approve_friend(username: str, friend_username: str):\n    with Session(engine) as session:\n        friendship = session.query(Friendship).filter(\n            (Friendship.user_id == friend_username) & (Friendship.friend_id == username) |\n            (Friendship.user_id == username) & (Friendship.friend_id == friend_username)",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "approve_friend",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def approve_friend(username: str, friend_username: str):\n    with Session(engine) as session:\n        friendship = session.query(Friendship).filter(\n            (Friendship.user_id == friend_username) & (Friendship.friend_id == username) |\n            (Friendship.user_id == username) & (Friendship.friend_id == friend_username)\n        ).first()\n        friendship.status = \"accepted\"\n        session.commit()\n        return friendship\ndef reject_friend(username: str, friend_username: str):",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "reject_friend",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def reject_friend(username: str, friend_username: str):\n    with Session(engine) as session:\n        friendship = session.query(Friendship).filter(\n            (Friendship.user_id == friend_username) & (Friendship.friend_id == username) |\n            (Friendship.user_id == username) & (Friendship.friend_id == friend_username)\n        ).first()\n        friendship.status = \"rejected\"\n        session.commit()\n        return friendship\ndef fetch_incoming_friend_requests(username: str):",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_incoming_friend_requests",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def fetch_incoming_friend_requests(username: str):\n    with Session(engine) as session:\n        incoming_friend_requests = session.query(Friendship).filter(\n            # fetch all incoming friendships either pending or rejected\n            (Friendship.friend_id == username) & (Friendship.status != \"approved\")\n            ).all()\n        return incoming_friend_requests\ndef fetch_outgoing_friend_requests(username: str):\n    with Session(engine) as session:\n        outgoing_friend_requests = session.query(Friendship).filter(",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_outgoing_friend_requests",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def fetch_outgoing_friend_requests(username: str):\n    with Session(engine) as session:\n        outgoing_friend_requests = session.query(Friendship).filter(\n            (Friendship.user_id == username) & (Friendship.status != \"approved\")\n            ).all()\n        return outgoing_friend_requests\n# if a friendship already exists in the database, AND it is not rejected, return True, false otherwise\ndef is_duplicate_friendship(username: str, friend_username: str):\n    with Session(engine) as session:\n        firendship = session.query(Friendship).filter(",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "is_duplicate_friendship",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def is_duplicate_friendship(username: str, friend_username: str):\n    with Session(engine) as session:\n        firendship = session.query(Friendship).filter(\n            ((Friendship.user_id == username) & (Friendship.friend_id == friend_username)) | \n            ((Friendship.user_id == friend_username) & (Friendship.friend_id == username))\n        ).all() \n        for f in firendship:\n            if f.status != \"rejected\":\n                return True\n        return False",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_friends",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_friends(username: str):\n    with Session(engine) as session:\n        friends = session.query(Friendship).filter(\n            ((Friendship.user_id == username) | (Friendship.friend_id == username)) &\n            (Friendship.status == \"accepted\")\n        ).all()\n        return friends",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "engine = create_engine(\"sqlite:///database/main.db\", echo=False)\n# initializes the database\nBase.metadata.create_all(engine)\n# Base.metadata.drop_all(engine, [Friendship.__table__])\n# Base.metadata.create_all(engine, [Friendship.__table__])\n# inserts a user to the database\ndef insert_user(username: str, password: str):\n    with Session(engine) as session:\n        user = User(username=username, password=password)\n        session.add(user)",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Base(DeclarativeBase):\n    pass\n# model to store user information\nclass User(Base):\n    __tablename__ = \"user\"\n    # looks complicated but basically means\n    # I want a username column of type string,\n    # and I want this column to be my primary key\n    # then accessing john.username -> will give me some data of type string\n    # in other words we've mapped the username Python object property to an SQL column of type String ",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class User(Base):\n    __tablename__ = \"user\"\n    # looks complicated but basically means\n    # I want a username column of type string,\n    # and I want this column to be my primary key\n    # then accessing john.username -> will give me some data of type string\n    # in other words we've mapped the username Python object property to an SQL column of type String \n    username: Mapped[str] = mapped_column(String, primary_key=True)\n    password: Mapped[str] = mapped_column(String)\n# relative entity to store the friendship between user and user",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Friendship",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Friendship(Base):\n    __tablename__ = \"friendship\"\n    # the combination of user_id and friend_id is the primary key, they have to be unique in this table\n    user_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)\n    friend_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)\n    status: Mapped[str] = mapped_column(String, default=\"pending\")\n    def to_dict(self):\n        return {\n            \"user_id\": self.user_id,\n            \"friend_id\": self.friend_id,",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Counter",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Counter():\n    def __init__(self):\n        self.counter = 0\n    def get(self):\n        self.counter += 1\n        return self.counter\n# Room class, used to keep track of which username is in which room\nclass Room():\n    def __init__(self):\n        self.counter = Counter()",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Room",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Room():\n    def __init__(self):\n        self.counter = Counter()\n        # dictionary that maps the username to the room id\n        # for example self.dict[\"John\"] -> gives you the room id of \n        # the room where John is in\n        self.dict: Dict[str, int] = {}\n    def create_room(self, sender: str, receiver: str) -> int:\n        room_id = self.counter.get()\n        self.dict[sender] = room_id",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "connect",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def connect():\n    username = request.cookies.get(\"username\")\n    room_id = request.cookies.get(\"room_id\")\n    if room_id is None or username is None:\n        return\n    # socket automatically leaves a room on client disconnect\n    # so on client connect, the room needs to be rejoined\n    join_room(int(room_id))\n    emit(\"incoming\", (f\"{username} has connected\", \"green\"), to=int(room_id))\n# event when client disconnects",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "disconnect",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def disconnect():\n    username = request.cookies.get(\"username\")\n    room_id = request.cookies.get(\"room_id\")\n    if room_id is None or username is None:\n        return\n    emit(\"incoming\", (f\"{username} has disconnected\", \"red\"), to=int(room_id))\n# send message event handler\n@socketio.on(\"send\")\ndef send(username, message, room_id):\n    emit(\"incoming\", (f\"{username}: {message}\"), to=room_id)",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "send",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def send(username, message, room_id):\n    emit(\"incoming\", (f\"{username}: {message}\"), to=room_id)\n# join room event handler\n# sent when the user joins a room\n@socketio.on(\"join\")\ndef join(sender_name, receiver_name):\n    receiver = db.get_user(receiver_name)\n    if receiver is None:\n        return \"Unknown receiver!\"\n    sender = db.get_user(sender_name)",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "join",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def join(sender_name, receiver_name):\n    receiver = db.get_user(receiver_name)\n    if receiver is None:\n        return \"Unknown receiver!\"\n    sender = db.get_user(sender_name)\n    if sender is None:\n        return \"Unknown sender!\"\n    room_id = room.get_room_id(receiver_name)\n    # if the user is already inside of a room \n    if room_id is not None:",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "leave",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def leave(username, room_id):\n    emit(\"incoming\", (f\"{username} has left the room.\", \"red\"), to=room_id)\n    leave_room(room_id)\n    room.leave_room(username)",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "room",
+        "kind": 5,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "room = Room()\n# when the client connects to a socket\n# this event is emitted when the io() function is called in JS\n@socketio.on('connect')\ndef connect():\n    username = request.cookies.get(\"username\")\n    room_id = request.cookies.get(\"room_id\")\n    if room_id is None or username is None:\n        return\n    # socket automatically leaves a room on client disconnect",
+        "detail": "socket_routes",
+        "documentation": {}
+    }
+]
