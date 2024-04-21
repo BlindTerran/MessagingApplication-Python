@@ -346,7 +346,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def signup():\n    return render_template(\"signup.jinja\")\n# handles a post request when the user clicks the signup button\n@app.route(\"/signup/user\", methods=[\"POST\"])\ndef signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    unprocessed_password = request.json.get(\"password\")\n    # public_key = request.json.get(\"public_key\")",
+        "peekOfCode": "def signup():\n    return render_template(\"signup.jinja\")\n# handles a post request when the user clicks the signup button\n@app.route(\"/signup/user\", methods=[\"POST\"])\ndef signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    unprocessed_password = request.json.get(\"password\")\n    public_key = request.json.get(\"public_key\")",
         "detail": "app",
         "documentation": {}
     },
@@ -355,7 +355,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    unprocessed_password = request.json.get(\"password\")\n    # public_key = request.json.get(\"public_key\")\n    # private_key = request.json.get(\"private_key\")\n    print(username)\n    print(unprocessed_password)\n    # print(public_key)",
+        "peekOfCode": "def signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    unprocessed_password = request.json.get(\"password\")\n    public_key = request.json.get(\"public_key\")\n    # private_key = request.json.get(\"private_key\")\n    print(username)\n    print(unprocessed_password)\n    print(public_key)",
         "detail": "app",
         "documentation": {}
     },
@@ -463,7 +463,7 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def insert_user(username: str, password: str):\n    with Session(engine) as session:\n        user = User(username=username, password=password)\n        session.add(user)\n        session.commit()\n# gets a user from the database\ndef get_user(username: str):\n    with Session(engine) as session:\n        return session.get(User, username)\ndef send_friend_request(username: str, friend_username: str):",
+        "peekOfCode": "def insert_user(username: str, password: str, public_key: str):\n    with Session(engine) as session:\n        user = User(username=username, password=password, public_key=public_key)\n        session.add(user)\n        session.commit()\n# gets a user from the database\ndef get_user(username: str):\n    with Session(engine) as session:\n        return session.get(User, username)\ndef send_friend_request(username: str, friend_username: str):",
         "detail": "db",
         "documentation": {}
     },
@@ -544,7 +544,7 @@
         "kind": 5,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "engine = create_engine(\"sqlite:///database/main.db\", echo=False)\n# initializes the database\nBase.metadata.create_all(engine)\n# Base.metadata.drop_all(engine, [Friendship.__table__])\n# Base.metadata.create_all(engine, [Friendship.__table__])\n# inserts a user to the database\ndef insert_user(username: str, password: str):\n    with Session(engine) as session:\n        user = User(username=username, password=password)\n        session.add(user)",
+        "peekOfCode": "engine = create_engine(\"sqlite:///database/main.db\", echo=False)\n# initializes the database\nBase.metadata.create_all(engine)\n# Base.metadata.drop_all(engine, [Friendship.__table__])\n# Base.metadata.create_all(engine, [Friendship.__table__])\n# inserts a user to the database\ndef insert_user(username: str, password: str, public_key: str):\n    with Session(engine) as session:\n        user = User(username=username, password=password, public_key=public_key)\n        session.add(user)",
         "detail": "db",
         "documentation": {}
     },
@@ -562,7 +562,7 @@
         "kind": 6,
         "importPath": "models",
         "description": "models",
-        "peekOfCode": "class User(Base):\n    __tablename__ = \"user\"\n    # looks complicated but basically means\n    # I want a username column of type string,\n    # and I want this column to be my primary key\n    # then accessing john.username -> will give me some data of type string\n    # in other words we've mapped the username Python object property to an SQL column of type String \n    username: Mapped[str] = mapped_column(String, primary_key=True)\n    password: Mapped[str] = mapped_column(String)\n# relative entity to store the friendship between user and user",
+        "peekOfCode": "class User(Base):\n    __tablename__ = \"user\"\n    # looks complicated but basically means\n    # I want a username column of type string,\n    # and I want this column to be my primary key\n    # then accessing john.username -> will give me some data of type string\n    # in other words we've mapped the username Python object property to an SQL column of type String \n    username: Mapped[str] = mapped_column(String, primary_key=True)\n    password: Mapped[str] = mapped_column(String)\n    public_key: Mapped[str] = mapped_column(String)",
         "detail": "models",
         "documentation": {}
     },

@@ -1,0 +1,9 @@
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 133-695-627
+127.0.0.1 - - [21/Apr/2024 21:36:57] "GET /socket.io/?EIO=4&transport=polling&t=Oy0SUQ_ HTTP/1.1" 200 -
+127.0.0.1 - - [21/Apr/2024 21:36:57] "POST /socket.io/?EIO=4&transport=polling&t=Oy0SUpB&sid=tyQ6SM4JtLamIRr0AAAA HTTP/1.1" 200 -
+127.0.0.1 - - [21/Apr/2024 21:36:57] "GET /socket.io/?EIO=4&transport=polling&t=Oy0SUpC&sid=tyQ6SM4JtLamIRr0AAAA HTTP/1.1" 200 -

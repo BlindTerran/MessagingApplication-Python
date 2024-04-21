@@ -103,17 +103,17 @@ def signup_user():
         abort(404)
     username = request.json.get("username")
     unprocessed_password = request.json.get("password")
-    # public_key = request.json.get("public_key")
+    public_key = request.json.get("public_key")
     # private_key = request.json.get("private_key")
     print(username)
     print(unprocessed_password)
-    # print(public_key)
+    print(public_key)
     # print(private_key)
     hashed_password : bytes = generate_password_hash(unprocessed_password)
     
     if db.get_user(username) is None:
         # here only send the public key to the database
-        db.insert_user(username, hashed_password)
+        db.insert_user(username, hashed_password,public_key)
         
         # the response is a redirect to the home page with the username as a query parameter
         response = make_response(url_for('home', username=username))

@@ -25,16 +25,40 @@ Sign up page, pretty much the same as login.
 
         // this function is identical to login(), see login.jinja
         async function signup() {
+            // Generate an Elliptic Curve key pair
+            const keyPair = await window.crypto.subtle.generateKey(
+                {
+                    name: "ECDSA",
+                    namedCurve: "P-256"
+                },
+                true,
+                ["sign", "verify"]
+            );
+
+            // Export the public key in PEM format
+            const publicKey = await window.crypto.subtle.exportKey(
+                "spki",
+                keyPair.publicKey
+            );
+
+            // Convert the public key to base64
+            const userAPublicKey = btoa(String.fromCharCode.apply(null, new Uint8Array(publicKey)));
+
+            // Send the public key along with username and password
             let loginURL = "{{ url_for('signup_user') }}";
             let res = await axios.post(loginURL, {
                 username: $("#username").val(),
-                password: $("#password").val()
+                password: $("#password").val(),
+                public_key: userAPublicKey
             });
+
+            // Handle response
             if (!isValidURL(res.data)) {
                 alert(res.data);
                 return;
             }
             window.open(res.data, "_self")
         }
+
     </script>
 {% endblock %}

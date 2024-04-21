@@ -31,6 +31,7 @@ class User(Base):
     # in other words we've mapped the username Python object property to an SQL column of type String 
     username: Mapped[str] = mapped_column(String, primary_key=True)
     password: Mapped[str] = mapped_column(String)
+    public_key: Mapped[str] = mapped_column(String)
     
 # relative entity to store the friendship between user and user
 class Friendship(Base):
