@@ -1,0 +1,1 @@
+python3 app.py 2> log.txt
