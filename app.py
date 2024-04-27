@@ -91,6 +91,35 @@ def login_user():
     # returns the url for the home page with the username included as aquery parameter
     return url_for('home', username=request.json.get("username"))
 
+@app.route("/generate_password_hash", methods=["POST"])
+def generate_password_hash_route():
+    if not request.is_json:
+        abort(404)
+    unprocessed_password = request.json.get("password")
+    hashed_password = generate_password_hash(unprocessed_password)
+    return hashed_password.decode("utf-8") # Convert bytes to string
+
+def get_public_key(username):
+    user = db.get_user(username)
+    if user:
+        return user.public_key
+    else:
+        raise ValueError()  # Handle case when user is not found
+
+@app.route("/get_public_key", methods=["POST"])
+def get_public_key_route():
+    if not request.is_json:
+        abort(400)
+
+    username = request.json.get("username")
+    public_key = get_public_key(username)
+
+    if public_key:
+        return jsonify({"public_key": public_key})
+    else:
+        return jsonify({"error": "User not found"}), 404
+
+
 # handles a get request to the signup page
 @app.route("/signup")
 def signup():
@@ -103,13 +132,15 @@ def signup_user():
         abort(404)
     username = request.json.get("username")
     unprocessed_password = request.json.get("password")
-    public_key = request.json.get("public_key")
+    hashed_password : bytes = generate_password_hash(unprocessed_password)
+    
+    public_key = request.json.get("publicKey")
     # private_key = request.json.get("private_key")
     print(username)
     print(unprocessed_password)
     print(public_key)
     # print(private_key)
-    hashed_password : bytes = generate_password_hash(unprocessed_password)
+    
     
     if db.get_user(username) is None:
         # here only send the public key to the database

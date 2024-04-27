@@ -86,3 +86,12 @@ def leave(username, room_id):
     emit("incoming", (f"{username} has left the room.", "red"), to=room_id)
     leave_room(room_id)
     room.leave_room(username)
+
+# @socketio.on("other_public_key")
+# def other_public_key(username, room_id):
+#     # Retrieve the public key from the database
+#     public_key = db.get_user("username").public_key
+#     print(public_key)
+
+#     # Emit the public key to the client-side JavaScript
+#     emit("public_key_received", public_key, room=room_id)

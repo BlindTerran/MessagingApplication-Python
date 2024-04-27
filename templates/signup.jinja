@@ -2,63 +2,66 @@
 Sign up page, pretty much the same as login.
 -->
 {% extends 'base.jinja' %}
-
-
 {% block content %} 
-    <h1>Sign Up</h1>
-    <p>Username</p>
-    <input id="username"/>
-    <p>Password</p>
-    <input id="password" type="password"/>
-    <button onclick="signup()">Sign up</button>
+<h1>Sign Up</h1>
+<p>Username</p>
+<input id="username"/>
+<p>Password</p>
+<input id="password" type="password"/>
+<button onclick="signup()">Sign up</button>
 
-    <script>
-         function isValidURL(string) {
-            if (string.length == 0) {
-                return false;
-            }
-            if (string[0] == "/") {
-                return true;
-            }
+<script src="https://cdn.jsdelivr.net/npm/elliptic@6.5.3/dist/elliptic.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function isValidURL(string) {
+        if (string.length == 0) {
             return false;
         }
-
-        // this function is identical to login(), see login.jinja
-        async function signup() {
-            // Generate an Elliptic Curve key pair
-            const keyPair = await window.crypto.subtle.generateKey(
-                {
-                    name: "ECDSA",
-                    namedCurve: "P-256"
-                },
-                true,
-                ["sign", "verify"]
-            );
-
-            // Export the public key in PEM format
-            const publicKey = await window.crypto.subtle.exportKey(
-                "spki",
-                keyPair.publicKey
-            );
-
-            // Convert the public key to base64
-            const userAPublicKey = btoa(String.fromCharCode.apply(null, new Uint8Array(publicKey)));
-
-            // Send the public key along with username and password
-            let loginURL = "{{ url_for('signup_user') }}";
-            let res = await axios.post(loginURL, {
-                username: $("#username").val(),
-                password: $("#password").val(),
-                public_key: userAPublicKey
-            });
-
-            // Handle response
-            if (!isValidURL(res.data)) {
-                alert(res.data);
-                return;
-            }
-            window.open(res.data, "_self")
+        if (string[0] == "/") {
+            return true;
         }
+        return false;
+    }
+    
+    // Define the signup function
+    async function signup() {
+        let loginURL = "/signup/user";
+        // Hash the password using your generate_password_hash function
+        let hashedPassword = await generatePasswordHash($("#password").val()); 
+    
+        // Create an elliptic curve object
+        var elliptic = new window.elliptic.ec('secp256k1');
+    
+        // Generate a key pair using the hashed password as seed
+        var keyPair = elliptic.keyFromPrivate(hashedPassword);
+    
+        // Get the public key and private key
+        var publicKey = keyPair.getPublic('hex');
+        var privateKey = keyPair.getPrivate('hex');
+    
+        console.log("Public Key:", publicKey);
+        console.log("Private Key:", privateKey);
+        console.log("hashedPassword:", hashedPassword)
+        
+        let res = await axios.post(loginURL, {
+            username: $("#username").val(),
+            password: hashedPassword, // Send the hashed password
+            publicKey: publicKey
+        });
+    
+        // Handle response
+        if (!isValidURL(res.data)) {
+            alert(res.data);
+            return;
+        }
+        window.open(res.data, "_self")
+    }
+    
+    async function generatePasswordHash(password) {
+        let response = await axios.post("/generate_password_hash", { password });
+        return response.data;
+    }
 
-    </script>
+            
+</script>
 {% endblock %}

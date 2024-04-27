@@ -342,11 +342,38 @@
         "documentation": {}
     },
     {
+        "label": "generate_password_hash_route",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def generate_password_hash_route():\n    if not request.is_json:\n        abort(404)\n    unprocessed_password = request.json.get(\"password\")\n    hashed_password = generate_password_hash(unprocessed_password)\n    return hashed_password.decode(\"utf-8\") # Convert bytes to string\ndef get_public_key(username):\n    user = db.get_user(username)\n    if user:\n        return user.public_key",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_public_key",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_public_key(username):\n    user = db.get_user(username)\n    if user:\n        return user.public_key\n    else:\n        raise ValueError()  # Handle case when user is not found\n@app.route(\"/get_public_key\", methods=[\"POST\"])\ndef get_public_key_route():\n    if not request.is_json:\n        abort(400)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_public_key_route",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_public_key_route():\n    if not request.is_json:\n        abort(400)\n    username = request.json.get(\"username\")\n    public_key = get_public_key(username)\n    if public_key:\n        return jsonify({\"public_key\": public_key})\n    else:\n        return jsonify({\"error\": \"User not found\"}), 404\n# handles a get request to the signup page",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
         "label": "signup",
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def signup():\n    return render_template(\"signup.jinja\")\n# handles a post request when the user clicks the signup button\n@app.route(\"/signup/user\", methods=[\"POST\"])\ndef signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    unprocessed_password = request.json.get(\"password\")\n    public_key = request.json.get(\"public_key\")",
+        "peekOfCode": "def signup():\n    return render_template(\"signup.jinja\")\n# handles a post request when the user clicks the signup button\n@app.route(\"/signup/user\", methods=[\"POST\"])\ndef signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    unprocessed_password = request.json.get(\"password\")\n    hashed_password : bytes = generate_password_hash(unprocessed_password)",
         "detail": "app",
         "documentation": {}
     },
@@ -355,7 +382,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    unprocessed_password = request.json.get(\"password\")\n    public_key = request.json.get(\"public_key\")\n    # private_key = request.json.get(\"private_key\")\n    print(username)\n    print(unprocessed_password)\n    print(public_key)",
+        "peekOfCode": "def signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    unprocessed_password = request.json.get(\"password\")\n    hashed_password : bytes = generate_password_hash(unprocessed_password)\n    public_key = request.json.get(\"publicKey\")\n    # private_key = request.json.get(\"private_key\")\n    print(username)\n    print(unprocessed_password)",
         "detail": "app",
         "documentation": {}
     },
@@ -634,7 +661,7 @@
         "kind": 2,
         "importPath": "socket_routes",
         "description": "socket_routes",
-        "peekOfCode": "def leave(username, room_id):\n    emit(\"incoming\", (f\"{username} has left the room.\", \"red\"), to=room_id)\n    leave_room(room_id)\n    room.leave_room(username)",
+        "peekOfCode": "def leave(username, room_id):\n    emit(\"incoming\", (f\"{username} has left the room.\", \"red\"), to=room_id)\n    leave_room(room_id)\n    room.leave_room(username)\n# @socketio.on(\"other_public_key\")\n# def other_public_key(username, room_id):\n#     # Retrieve the public key from the database\n#     public_key = db.get_user(\"username\").public_key\n#     print(public_key)\n#     # Emit the public key to the client-side JavaScript",
         "detail": "socket_routes",
         "documentation": {}
     },
