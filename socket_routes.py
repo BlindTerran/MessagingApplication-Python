@@ -20,10 +20,18 @@ room = Room()
 
 # when the client connects to a socket
 # this event is emitted when the io() function is called in JS
+@socketio.on('get_status')
+def get_status(username):
+    if username is None:
+        return
+    return db.get_user_status(username)
+
 @socketio.on('connect')
 def connect():
     username = request.cookies.get("username")
     room_id = request.cookies.get("room_id")
+    
+    db.set_user_status(username, True)
     if room_id is None or username is None:
         return
     # socket automatically leaves a room on client disconnect
@@ -37,6 +45,8 @@ def connect():
 def disconnect():
     username = request.cookies.get("username")
     room_id = request.cookies.get("room_id")
+    
+    db.set_user_status(username, False)
     if room_id is None or username is None:
         return
     emit("incoming", (f"{username} has disconnected", "red"), to=int(room_id))

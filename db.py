@@ -21,8 +21,8 @@ engine = create_engine("sqlite:///database/main.db", echo=False)
 # initializes the database
 Base.metadata.create_all(engine)
 
-# Base.metadata.drop_all(engine, [Friendship.__table__])
-# Base.metadata.create_all(engine, [Friendship.__table__])
+# Base.metadata.drop_all(engine, [User.__table__])
+# Base.metadata.create_all(engine, [User.__table__])
 
 # inserts a user to the database
 def insert_user(username: str, password: str):
@@ -35,6 +35,17 @@ def insert_user(username: str, password: str):
 def get_user(username: str):
     with Session(engine) as session:
         return session.get(User, username)
+    
+def get_user_status(username: str):
+    with Session(engine) as session:
+        user = session.get(User, username)
+        return user.is_online
+
+def set_user_status(username: str, status: bool):
+    with Session(engine) as session:
+        user = session.get(User, username)
+        user.is_online = status
+        session.commit()
 
 def send_friend_request(username: str, friend_username: str):
     with Session(engine) as session:
