@@ -108,3 +108,14 @@ def get_friends(username: str):
             (Friendship.status == "accepted")
         ).all()
         return friends
+    
+def remove_friend(username: str, friend_username: str):
+    with Session(engine) as session:
+        friendship = session.query(Friendship).filter(
+            ((Friendship.user_id == username) & (Friendship.friend_id == friend_username)) | 
+            ((Friendship.user_id == friend_username) & (Friendship.friend_id == username))
+        ).first()
+        if friendship is None:
+            raise ValueError(f"No friendship between {username} and {friend_username}")
+        session.delete(friendship)
+        session.commit()

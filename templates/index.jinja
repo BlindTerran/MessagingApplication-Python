@@ -2,12 +2,24 @@
 Index page, the "default" page when you visit "http://localhost/" 
  without any URL parameters at the end
  -->
-{% extends 'base.jinja' %}
+ {% extends 'base.jinja' %}
+ 
+ {% block content %} 
+ <div class="container mt-5">
+    <h1 class="gradient-text text-center">WisdomExch</h1>
+    <div class="d-flex justify-content-center">
+        <p><a class="btn btn-secondary mr-2" href={{ url_for('signup') }}> Sign Up</a></p>
+        <p><a class="btn btn-primary" href={{ url_for('login') }}> Login</a></p>
+    </div>
+</div>
+ {% endblock %}
 
-
-{% block content %} 
-    <h1>Hello! Welcome to the site!</h1>
-    <p><a href={{ url_for('signup') }}> Sign Up</a></p>
-    <p><a href={{ url_for('login') }}> Login</a></p>
-    
-{% endblock %}
+ {% block extra_css %}
+ <style>
+ .gradient-text {
+     background: linear-gradient(to right, red, blue);
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+ }
+ </style>
+ {% endblock %}

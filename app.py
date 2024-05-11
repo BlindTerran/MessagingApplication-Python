@@ -157,5 +157,15 @@ def get_friends():
             firends_json.append({"friend_id": friend_name})
     return jsonify(firends_json)
 
+@app.route("/remove_friend", methods=["POST"])
+def remove_friend():
+    username = request.json.get("username")
+    friend_username = request.json.get("friend_username")
+    try:
+        db.remove_friend(username, friend_username)
+        return jsonify({"msg": f"Successfully removed friend."}), 200
+    except ValueError as e:
+        return jsonify({"msg": str(e)}), 404
+
 if __name__ == '__main__':
     socketio.run(app)

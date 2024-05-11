@@ -209,6 +209,20 @@
         alert(`Successfully send friend request to ${friendUsername}.`);
     }
 
+    async function removeFriend(friend_id) {
+        let removeFriendURL = "{{ url_for('remove_friend') }}";
+        let res = await axios.post(removeFriendURL, {
+            username: Cookies.get('username'),
+            friend_username: friend_id
+        });
+        if (res.status == 200) {
+            alert(`Successfully removed ${friend_id} from your friends list.`);
+            refreshFriends();
+        } else if (res.status == 404) {
+            alert(`Error: Friendship does not exist.`);
+        }
+    }
+
     async function acceptFriendRequest(friend_id) {
         let acceptFriendRequestURL = "{{ url_for('accept_friend_request') }}";
         let res = await axios.post(acceptFriendRequestURL, {
@@ -297,7 +311,7 @@
             table.append(row);
         } else {
             for (let friend of res.data) {
-                let row = $(`<tr><td>${friend.friend_id}</td><td><button class="chat-button" data-friend="${friend.friend_id}">Chat</button></td></tr>`);
+                let row = $(`<tr><td>${friend.friend_id}</td><td><button class="chat-button" data-friend="${friend.friend_id}">Chat</button><button class="remove-friend-button" data-friend="${friend.friend_id}">Remove Friend</button></td></tr>`);
                 table.append(row);
             }
             
@@ -305,6 +319,12 @@
             $(".chat-button").click(function() {
                 let receiver = $(this).data("friend");
                 join_room(receiver);
+            });
+
+            // remove friend button click event handler
+            $(".remove-friend-button").click(function() {
+                let friendId = $(this).data("friend");
+                removeFriend(friendId);
             });
         }
     }
