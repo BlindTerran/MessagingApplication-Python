@@ -79,13 +79,13 @@ class Message(Base):
             "message": self.message
         }
         
-        
 class Counter(Base):
     __tablename__ = "counter"
     
     id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
     room_counter: Mapped[int] = mapped_column(sqlalchemy.Integer, default=0)
     user_group_counter: Mapped[int] = mapped_column(sqlalchemy.Integer, default=0)
+    message_counter: Mapped[int] = mapped_column(sqlalchemy.Integer, default=0)
     
     
 # stateful counter used to generate the room id

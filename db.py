@@ -21,8 +21,8 @@ engine = create_engine("sqlite:///database/main.db", echo=False)
 # initializes the database
 Base.metadata.create_all(engine)
 
-# Base.metadata.drop_all(engine, [UserGroup.__table__])
-# Base.metadata.create_all(engine, [UserGroup.__table__])
+# Base.metadata.drop_all(engine, [Counter.__table__])
+# Base.metadata.create_all(engine, [Counter.__table__])
 
 # inserts a user to the database
 def insert_user(username: str, password: str):
@@ -142,6 +142,17 @@ def get_user_group_counter():
         session.commit()
         return counter.user_group_counter
     
+def get_message_counter():
+    with Session(engine) as session:
+        counter = session.query(Counter).first()
+        if counter is None:
+            counter = Counter(message_counter=0)
+            session.add(counter)
+            session.commit()
+        counter.message_counter += 1
+        session.commit()
+        return counter.message_counter
+    
 def get_private_chatroom_id(user1: str, user2: str):
     with Session(engine) as session:
         # get the chatrooms that user1 and user2 are in
@@ -178,3 +189,19 @@ def create_private_chat_room(user1: str, user2: str):
         session.commit()
         
         return chatroom.chatroom_id
+    
+def store_message(chatroom_id: int, sender: str, message: str):
+    with Session(engine) as session:
+        message = Message(
+            message_id=get_message_counter(),
+            chatroom_id=chatroom_id,
+            sender=sender,
+            message=message
+        )
+        session.add(message)
+        session.commit()
+
+def fetch_messages(chatroom_id: int):
+    with Session(engine) as session:
+        messages = session.query(Message).filter(Message.chatroom_id == chatroom_id).all()
+        return messages
