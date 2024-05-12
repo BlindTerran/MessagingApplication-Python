@@ -48,15 +48,54 @@ class Friendship(Base):
             "friend_id": self.friend_id,
             "status": self.status
         }
-
-# stateful counter used to generate the room id
-class Counter():
-    def __init__(self):
-        self.counter = 0
+        
+class Chatroom(Base):
+    __tablename__ = "chatroom"
     
-    def get(self):
-        self.counter += 1
-        return self.counter
+    chatroom_id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
+    chatroom_name: Mapped[str] = mapped_column(String)
+    
+
+class UserGroup(Base):
+    __tablename__ = "user_group"
+
+    group_id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
+    chatroom_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('chatroom.chatroom_id'))    
+    user_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'))
+    
+class Message(Base):
+    __tablename__ = "message"
+    
+    message_id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
+    chatroom_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('chatroom.chatroom_id'))
+    sender: Mapped[str] = mapped_column(String, ForeignKey('user.username'))
+    message: Mapped[str] = mapped_column(String)
+    
+    def to_dict(self):
+        return {
+            "message_id": self.message_id,
+            "conversation_id": self.conversation_id,
+            "sender": self.sender,
+            "message": self.message
+        }
+        
+        
+class Counter(Base):
+    __tablename__ = "counter"
+    
+    id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
+    room_counter: Mapped[int] = mapped_column(sqlalchemy.Integer, default=0)
+    user_group_counter: Mapped[int] = mapped_column(sqlalchemy.Integer, default=0)
+    
+    
+# stateful counter used to generate the room id
+# class Counter():
+#     def __init__(self):
+#         self.counter = 0
+    
+#     def get(self):
+#         self.counter += 1
+#         return self.counter
 
 # Room class, used to keep track of which username is in which room
 class Room():

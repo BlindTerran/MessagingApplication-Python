@@ -21,8 +21,8 @@ engine = create_engine("sqlite:///database/main.db", echo=False)
 # initializes the database
 Base.metadata.create_all(engine)
 
-# Base.metadata.drop_all(engine, [User.__table__])
-# Base.metadata.create_all(engine, [User.__table__])
+# Base.metadata.drop_all(engine, [UserGroup.__table__])
+# Base.metadata.create_all(engine, [UserGroup.__table__])
 
 # inserts a user to the database
 def insert_user(username: str, password: str):
@@ -119,3 +119,62 @@ def remove_friend(username: str, friend_username: str):
             raise ValueError(f"No friendship between {username} and {friend_username}")
         session.delete(friendship)
         session.commit()
+
+def get_room_counter():
+    with Session(engine) as session:
+        counter = session.query(Counter).first()
+        if counter is None:
+            counter = Counter(room_counter=0)
+            session.add(counter)
+            session.commit()
+        counter.room_counter += 1
+        session.commit()
+        return counter.room_counter
+
+def get_user_group_counter():
+    with Session(engine) as session:
+        counter = session.query(Counter).first()
+        if counter is None:
+            counter = Counter(user_group_counter=0)
+            session.add(counter)
+            session.commit()
+        counter.user_group_counter += 1
+        session.commit()
+        return counter.user_group_counter
+    
+def get_private_chatroom_id(user1: str, user2: str):
+    with Session(engine) as session:
+        # get the chatrooms that user1 and user2 are in
+        user1_rooms = session.query(UserGroup.chatroom_id).filter(UserGroup.user_id == user1).subquery().select()
+        user2_rooms = session.query(UserGroup.chatroom_id).filter(UserGroup.user_id == user2).subquery().select()
+        if user1_rooms is None or user2_rooms is None:
+            return None
+        
+        # get the chatrooms that only contains 2 users (private chatroom)
+        rooms_contains_two_users = session.query(UserGroup.chatroom_id).group_by(UserGroup.chatroom_id).having(
+            sqlalchemy.func.count(UserGroup.user_id) == 2
+        ).subquery()
+        if rooms_contains_two_users is None:
+            return None
+        
+        # get the private chatroom that contains both user1 and user2
+        private_chatroom = session.query(rooms_contains_two_users.c.chatroom_id).filter(
+            rooms_contains_two_users.c.chatroom_id.in_(user1_rooms),
+            rooms_contains_two_users.c.chatroom_id.in_(user2_rooms)
+        ).first()
+        
+        return private_chatroom[0] if private_chatroom is not None else None
+
+def create_private_chat_room(user1: str, user2: str):
+    with Session(engine) as session:
+        chatroom = Chatroom(chatroom_id=get_room_counter(), chatroom_name=f"{user1} and {user2}")
+        session.add(chatroom)
+        session.commit()
+        
+        user_group1 = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom.chatroom_id, user_id=user1)
+        user_group2 = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom.chatroom_id, user_id=user2)
+        session.add(user_group1)
+        session.add(user_group2)
+        session.commit()
+        
+        return chatroom.chatroom_id
