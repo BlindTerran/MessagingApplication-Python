@@ -81,7 +81,7 @@ def signup():
                            secondary_colour=colours.get_secondary_colour(theme_colour),
                            font_colour=colours.get_font_colour(theme_colour))
 
-# handles a post request when the user clicks the signup button
+# TODO: add theme colour 
 @app.route("/signup/user", methods=["POST"])
 def signup_user():
     if not request.is_json:

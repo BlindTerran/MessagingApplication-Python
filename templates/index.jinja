@@ -16,19 +16,18 @@ Index page, the "default" page when you visit "http://localhost/"
         font-size: 2.5em;
         font-weight: bold;
         font-family: 'Roboto', sans-serif;
+        transition: color 0.5s ease-in-out; /* smooth transition when the theme colour is changed */
     }
     .button-container {
         margin-top: 5vh;  /* 10% of the viewport height */
     }
     .signup-btn {
-        background-color: grey !important;
-        border-color: grey !important;
+        background-color: #d3d3d3; /* default colour light grey */
         margin-right: 8vh;
     }
     .login-btn {
-        background-color: black !important;
-        color: white !important;
-        border-color: black !important;
+        background-color: #000000; /* default colour black */
+        color: white;
     }
     .theme-colour-container {
         position: absolute;
@@ -67,13 +66,17 @@ Index page, the "default" page when you visit "http://localhost/"
         box-sizing: border-box;
         border-radius: 25px;
         box-shadow: 0px 0px 10px rgba(3,3,3,0.1);
-        background-color: #030303;
-        color: #ffffff;
+        color: #030303;
         font-size: 14px;
         font-family: 'Roboto', sans-serif;
+        font-weight: bold;
         line-height: 16px;
         outline: none;
         margin-top: 20px;
+        background-color: white;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
     }
     .theme-button-blue {
         cursor: pointer;
@@ -84,13 +87,17 @@ Index page, the "default" page when you visit "http://localhost/"
         box-sizing: border-box;
         border-radius: 25px;
         box-shadow: 0px 0px 10px rgba(3,3,3,0.1);
-        background-color: #007aff;
-        color: #ffffff;
+        color: #007aff;
         font-size: 14px;
         font-family: 'Roboto', sans-serif;
+        font-weight: bold;
         line-height: 16px;
         outline: none;
         margin-top: 20px;
+        background-color: white;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
     }
     .theme-button-guava {
         cursor: pointer;
@@ -101,13 +108,51 @@ Index page, the "default" page when you visit "http://localhost/"
         box-sizing: border-box;
         border-radius: 25px;
         box-shadow: 0px 0px 10px rgba(3,3,3,0.1);
-        background-color: #ff2d55;
-        color: #ffffff;
+        color: #ff2d55;
         font-size: 14px;
         font-family: 'Roboto', sans-serif;
+        font-weight: bold;
         line-height: 16px;
         outline: none;
         margin-top: 20px;
+        background-color: white;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    /* animation for the button hover effect */
+    .theme-button-black span, .theme-button-blue span, .theme-button-guava span {
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        -webkit-transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    .theme-button-black:hover span {
+        width: 200%;
+        height: 200%;
+        background-color: #030303;
+        z-index: -1;
+    }
+    .theme-button-blue:hover span {
+        width: 200%;
+        height: 200%;
+        background-color: #007aff;
+        z-index: -1;
+    }
+    .theme-button-guava:hover span {
+        width: 200%;
+        height: 200%;
+        background-color: #ff2d55;
+        z-index: -1;
+    }
+    .theme-button-black:hover, .theme-button-blue:hover, .theme-button-guava:hover {
+        color: white;
     }
  </style>
 
@@ -122,9 +167,9 @@ Index page, the "default" page when you visit "http://localhost/"
 <div class="theme-colour-container">
     <p class="theme-colour-title">Select your theme colour</p>
     <div class="theme-button-container">
-        <button class="theme-button-black">Black</button>
-        <button class="theme-button-blue">Blue</button>
-        <button class="theme-button-guava">Guava</button>
+        <button class="theme-button-black">Black<span></span></button>
+        <button class="theme-button-blue">Blue<span></span></button>
+        <button class="theme-button-guava">Guava<span></span></button>
     </div>
 </div>
 
@@ -136,14 +181,20 @@ Index page, the "default" page when you visit "http://localhost/"
     document.querySelector('.theme-button-black').addEventListener('click', function() {
         themeColour = 'black';
         document.querySelector('.logo-text').style.color = '#000000';
+        document.querySelector('.login-btn').style.backgroundColor = '#000000';
+        document.querySelector('.signup-btn').style.backgroundColor = '#d3d3d3';
     });
     document.querySelector('.theme-button-blue').addEventListener('click', function() {
         themeColour = 'blue';
         document.querySelector('.logo-text').style.color = '#007aff';
+        document.querySelector('.login-btn').style.backgroundColor = '#007aff';
+        document.querySelector('.signup-btn').style.backgroundColor = '#aad3ff';
     });
     document.querySelector('.theme-button-guava').addEventListener('click', function() {
         themeColour = 'guava';
         document.querySelector('.logo-text').style.color = '#ff2d55';
+        document.querySelector('.login-btn').style.backgroundColor = '#ff2d55';
+        document.querySelector('.signup-btn').style.backgroundColor = '#ffbeba';
     });
 
     // add listener to login button, when user login, send the theme colour selected to the server
@@ -161,5 +212,22 @@ Index page, the "default" page when you visit "http://localhost/"
         this.href += '?themeColour=' + themeColour;
         window.location.href = this.href;
     });
+
+    const buttons = document.querySelectorAll(".theme-button-black, .theme-button-blue, .theme-button-guava");
+
+buttons.forEach(button => {
+    ["mouseenter", "mouseout"].forEach(evt => {
+        button.addEventListener(evt, e => {
+            let parentOffset = button.getBoundingClientRect(),
+                relX = e.pageX - parentOffset.left,
+                relY = e.pageY - parentOffset.top;
+
+            const span = button.getElementsByTagName("span");
+
+            span[0].style.top = relY + "px";
+            span[0].style.left = relX + "px";
+        });
+    });
+});
 </script>
 {% endblock %}
