@@ -1,0 +1,163 @@
+<!-- 
+    Login page, user is redirected here when the user clicks on Login.
+-->
+
+{% extends 'base.jinja' %}
+
+{% block content %} 
+<style>
+    .banner {
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100vw; 
+        height: 7vh;
+        background-color: {{secondary_colour}}; 
+    }
+    .logo-text {
+        font-size: 1.4vw;
+        font-weight: 600;
+        font-family: 'Roboto', sans-serif;
+        line-height: 7vh;
+        padding-top: 1vh;
+        padding-left: 2.8vw;
+    }
+    .divider-vertical {
+        position: absolute;
+        top: 2vh;
+        left: 12.6vw;
+        width: 3px;
+        height: 3vh;
+        background-color: #030303;
+        border-radius: 2px;
+    }
+    .title-text {
+        font-size: 1.4vw;
+        font-weight: 500;
+        font-family: 'Roboto', sans-serif;
+        line-height: 7vh;
+        padding-left: 2vw;
+    }
+    .body-card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 38vw;
+        height: 38vh;
+        background-color: #ffffff;
+        box-shadow: 2px 0px 10px rgba(3,3,3,0.1);
+        transform: translate(-50%, -50%); 
+        flex-direction: column; 
+        align-items: center;
+        justify-content: center; 
+    }
+    .body-title {
+        color: #030303;
+        font-size: 1.7vw;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+        line-height: 28px;
+        text-align: center;
+        margin-top: 2.5vh; 
+    }
+    .username-input-box {
+        width: 80%; 
+        height: 5vh; 
+        padding: 0px 8px;
+        border: 0;
+        box-sizing: border-box;
+        border-radius: 2px;
+        background-color: #ffffff;
+        color: black;
+        font-size: 1.1vw; 
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        line-height: 19px;
+        outline: none;
+        box-shadow: 2px 0px 10px rgba(3,3,3,0.1); 
+        margin-top: 4vh;
+        margin-left: 4vw;
+    }
+    .password-input-box {
+        width: 80%; 
+        height: 5vh; 
+        padding: 0px 8px;
+        border: 0;
+        box-sizing: border-box;
+        border-radius: 2px;
+        background-color: #ffffff;
+        color: black;
+        font-size: 1.1vw; 
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        line-height: 19px;
+        outline: none;
+        box-shadow: 2px 0px 10px rgba(3,3,3,0.1); 
+        margin-top: 3vh;
+        margin-left: 4vw;
+    }
+    .login-button {
+        cursor: pointer;
+        width: 70%; 
+        height: 40px;
+        padding: 0px 8px;
+        border: 0;
+        box-sizing: border-box;
+        border-radius: 25px;
+        box-shadow: 0px 0px 10px rgba(3,3,3,0.1);
+        background-color: {{primary_colour}};
+        color: {{font_colour}};
+        font-size: 1.1vw;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        line-height: 19px;
+        outline: none;
+        margin-top: 5.5vh; 
+        margin-left: 5.6vw;
+    }
+</style>
+    
+<div class="banner">
+    <span class="logo-text text-center">WisdomExch</span>
+    <div class="divider-vertical"></div>
+    <span class="title-text">Login</span>
+</div>
+
+<div class="body-card">
+    <div class="body-title">Login</div>
+    <input id="username" class="username-input-box" type="text" placeholder="Enter your username"> 
+    <input id="password" class="password-input-box" type="password" placeholder="Enter your password">
+    <button class="login-button" onclick="login()">Login</button>
+</div>
+
+<script>
+    function isValidURL(string) {
+        if (string.length == 0) {
+            return false;
+        }
+        if (string[0] == "/") {
+            return true;
+        }
+        return false;
+    }
+
+    async function login() {
+        let loginURL = "{{ url_for('login_user') }}";
+
+        let res = await axios.post(loginURL, {
+            username: $("#username").val(),
+            password: $("#password").val(),
+            themeColour: "{{theme_colour}}"
+        });
+
+        // if the response is not a URL, then it's an error message
+        if (!isValidURL(res.data)) {
+            alert(res.data);
+            return;
+        }
+
+        // redirect to the URL, home page
+        window.open(res.data, "_self")
+    }
+</script>
+{% endblock %}

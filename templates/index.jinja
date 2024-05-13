@@ -5,21 +5,161 @@ Index page, the "default" page when you visit "http://localhost/"
  {% extends 'base.jinja' %}
  
  {% block content %} 
- <div class="container mt-5">
-    <h1 class="gradient-text text-center">WisdomExch</h1>
-    <div class="d-flex justify-content-center">
-        <p><a class="btn btn-secondary mr-2" href={{ url_for('signup') }}> Sign Up</a></p>
-        <p><a class="btn btn-primary" href={{ url_for('login') }}> Login</a></p>
+ <style>
+    .body-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 50vh;
+    }
+    .logo-text {
+        font-size: 2.5em;
+        font-weight: bold;
+        font-family: 'Roboto', sans-serif;
+    }
+    .button-container {
+        margin-top: 5vh;  /* 10% of the viewport height */
+    }
+    .signup-btn {
+        background-color: grey !important;
+        border-color: grey !important;
+        margin-right: 8vh;
+    }
+    .login-btn {
+        background-color: black !important;
+        color: white !important;
+        border-color: black !important;
+    }
+    .theme-colour-container {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 394px;
+        height: 149px;
+        background-color: #f2f2f2;
+        border-radius: 26px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .theme-colour-title {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        font-weight: bold;
+        margin-bottom: 20px; /* leave some space between the title and the buttons */
+    }
+    .theme-button-container {
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
+        gap: 10px;
+    }
+    .theme-button-black {
+        cursor: pointer;
+        width: 63px;
+        height: 56px;
+        padding: 0px 8px;
+        border: 0;
+        box-sizing: border-box;
+        border-radius: 25px;
+        box-shadow: 0px 0px 10px rgba(3,3,3,0.1);
+        background-color: #030303;
+        color: #ffffff;
+        font-size: 14px;
+        font-family: 'Roboto', sans-serif;
+        line-height: 16px;
+        outline: none;
+        margin-top: 20px;
+    }
+    .theme-button-blue {
+        cursor: pointer;
+        width: 63px;
+        height: 56px;
+        padding: 0px 8px;
+        border: 0;
+        box-sizing: border-box;
+        border-radius: 25px;
+        box-shadow: 0px 0px 10px rgba(3,3,3,0.1);
+        background-color: #007aff;
+        color: #ffffff;
+        font-size: 14px;
+        font-family: 'Roboto', sans-serif;
+        line-height: 16px;
+        outline: none;
+        margin-top: 20px;
+    }
+    .theme-button-guava {
+        cursor: pointer;
+        width: 63px;
+        height: 56px;
+        padding: 0px 8px;
+        border: 0;
+        box-sizing: border-box;
+        border-radius: 25px;
+        box-shadow: 0px 0px 10px rgba(3,3,3,0.1);
+        background-color: #ff2d55;
+        color: #ffffff;
+        font-size: 14px;
+        font-family: 'Roboto', sans-serif;
+        line-height: 16px;
+        outline: none;
+        margin-top: 20px;
+    }
+ </style>
+
+ <div class="container mt-5 body-container">
+    <h1 class="logo-text text-center">WisdomExch</h1>
+    <div class="d-flex justify-content-center button-container">
+        <p><a class="btn signup-btn" href={{ url_for('signup') }}> Sign Up</a></p>
+        <p><a class="btn login-btn" href={{ url_for('login') }}> Login</a></p>
     </div>
 </div>
- {% endblock %}
 
- {% block extra_css %}
- <style>
- .gradient-text {
-     background: linear-gradient(to right, red, blue);
-     -webkit-background-clip: text;
-     -webkit-text-fill-color: transparent;
- }
- </style>
- {% endblock %}
+<div class="theme-colour-container">
+    <p class="theme-colour-title">Select your theme colour</p>
+    <div class="theme-button-container">
+        <button class="theme-button-black">Black</button>
+        <button class="theme-button-blue">Blue</button>
+        <button class="theme-button-guava">Guava</button>
+    </div>
+</div>
+
+<script>
+    // default theme colour is black
+    let themeColour = 'black';
+
+    // listen for click events on the theme colour buttons
+    document.querySelector('.theme-button-black').addEventListener('click', function() {
+        themeColour = 'black';
+        document.querySelector('.logo-text').style.color = '#000000';
+    });
+    document.querySelector('.theme-button-blue').addEventListener('click', function() {
+        themeColour = 'blue';
+        document.querySelector('.logo-text').style.color = '#007aff';
+    });
+    document.querySelector('.theme-button-guava').addEventListener('click', function() {
+        themeColour = 'guava';
+        document.querySelector('.logo-text').style.color = '#ff2d55';
+    });
+
+    // add listener to login button, when user login, send the theme colour selected to the server
+    document.querySelector('.login-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        // append the theme colour to the login URL
+        this.href += '?themeColour=' + themeColour;
+
+        // redirect to the login page
+        window.location.href = this.href;
+    });
+    document.querySelector('.signup-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+        this.href += '?themeColour=' + themeColour;
+        window.location.href = this.href;
+    });
+</script>
+{% endblock %}

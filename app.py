@@ -31,9 +31,17 @@ def index():
     return render_template("index.jinja")
 
 # login page
-@app.route("/login")
+@app.route("/login", methods=["GET"])
 def login():    
-    return render_template("login.jinja")
+    theme_colour = request.args.get("themeColour")
+    if theme_colour is None:
+        theme_colour = "black"
+        
+    colours = ThemeColour();
+    return render_template("new_login.jinja", theme_colour=theme_colour, 
+                           primary_colour=colours.get_primary_colour(theme_colour), 
+                           secondary_colour=colours.get_secondary_colour(theme_colour),
+                           font_colour=colours.get_font_colour(theme_colour))
 
 # handles a post request when the user clicks the log in button
 @app.route("/login/user", methods=["POST"])
@@ -44,6 +52,7 @@ def login_user():
     # retrieve the user name from the JSON data of the POST request
     username = request.json.get("username")
     password = request.json.get("password")
+    theme_colour = request.json.get("themeColour")
 
     user =  db.get_user(username)
     if user is None:
@@ -51,14 +60,26 @@ def login_user():
 
     if user.password != password:
         return "Error: Password does not match!"
-
+    
+    colours = ThemeColour();
     # if the login is successful, returns the url for the home page with the username included as aquery parameter
-    return url_for('home', username=request.json.get("username"))
+    return url_for('home', username=request.json.get("username"), 
+                   primary_colour=colours.get_primary_colour(theme_colour), 
+                   secondary_colour=colours.get_secondary_colour(theme_colour),
+                   font_colour=colours.get_font_colour(theme_colour))
 
 # handles a get request to the signup page
-@app.route("/signup")
+@app.route("/signup", methods=["GET"])
 def signup():
-    return render_template("signup.jinja")
+    theme_colour = request.args.get("themeColour")
+    if theme_colour is None:
+        theme_colour = "black"
+    
+    colours = ThemeColour();
+    return render_template("new_signup.jinja", theme_colour=theme_colour, 
+                           primary_colour=colours.get_primary_colour(theme_colour), 
+                           secondary_colour=colours.get_secondary_colour(theme_colour),
+                           font_colour=colours.get_font_colour(theme_colour))
 
 # handles a post request when the user clicks the signup button
 @app.route("/signup/user", methods=["POST"])
@@ -83,7 +104,7 @@ def page_not_found(_):
 def home():
     if request.args.get("username") is None:
         abort(404)
-    return render_template("home.jinja", username=request.args.get("username"))
+    return render_template("new_home.jinja", username=request.args.get("username"))
 
 @app.route("/send_friend_request", methods=["POST"])
 def send_friend_request():
@@ -166,6 +187,7 @@ def remove_friend():
         return jsonify({"msg": f"Successfully removed friend."}), 200
     except ValueError as e:
         return jsonify({"msg": str(e)}), 404
+
 
 if __name__ == '__main__':
     socketio.run(app)

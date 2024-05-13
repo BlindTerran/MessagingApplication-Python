@@ -126,3 +126,36 @@ class Room():
             return None
         return self.dict[user]
     
+class ThemeColour():
+    def __init__(self):
+        self.primary_colours: dict = {
+            "black": "#000000", # black
+            "blue": "#007aff", # blue
+            "guava": "#ff2d55" # red
+        }
+        self.secondary_colours: dict = {
+            "black": "#d3d3d3", # grey
+            "blue": "#aad3ff", # light blue
+            "guava": "#ffbeba", # light red
+        }
+        self.tertiary_colours: dict = {
+            "black": "#f2f2f2", # light grey
+            "blue": "#f2f2f2", 
+            "guava": "#f2f2f2"
+        }
+        self.font_colours: dict = {
+            "black": "#ffffff", # white
+            "blue": "#ffffff",
+            "guava": "#ffffff"
+        }
+    
+    def get_primary_colour(self, colour):
+        return self.primary_colours[colour]
+    
+    def get_secondary_colour(self, colour):
+        return self.secondary_colours[colour]
+    
+    def get_font_colour(self, colour):
+        return self.font_colours[colour]
+    
+    
