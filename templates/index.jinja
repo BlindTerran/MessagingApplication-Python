@@ -10,7 +10,7 @@ Index page, the "default" page when you visit "http://localhost/"
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: 50vh;
+        height: 50vh;   /* 50% of the viewport height */
     }
     .logo-text {
         font-size: 2.5em;
@@ -19,14 +19,16 @@ Index page, the "default" page when you visit "http://localhost/"
         transition: color 0.5s ease-in-out; /* smooth transition when the theme colour is changed */
     }
     .button-container {
-        margin-top: 5vh;  /* 10% of the viewport height */
+        margin-top: 5vh;  
     }
     .signup-btn {
         background-color: #d3d3d3; /* default colour light grey */
+        border-radius: 25px;
         margin-right: 8vh;
     }
     .login-btn {
         background-color: #000000; /* default colour black */
+        border-radius: 25px;
         color: white;
     }
     .theme-colour-container {
@@ -121,7 +123,7 @@ Index page, the "default" page when you visit "http://localhost/"
         z-index: 1;
     }
 
-    /* animation for the button hover effect */
+    /* animation for the button hover effect, reference: https://codepen.io/erwstout/pen/GQvjZE */
     .theme-button-black span, .theme-button-blue span, .theme-button-guava span {
         position: absolute;
         display: block;
@@ -215,19 +217,20 @@ Index page, the "default" page when you visit "http://localhost/"
 
     const buttons = document.querySelectorAll(".theme-button-black, .theme-button-blue, .theme-button-guava");
 
-buttons.forEach(button => {
-    ["mouseenter", "mouseout"].forEach(evt => {
-        button.addEventListener(evt, e => {
-            let parentOffset = button.getBoundingClientRect(),
-                relX = e.pageX - parentOffset.left,
-                relY = e.pageY - parentOffset.top;
+    /* animation for the button hover effect, reference: https://codepen.io/erwstout/pen/GQvjZE */
+    buttons.forEach(button => {
+        ["mouseenter", "mouseout"].forEach(evt => {
+            button.addEventListener(evt, e => {
+                let parentOffset = button.getBoundingClientRect(),
+                    relX = e.pageX - parentOffset.left,
+                    relY = e.pageY - parentOffset.top;
 
-            const span = button.getElementsByTagName("span");
+                const span = button.getElementsByTagName("span");
 
-            span[0].style.top = relY + "px";
-            span[0].style.left = relX + "px";
+                span[0].style.top = relY + "px";
+                span[0].style.left = relX + "px";
+            });
         });
     });
-});
 </script>
 {% endblock %}

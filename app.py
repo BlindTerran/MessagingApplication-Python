@@ -25,6 +25,9 @@ socketio = SocketIO(app)
 # don't remove this!!
 import socket_routes
 
+# global variable for default theme colour
+theme_colour = "black"
+
 # index page
 @app.route("/")
 def index():
@@ -187,7 +190,17 @@ def remove_friend():
         return jsonify({"msg": f"Successfully removed friend."}), 200
     except ValueError as e:
         return jsonify({"msg": str(e)}), 404
-
+    
+    
+# ==================== TEST PAGE ====================
+# return the page jinja file you want to test
+# this method will be invoked by the button in sign up page
+@app.route('/test_page')
+def test_page():
+    colours = ThemeColour()
+    return render_template('friends.jinja', primary_colour=colours.get_primary_colour(theme_colour), 
+                           secondary_colour=colours.get_secondary_colour(theme_colour),
+                           font_colour=colours.get_font_colour(theme_colour))
 
 if __name__ == '__main__':
     socketio.run(app)
