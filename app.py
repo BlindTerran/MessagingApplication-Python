@@ -191,6 +191,8 @@ def remove_friend():
     except ValueError as e:
         return jsonify({"msg": str(e)}), 404
     
+# @app.route("/get_active_chats", methods=["POST"])
+# def get_active_chats
     
 # ==================== TEST PAGE ====================
 # return the page jinja file you want to test
@@ -198,7 +200,7 @@ def remove_friend():
 @app.route('/test_page')
 def test_page():
     colours = ThemeColour()
-    return render_template('friends.jinja', primary_colour=colours.get_primary_colour(theme_colour), 
+    return render_template('chat.jinja', primary_colour=colours.get_primary_colour(theme_colour), 
                            secondary_colour=colours.get_secondary_colour(theme_colour),
                            font_colour=colours.get_font_colour(theme_colour))
 
