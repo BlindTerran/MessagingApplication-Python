@@ -33,6 +33,13 @@ class User(Base):
     password: Mapped[str] = mapped_column(String)
     is_online: Mapped[bool] = mapped_column(sqlalchemy.Boolean, default=False)
     
+    def to_dict(self):
+        return {
+            "username": self.username,
+            "password": self.password,
+            "is_online": self.is_online
+        }
+    
 # relative entity to store the friendship between user and user
 class Friendship(Base):
     __tablename__ = "friendship"
@@ -55,7 +62,12 @@ class Chatroom(Base):
     chatroom_id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
     chatroom_name: Mapped[str] = mapped_column(String)
     
-
+    def to_dict(self):
+        return {
+            "chatroom_id": self.chatroom_id,
+            "chatroom_name": self.chatroom_name
+        }
+    
 class UserGroup(Base):
     __tablename__ = "user_group"
 

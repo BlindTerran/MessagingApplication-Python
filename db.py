@@ -173,8 +173,55 @@ def get_private_chatroom_id(user1: str, user2: str):
             rooms_contains_two_users.c.chatroom_id.in_(user1_rooms),
             rooms_contains_two_users.c.chatroom_id.in_(user2_rooms)
         ).first()
-        
         return private_chatroom[0] if private_chatroom is not None else None
+
+def get_friends_except_current_friend(username: str, friend_id: str):
+    with Session(engine) as session:
+        friends = session.query(Friendship).filter(
+            ((Friendship.user_id == username) | (Friendship.friend_id == username)) & (Friendship.status == 'accepted')
+        ).all()
+        friends_except_current_friend = []
+        for f in friends:
+            if f.user_id == username:
+                friend = f.friend_id
+            else:
+                friend = f.user_id
+            if friend != friend_id:
+                friends_except_current_friend.append(friend)
+        return friends_except_current_friend
+
+def get_receiver_from_chat(chatroom_id: int, sender: str):
+    with Session(engine) as session:
+        user_group = session.query(UserGroup).filter(UserGroup.chatroom_id == chatroom_id).filter(UserGroup.user_id != sender).first()
+        return user_group.user_id
+
+def is_group_chat(chatroom_id: int):
+    with Session(engine) as session:
+        user_group = session.query(UserGroup).filter(UserGroup.chatroom_id == chatroom_id).all()
+        return len(user_group) > 2
+
+def get_friends_not_in_group_chat(chatroom_id: int, username: str):
+    with Session(engine) as session:
+        user_group = session.query(UserGroup).filter(UserGroup.chatroom_id == chatroom_id).all()
+        friends = session.query(Friendship).filter(
+            ((Friendship.user_id == username) | (Friendship.friend_id == username)) & (Friendship.status == 'accepted')
+        ).all()
+        friends_not_in_chat = []
+        for f in friends:
+            if f.user_id == username:
+                friend = f.friend_id
+            else:
+                friend = f.user_id
+            if friend not in [u.user_id for u in user_group]:
+                friends_not_in_chat.append(friend)
+        # a list of friend names that are not in the chatroom
+        return friends_not_in_chat
+
+def add_user_to_group_chat(username: str, chatroom_id: int):
+    with Session(engine) as session:
+        user_group = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom_id, user_id=username)
+        session.add(user_group)
+        session.commit()
 
 def create_private_chat_room(user1: str, user2: str):
     with Session(engine) as session:
@@ -187,8 +234,44 @@ def create_private_chat_room(user1: str, user2: str):
         session.add(user_group1)
         session.add(user_group2)
         session.commit()
-        
         return chatroom.chatroom_id
+
+def create_group_chat_room(user1: str, user2: str, user3: str):
+    with Session(engine) as session:
+        chatroom_id = get_room_counter()
+        chatroom = Chatroom(chatroom_id=chatroom_id, chatroom_name=f"Group {user1} {chatroom_id}")
+        session.add(chatroom)
+        session.commit()
+        
+        user_group1 = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom.chatroom_id, user_id=user1)
+        user_group2 = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom.chatroom_id, user_id=user2)
+        user_group3 = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom.chatroom_id, user_id=user3)
+        session.add(user_group1)
+        session.add(user_group2)
+        session.add(user_group3)
+        session.commit()
+        return chatroom.chatroom_id
+
+# get all the members of a group chat except the current user
+def get_group_chat_members(chatroom_id: int, username: str):
+    with Session(engine) as session:
+        user_group = session.query(UserGroup).filter(UserGroup.chatroom_id == chatroom_id).all()
+        members = []
+        for u in user_group:
+            if u.user_id != username:
+                members.append(u.user_id)
+        return members
+
+def add_user_to_group_chat(chatroom_id: int, user: str):
+    with Session(engine) as session:
+        user_group = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom_id, user_id=user)
+        session.add(user_group)
+        session.commit()
+
+def get_active_chats(username: str):
+    with Session(engine) as session:
+        chatrooms = session.query(Chatroom).join(UserGroup).filter(UserGroup.user_id == username).all()
+        return chatrooms
     
 def store_message(chatroom_id: int, sender: str, message: str):
     with Session(engine) as session:

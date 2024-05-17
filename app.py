@@ -65,7 +65,7 @@ def login_user():
         return "Error: Password does not match!"
     
     colours = ThemeColour();
-    # if the login is successful, returns the url for the home page with the username included as aquery parameter
+    # if the login is successful, returns the url for the home page with aquery parameters, username, theme colours
     return url_for('home', username=request.json.get("username"), 
                    primary_colour=colours.get_primary_colour(theme_colour), 
                    secondary_colour=colours.get_secondary_colour(theme_colour),
@@ -102,12 +102,18 @@ def signup_user():
 def page_not_found(_):
     return render_template('404.jinja'), 404
 
-# home page, where the messaging app is
+# home page, the chat page
 @app.route("/home")
 def home():
     if request.args.get("username") is None:
         abort(404)
-    return render_template("new_home.jinja", username=request.args.get("username"))
+    username = request.args.get("username")
+    primary_colour = request.args.get("primary_colour")
+    secondary_colour = request.args.get("secondary_colour")
+    font_colour = request.args.get("font_colour")
+    return render_template("chat.jinja", username=username,
+                           primary_colour=primary_colour, secondary_colour=secondary_colour,
+                           font_colour=font_colour)
 
 @app.route("/send_friend_request", methods=["POST"])
 def send_friend_request():
@@ -154,7 +160,7 @@ def get_incoming_friend_requests():
     # convert the list of friendship objects to a list of dictionaries
     incoming_friendships_json = [f.to_dict() for f in incoming_friendships]
     # parse the list of dictionaries to a json object to the frontend
-    return jsonify(incoming_friendships_json)
+    return jsonify(incoming_friendships_json), 200
     
 @app.route("/get_outgoing_friend_requests", methods=["POST"])
 def get_outgoing_friend_requests():
@@ -163,7 +169,7 @@ def get_outgoing_friend_requests():
     if not outgoing_friendships:
         return jsonify({"no_outgoing_friend_requests": True})
     outgoing_friendships_json = [f.to_dict() for f in outgoing_friendships]
-    return jsonify(outgoing_friendships_json)
+    return jsonify(outgoing_friendships_json), 200
 
 @app.route("/get_friends", methods=["POST"])
 def get_friends():
@@ -179,7 +185,7 @@ def get_friends():
         if f.user_id == username:
             friend_name = f.friend_id
             firends_json.append({"friend_id": friend_name})
-    return jsonify(firends_json)
+    return jsonify(firends_json), 200
 
 @app.route("/remove_friend", methods=["POST"])
 def remove_friend():
@@ -191,8 +197,65 @@ def remove_friend():
     except ValueError as e:
         return jsonify({"msg": str(e)}), 404
     
-# @app.route("/get_active_chats", methods=["POST"])
-# def get_active_chats
+@app.route("/get_active_chats", methods=["POST"])
+def get_active_chats():
+    username = request.json['username']
+    active_chats = db.get_active_chats(username)
+    if not active_chats:
+        return jsonify({"no_active_chats": True})
+    active_chats_json = []
+    for chat_room in active_chats:
+        active_chats_json.append(chat_room.to_dict())
+    return jsonify(active_chats_json), 200
+
+@app.route("/get_friends_except_current_friend", methods=["POST"])
+def get_friends_except_current_friend():
+    username = request.json.get("username")
+    friend_username = request.json.get("friend_username")
+    friends = db.get_friends_except_current_friend(username, friend_username)
+    if not friends:
+        return jsonify({"no_friends": True})
+    return jsonify({"friends": friends}), 200
+
+@app.route("/is_group_chat", methods=["POST"])
+def is_group_chat():
+    chatroom_id = request.json.get("chatroom_id")
+    is_group_chat = db.is_group_chat(chatroom_id)
+    if is_group_chat is None:
+        return jsonify({"msg": "Failed to fetch chatroom info."}), 404
+    return jsonify({"is_group_chat": is_group_chat}), 200
+
+@app.route("/get_receiver_from_chat", methods=["POST"])
+def get_receiver_from_chat():
+    chatroom_id = request.json.get("chatroom_id")
+    username = request.json.get("username")
+    receiver_id = db.get_receiver_from_chat(chatroom_id, username)
+    if receiver_id is None:
+        return jsonify({"msg": "Receiver not found."}), 404
+    user = db.get_user(receiver_id)
+    return jsonify(user.to_dict()), 200
+
+@app.route("/get_friends_not_in_group_chat", methods=["POST"])
+def get_friends_not_in_group_chat():
+    username = request.json.get("username")
+    chatroom_id = request.json.get("chatroom_id")
+    # a list of friend names that are not in the target group chat
+    friends = db.get_friends_not_in_group_chat(username, chatroom_id)
+    if not friends:
+        return jsonify({"no_friends_not_in_group_chat": True})
+    return jsonify({"friends": friends}), 200
+
+# get members except the current user
+@app.route("/get_group_chat_members", methods=["POST"])
+def get_group_chat_members():
+    chatroom_id = request.json.get("chatroom_id")
+    username = request.json.get("username")
+    # a list of member names
+    members = db.get_group_chat_members(chatroom_id, username)
+    if not members:
+        return jsonify({"no_members": True})
+    return jsonify({"members": members}), 200
+
     
 # ==================== TEST PAGE ====================
 # return the page jinja file you want to test
@@ -200,7 +263,9 @@ def remove_friend():
 @app.route('/test_page')
 def test_page():
     colours = ThemeColour()
-    return render_template('chat.jinja', primary_colour=colours.get_primary_colour(theme_colour), 
+    username = "tim" # log in as which user, for testing purposes
+    # return the target page you want to test
+    return render_template('chat.jinja', username=username, primary_colour=colours.get_primary_colour(theme_colour), 
                            secondary_colour=colours.get_secondary_colour(theme_colour),
                            font_colour=colours.get_font_colour(theme_colour))
 
