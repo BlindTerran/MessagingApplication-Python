@@ -135,7 +135,7 @@
                 </path>
             </svg>
         </a>
-        <a href="{{ url_for('test_page') }}">
+        <a href="{{ url_for('chat', username=username, theme_colour=theme_colour) }}">
             <svg class="chat-icon" viewBox="0 0 512 512">
                 <path d="M256 32C114.6 32 0 125.1 0 240c0 49.63 21.35 94.98 56.97 130.7
                         c-12.5 50.37-54.27 95.27-54.77 95.77c-2.25 2.25-2.875 5.734-1.5 8.734
@@ -146,7 +146,7 @@
         </a>
         <div class="friends-icon-container">
         <div class="indicator-bar"></div>
-            <a href="{{ url_for('test_page') }}">
+            <a href="{{ url_for('friends', username=username, theme_colour=theme_colour) }}">
                 <svg class="friends-icon" viewBox="0 0 24 24">
                     <path fill="none" d="M0 0h24v24H0z"></path>
                     <path d="M16.67 13.13C18.04 14.06 19 15.32 19 17v3h4v-3c0-2.18-3.57-3.47-6.33-3.87zM9 4a4 4 0 1 0 0 8 
@@ -203,6 +203,10 @@
     <div>
         <h2 class="section-title">Groups</h2>
         <hr class="horizontal-divider">
+        <button id="refresh-group">Refresh</button>
+        <div id="groups-container">
+        
+        </div>
     </div>
     <div>
         <h2 class="section-title">Add Friend</h2>
@@ -215,7 +219,19 @@
     </div>
 </div>
 
+<script src="/static/js/libs/socket.io.min.js"></script>
 <script>
+    const socket = io();
+
+    function joinRoom(receiver) {
+        let username = Cookies.get('username');
+        socket.emit("join", username, receiver);
+        
+        // redirect to the chat page
+        let themeColour = "{{ theme_colour }}";
+        window.location.href = `{{ url_for('chat') }}?username=${username}&theme_colour=${themeColour}`;
+    }
+
     function isSuccessfulAddFriend(string) {
         if (string.startsWith("Successfully ")) {
             return true;
@@ -305,7 +321,7 @@
             // click event handler for the chat button
             $(".chat-button").click(function() {
                 let receiver = $(this).data("friend");
-                join_room(receiver);
+                joinRoom(receiver);
             });
 
             // remove friend button click event handler
@@ -359,6 +375,32 @@
     }
     $("#refresh").click(refreshFriendRequests);
     $(document).ready(refreshFriendRequests);
+
+    async function refreshGroups() {
+        let groupsURL = "{{ url_for('get_group_chats') }}";
+        let res = await axios.post(groupsURL, { username: Cookies.get('username') });
+
+        let container = $("#groups-container");
+        container.empty();
+
+        if (res.data.no_group_chats) {
+            let row = $(`<tr><td>You are not in any group yet</td></tr>`);
+            container.append(row);
+        } else {
+            for (let group of res.data) {
+                let groupElement = $(`<tr><td>${group.chatroom_name}</td><td><button class="group-chat-button" data-group="${group.group_id}">Chat</button></td></tr>`);
+                container.append(groupElement);
+            }
+
+            $(".group-chat-button").click(function() {
+                let username = Cookies.get('username');
+                let themeColour = "{{ theme_colour }}";
+                window.location.href = `{{ url_for('chat') }}?username=${username}&theme_colour=${themeColour}`;
+            });
+        }
+    }
+    $("#refresh-group").click(refreshGroups);
+    $(document).ready(refreshGroups);
 
 </script>
 
