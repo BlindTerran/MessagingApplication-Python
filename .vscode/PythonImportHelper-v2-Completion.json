@@ -506,15 +506,6 @@
         "documentation": {}
     },
     {
-        "label": "test_page",
-        "kind": 2,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "def test_page():\n    colours = ThemeColour()\n    username = \"tim\" # log in as which user, for testing purposes\n    # return the target page you want to test\n    return render_template('friends.jinja', username=username, primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),\n                           font_colour=colours.get_font_colour(theme_colour))\nif __name__ == '__main__':\n    socketio.run(app, debug=True)",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
         "label": "app",
         "kind": 5,
         "importPath": "app",

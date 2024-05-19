@@ -400,14 +400,14 @@ def get_group_chats():
 # ==================== TEST PAGE ====================
 # return the page jinja file you want to test
 # this method will be invoked by the button in sign up page
-@app.route('/test_page')
-def test_page():
-    colours = ThemeColour()
-    username = "tim" # log in as which user, for testing purposes
-    # return the target page you want to test
-    return render_template('friends.jinja', username=username, primary_colour=colours.get_primary_colour(theme_colour), 
-                           secondary_colour=colours.get_secondary_colour(theme_colour),
-                           font_colour=colours.get_font_colour(theme_colour))
+# @app.route('/test_page')
+# def test_page():
+#     colours = ThemeColour()
+#     username = "tim" # log in as which user, for testing purposes
+#     # return the target page you want to test
+#     return render_template('friends.jinja', username=username, primary_colour=colours.get_primary_colour(theme_colour), 
+#                            secondary_colour=colours.get_secondary_colour(theme_colour),
+#                            font_colour=colours.get_font_colour(theme_colour))
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
