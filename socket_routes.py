@@ -20,31 +20,29 @@ room = Room()
 
 # when the client connects to a socket
 # this event is emitted when the io() function is called in JS
+@socketio.on('get_status')
+def get_status(username):
+    if username is None:
+        return
+    return db.get_user_status(username)
+
 @socketio.on('connect')
 def connect():
     username = request.cookies.get("username")
-    room_id = request.cookies.get("room_id")
-    if room_id is None or username is None:
-        return
-    # socket automatically leaves a room on client disconnect
-    # so on client connect, the room needs to be rejoined
-    join_room(int(room_id))
-    emit("incoming", (f"{username} has connected", "green"), to=int(room_id))
+    db.set_user_status(username, True)
 
-# event when client disconnects
-# quite unreliable use sparingly
+# automatically called when the user disconnects, close the browser tab, etc
 @socketio.on('disconnect')
-def disconnect():
+def disconnect():    
     username = request.cookies.get("username")
-    room_id = request.cookies.get("room_id")
-    if room_id is None or username is None:
-        return
-    emit("incoming", (f"{username} has disconnected", "red"), to=int(room_id))
+    db.set_user_status(username, False)
 
 # send message event handler
 @socketio.on("send")
 def send(username, message, room_id):
-    emit("incoming", (f"{username}: {message}"), to=room_id)
+    join_room(room_id)
+    db.store_message(room_id, username, message)
+    emit("incoming", (f"{username}: {message}"), to=int(room_id))
     
 # join room event handler
 # sent when the user joins a room
@@ -59,30 +57,37 @@ def join(sender_name, receiver_name):
     if sender is None:
         return "Unknown sender!"
 
-    room_id = room.get_room_id(receiver_name)
+    room_id = db.get_private_chatroom_id(sender_name, receiver_name)
 
     # if the user is already inside of a room 
     if room_id is not None:
-        
-        room.join_room(sender_name, room_id)
         join_room(room_id)
-        # emit to everyone in the room except the sender
-        emit("incoming", (f"{sender_name} has joined the room.", "green"), to=room_id, include_self=False)
-        # emit only to the sender
-        emit("incoming", (f"{sender_name} has joined the room. Now talking to {receiver_name}.", "green"))
-        return room_id
 
-    # if the user isn't inside of any room, 
-    # perhaps this user has recently left a room
-    # or is simply a new user looking to chat with someone
-    room_id = room.create_room(sender_name, receiver_name)
+    # if the user isn't inside of any room, create new room
+    room_id = db.create_private_chat_room(sender_name, receiver_name)
     join_room(room_id)
-    emit("incoming", (f"{sender_name} has joined the room. Now talking to {receiver_name}.", "green"), to=room_id)
+    emit("incoming", (f"{sender_name} has established a communication with {receiver_name}.", "green"), to=room_id)
     return room_id
+
+@socketio.on("create_group_chat")
+def create_group_chat(friend_id, username, friend_id_2):
+    room_id = db.create_group_chat_room(username, friend_id, friend_id_2)
+    join_room(room_id)
+    return room_id
+
+@socketio.on("add_friend_to_group_chat")
+def add_friend_to_group_chat(friend_id, room_id):
+    db.add_user_to_group_chat(friend_id, room_id)
 
 # leave room event handler
 @socketio.on("leave")
-def leave(username, room_id):
-    emit("incoming", (f"{username} has left the room.", "red"), to=room_id)
+def leave(room_id):
+    # emit("incoming", (f"{username} has left the room.", "red"), to=room_id)
     leave_room(room_id)
-    room.leave_room(username)
+
+@socketio.on("fetch_message")
+def fetchMessage(room_id):
+    join_room(room_id)
+    messages = db.fetch_messages(room_id)
+    for message in messages:
+        emit("incoming", (f"{message.sender}: {message.message}"), to=request.sid)

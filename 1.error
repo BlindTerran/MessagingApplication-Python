@@ -1,0 +1,65 @@
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 130-696-108
+127.0.0.1 - - [19/May/2024 23:51:56] "GET /socket.io/?EIO=4&transport=polling&t=O-H7v2M HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:56] "POST /socket.io/?EIO=4&transport=polling&t=O-H7vEN&sid=zWj-CEeBkvi2PMqpAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:56] "GET /socket.io/?EIO=4&transport=polling&t=O-H7vEO&sid=zWj-CEeBkvi2PMqpAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:57] "GET /friends?username=hash&theme_colour=black HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:57] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:51:57] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:51:57] "[36mGET /static/js/libs/socket.io.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:51:57] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:51:57] "GET /socket.io/?EIO=4&transport=polling&t=O-H7vWU HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:57] "GET /socket.io/?EIO=4&transport=polling&t=O-H7vWd.0&sid=x5_8AAOKEIzK5AtmAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:58] "POST /socket.io/?EIO=4&transport=polling&t=O-H7vWd&sid=x5_8AAOKEIzK5AtmAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:58] "POST /get_group_chats HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:58] "POST /get_friends HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:58] "POST /get_incoming_friend_requests HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:58] "GET /socket.io/?EIO=4&transport=polling&t=O-H7vX0&sid=x5_8AAOKEIzK5AtmAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:58] "POST /get_outgoing_friend_requests HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:59] "GET /socket.io/?EIO=4&transport=websocket&sid=x5_8AAOKEIzK5AtmAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:59] "GET /chat?username=hash&theme_colour=black HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/socket.io.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:51:59] "GET /socket.io/?EIO=4&transport=polling&t=O-H7vpt HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:59] "POST /get_active_chats HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:59] "GET /socket.io/?EIO=4&transport=polling&t=O-H7vq4&sid=w_Hl7pxGhGBa3_hrAAAE HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:59] "POST /socket.io/?EIO=4&transport=polling&t=O-H7vq3&sid=w_Hl7pxGhGBa3_hrAAAE HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:59] "GET /socket.io/?EIO=4&transport=websocket&sid=w_Hl7pxGhGBa3_hrAAAE HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:59] "GET /knowledge_repository?username=hash&theme_colour=black HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:52:01] "GET /friends?username=hash&theme_colour=black HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:01] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:52:01] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:52:01] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:52:01] "[36mGET /static/js/libs/socket.io.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:52:01] "GET /socket.io/?EIO=4&transport=polling&t=O-H7wQX HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:01] "POST /get_incoming_friend_requests HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:01] "POST /get_friends HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:01] "POST /get_group_chats HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:01] "GET /socket.io/?EIO=4&transport=polling&t=O-H7wQk.0&sid=SK2gz-67w9bBQrOBAAAG HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:01] "POST /socket.io/?EIO=4&transport=polling&t=O-H7wQk&sid=SK2gz-67w9bBQrOBAAAG HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:01] "POST /get_outgoing_friend_requests HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:01] "GET /socket.io/?EIO=4&transport=polling&t=O-H7wR3&sid=SK2gz-67w9bBQrOBAAAG HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:02] "GET /socket.io/?EIO=4&transport=websocket&sid=SK2gz-67w9bBQrOBAAAG HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:03] "GET /chat?username=hash&theme_colour=black HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:03] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:52:03] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:52:03] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:52:03] "[36mGET /static/js/libs/socket.io.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:52:03] "GET /socket.io/?EIO=4&transport=polling&t=O-H7wwR HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:03] "POST /get_active_chats HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:03] "GET /socket.io/?EIO=4&transport=polling&t=O-H7wwe&sid=BlVkIuDg0msfS9onAAAI HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:03] "POST /socket.io/?EIO=4&transport=polling&t=O-H7wwd&sid=BlVkIuDg0msfS9onAAAI HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:04] "GET /socket.io/?EIO=4&transport=websocket&sid=BlVkIuDg0msfS9onAAAI HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 23:52:05] "[33mGET /'knowledge_repository',%20username=username,%20theme_colour=theme_colour)%20}} HTTP/1.1[0m" 404 -
+127.0.0.1 - - [19/May/2024 23:52:05] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:52:05] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [19/May/2024 23:52:05] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -

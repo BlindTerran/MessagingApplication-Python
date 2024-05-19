@@ -2,12 +2,235 @@
 Index page, the "default" page when you visit "http://localhost/" 
  without any URL parameters at the end
  -->
-{% extends 'base.jinja' %}
+ {% extends 'base.jinja' %}
+ 
+ {% block content %} 
+ <style>
+    .body-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 50vh;   /* 50% of the viewport height */
+    }
+    .logo-text {
+        font-size: 2.5em;
+        font-weight: bold;
+        font-family: 'Roboto', sans-serif;
+        transition: color 0.5s ease-in-out; /* smooth transition when the theme colour is changed */
+    }
+    .button-container {
+        margin-top: 5vh;  
+    }
+    .signup-btn {
+        background-color: #d3d3d3; /* default colour light grey */
+        border-radius: 25px;
+        margin-right: 8vh;
+    }
+    .login-btn {
+        background-color: #000000; /* default colour black */
+        border-radius: 25px;
+        color: white;
+    }
+    .theme-colour-container {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 394px;
+        height: 149px;
+        background-color: #f2f2f2;
+        border-radius: 26px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .theme-colour-title {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        font-weight: bold;
+        margin-bottom: 20px; /* leave some space between the title and the buttons */
+    }
+    .theme-button-container {
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
+        gap: 10px;
+    }
+    .theme-button-black {
+        cursor: pointer;
+        width: 63px;
+        height: 56px;
+        padding: 0px 8px;
+        border: 0;
+        box-sizing: border-box;
+        border-radius: 25px;
+        box-shadow: 0px 0px 10px rgba(3,3,3,0.1);
+        color: #030303;
+        font-size: 14px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: bold;
+        line-height: 16px;
+        outline: none;
+        margin-top: 20px;
+        background-color: white;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    .theme-button-blue {
+        cursor: pointer;
+        width: 63px;
+        height: 56px;
+        padding: 0px 8px;
+        border: 0;
+        box-sizing: border-box;
+        border-radius: 25px;
+        box-shadow: 0px 0px 10px rgba(3,3,3,0.1);
+        color: #007aff;
+        font-size: 14px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: bold;
+        line-height: 16px;
+        outline: none;
+        margin-top: 20px;
+        background-color: white;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    .theme-button-guava {
+        cursor: pointer;
+        width: 63px;
+        height: 56px;
+        padding: 0px 8px;
+        border: 0;
+        box-sizing: border-box;
+        border-radius: 25px;
+        box-shadow: 0px 0px 10px rgba(3,3,3,0.1);
+        color: #ff2d55;
+        font-size: 14px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: bold;
+        line-height: 16px;
+        outline: none;
+        margin-top: 20px;
+        background-color: white;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
 
+    /* animation for the button hover effect, reference: https://codepen.io/erwstout/pen/GQvjZE */
+    .theme-button-black span, .theme-button-blue span, .theme-button-guava span {
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        -webkit-transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    .theme-button-black:hover span {
+        width: 200%;
+        height: 200%;
+        background-color: #030303;
+        z-index: -1;
+    }
+    .theme-button-blue:hover span {
+        width: 200%;
+        height: 200%;
+        background-color: #007aff;
+        z-index: -1;
+    }
+    .theme-button-guava:hover span {
+        width: 200%;
+        height: 200%;
+        background-color: #ff2d55;
+        z-index: -1;
+    }
+    .theme-button-black:hover, .theme-button-blue:hover, .theme-button-guava:hover {
+        color: white;
+    }
+ </style>
 
-{% block content %} 
-    <h1>Hello! Welcome to the site!</h1>
-    <p><a href={{ url_for('signup') }}> Sign Up</a></p>
-    <p><a href={{ url_for('login') }}> Login</a></p>
-    
+ <div class="container mt-5 body-container">
+    <h1 class="logo-text text-center">WisdomExch</h1>
+    <div class="d-flex justify-content-center button-container">
+        <p><a class="btn signup-btn" href={{ url_for('signup') }}> Sign Up</a></p>
+        <p><a class="btn login-btn" href={{ url_for('login') }}> Login</a></p>
+    </div>
+</div>
+
+<div class="theme-colour-container">
+    <p class="theme-colour-title">Select your theme colour</p>
+    <div class="theme-button-container">
+        <button class="theme-button-black">Black<span></span></button>
+        <button class="theme-button-blue">Blue<span></span></button>
+        <button class="theme-button-guava">Guava<span></span></button>
+    </div>
+</div>
+
+<script>
+    // default theme colour is black
+    let themeColour = 'black';
+
+    // listen for click events on the theme colour buttons
+    document.querySelector('.theme-button-black').addEventListener('click', function() {
+        themeColour = 'black';
+        document.querySelector('.logo-text').style.color = '#000000';
+        document.querySelector('.login-btn').style.backgroundColor = '#000000';
+        document.querySelector('.signup-btn').style.backgroundColor = '#d3d3d3';
+    });
+    document.querySelector('.theme-button-blue').addEventListener('click', function() {
+        themeColour = 'blue';
+        document.querySelector('.logo-text').style.color = '#007aff';
+        document.querySelector('.login-btn').style.backgroundColor = '#007aff';
+        document.querySelector('.signup-btn').style.backgroundColor = '#aad3ff';
+    });
+    document.querySelector('.theme-button-guava').addEventListener('click', function() {
+        themeColour = 'guava';
+        document.querySelector('.logo-text').style.color = '#ff2d55';
+        document.querySelector('.login-btn').style.backgroundColor = '#ff2d55';
+        document.querySelector('.signup-btn').style.backgroundColor = '#ffbeba';
+    });
+
+    // add listener to login button, when user login, send the theme colour selected to the server
+    document.querySelector('.login-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        // append the theme colour to the login URL
+        this.href += '?themeColour=' + themeColour;
+
+        // redirect to the login page
+        window.location.href = this.href;
+    });
+    document.querySelector('.signup-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+        this.href += '?themeColour=' + themeColour;
+        window.location.href = this.href;
+    });
+
+    const buttons = document.querySelectorAll(".theme-button-black, .theme-button-blue, .theme-button-guava");
+
+    /* animation for the button hover effect, reference: https://codepen.io/erwstout/pen/GQvjZE */
+    buttons.forEach(button => {
+        ["mouseenter", "mouseout"].forEach(evt => {
+            button.addEventListener(evt, e => {
+                let parentOffset = button.getBoundingClientRect(),
+                    relX = e.pageX - parentOffset.left,
+                    relY = e.pageY - parentOffset.top;
+
+                const span = button.getElementsByTagName("span");
+
+                span[0].style.top = relY + "px";
+                span[0].style.left = relX + "px";
+            });
+        });
+    });
+</script>
 {% endblock %}

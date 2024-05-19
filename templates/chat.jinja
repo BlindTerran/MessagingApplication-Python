@@ -1,0 +1,553 @@
+<!-- 
+    Chat page
+-->
+
+{% extends 'base.jinja' %}
+
+{% block content %} 
+<style>
+    .left-sidebar {
+        position: relative;
+        top: 0px;
+        left: 0px;
+        width: 5.5vw;
+        height: 100vh;
+        background-color: {{primary_colour}};
+        display: flex;
+        justify-content: center;
+    }
+    .banner {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        top: 0%;
+        left: 5.5vw; 
+        width: 94.5vw;
+        height: 7vh;
+        background-color: {{secondary_colour}}; 
+    }
+    .user-name {
+        color: {{font_colour}};
+        padding-right: 2vw;
+    }
+    .logo-text {
+        font-size: 1.4vw;
+        font-weight: 600;
+        font-family: 'Roboto', sans-serif;
+        color: {{primary_colour}};
+        line-height: 7vh;
+        padding-top: 1vh;
+        padding-left: 2vw;
+    }
+    .divider-vertical {
+        position: absolute;
+        top: 2vh;
+        left: 11.5vw;
+        width: 3px;
+        height: 3vh;
+        background-color: {{primary_colour}};
+        border-radius: 2px;
+    }
+    .title-text {
+        font-size: 1.4vw;
+        font-weight: 500;
+        font-family: 'Roboto', sans-serif;
+        color: {{primary_colour}};
+        line-height: 7vh;
+        padding-left: 1.5vw;
+    }
+    .icon-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start; 
+        height: 100%; 
+        position: absolute; 
+        top: 0; 
+    }
+    .knowledge-repo-icon, .chat-icon, .friends-icon {
+        color: #ffffff;
+        fill: #ffffff;
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+        align-self: center;
+        margin: 2vh 0;  /* the vertical gap between icons */
+    }
+    .knowledge-repo-icon {
+        top: 10vh;
+        margin-top: 9vh;
+    }
+    .chat-icon {
+        top: 16vh;
+    }
+    .friends-icon {
+        top: 22.6vh;
+        width: 25px;
+        height: 26px;
+        align-items: center;
+    }
+    .indicator-bar {
+        position: absolute;
+        top: 15%; 
+        left: -20px; /* how far the indicator bar is from the chat icon */
+        width: 5px;
+        height: 70%; /* 70% of the height of the chat icon container */
+        background-color: #ffffff;
+    }
+    .chat-icon-container {
+        position: relative;
+    }
+
+    .left-side-card {
+        position: absolute;
+        top: 7vh;
+        left: 5.5vw;
+        width: 20vw;
+        height: 93vh;
+        border-right: 1px solid #e0e0e0;
+    }
+    .left-side-card-title {
+        margin-bottom: 1vh;
+        margin-left: 2vw;
+        margin-top: 2vh;
+    }
+    .left-side-card-title-divider {
+        width: 100%;
+        border: 0;
+        border-top: 1px solid #e0e0e0;
+    }
+    .secondary-banner { /* below the banner, to the right of the left side card */
+        position: absolute;
+        top: 7vh; 
+        left: 25.5vw; 
+        width: 74.5vw;
+        height: 10vh; 
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+    }
+    .main-content-container {
+        position: absolute;
+        top: 17vh;
+        left: 25.5vw;
+        width: 54.5vw;
+        height: 66vh;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .right-side-card {
+        position: absolute;
+        top: 17vh;
+        left: 80vw; 
+        width: 20vw;
+        height: 83vh;
+        border-left: 1px solid #e0e0e0;
+    }
+    /* the chat will be fetched and appended to active chats container */
+    .chat {
+        padding-left: 2vw;
+        padding-right: 2vw;
+        z-index: 1000; 
+        position: relative;
+    }
+    .chat:hover {
+        background-color: #f2f2f2;
+    }
+    #active-chats-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    #chat-title {
+        font-size: 1.5em;
+        font-weight: 500;
+        font-family: 'Roboto', sans-serif;
+        padding-left: 3vw;
+    }
+    .user-online-indicator {
+        width: 10px;
+        height: 10px;
+        background-color: green;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .user-offline-indicator {
+        width: 10px;
+        height: 10px;
+        background-color: grey;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    #message-input {
+        position: absolute;
+        top: 83vh; 
+        left: 25.5vw;
+        width: 54.5vw;
+        height: 10vh; 
+        border: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    #send-button {
+        position: absolute;
+        top: 93vh; 
+        left: 25.5vw;
+        width: 54.5vw;
+        height: 7vh; 
+        border: none;
+        background-color: {{primary_colour}}; 
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 1px;
+        cursor: pointer;
+    }
+    #friends-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .friend {
+        padding-left: 2vw;
+        padding-right: 2vw;
+        z-index: 1000; 
+        position: relative;
+    }
+    #add-friend-to-group-chat-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+</style>
+
+<div class="banner">
+    <div>
+        <span class="logo-text text-center">WisdomExch</span>
+        <div class="divider-vertical"></div>
+        <span class="title-text">Chat</span>
+    </div>
+    <span class="user-name">Logged in as: {{username}}</span>
+</div>
+
+<div class="left-sidebar">
+    <!-- svg icon, generated by Uizard -->
+    <div class="icon-container">
+        <a href="{{ url_for('knowledge_repository', username=username, theme_colour=theme_colour) }}">
+            <svg class="knowledge-repo-icon" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0V0z" fill="none"></path>
+                <path d="M15 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.89 2 1.99 2
+                        H19c1.1 0 2-.9 2-2V9l-6-6zM8 17c-.55 0-1-.45-1-1s.45-1 
+                        1-1 1 .45 1 1-.45 1-1 1zm0-4c-.55 0-1-.45-1-1s.45-1 1-1 
+                        1 .45 1 1-.45 1-1 1zm0-4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 
+                        1 1-.45 1-1 1zm6 1V4.5l5.5 5.5H14z">
+                </path>
+            </svg>
+        </a>
+        <div class="chat-icon-container">
+        <div class="indicator-bar"></div>
+            <a href="{{ url_for('chat', username=username, theme_colour=theme_colour) }}">
+                <svg class="chat-icon" viewBox="0 0 512 512">
+                    <path d="M256 32C114.6 32 0 125.1 0 240c0 49.63 21.35 94.98 56.97 130.7
+                            c-12.5 50.37-54.27 95.27-54.77 95.77c-2.25 2.25-2.875 5.734-1.5 8.734
+                            C1.979 478.2 4.75 480 8 480c66.25 0 115.1-31.76 140.6-51.39
+                            C181.2 440.9 217.6 448 256 448c141.4 0 255.1-93.13 255.1-208S397.4 32 256 32z">
+                    </path>
+                </svg>
+            </a>
+        </div>
+        <a href="{{ url_for('friends', username=username, theme_colour=theme_colour) }}">
+            <svg class="friends-icon" viewBox="0 0 24 24">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path d="M16.67 13.13C18.04 14.06 19 15.32 19 17v3h4v-3c0-2.18-3.57-3.47-6.33-3.87zM9 4a4 4 0 1 0 0 8 
+                        4 4 0 1 0 0-8zM15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4c-.47 0-.91.1-1.33.24a5.98 5.98 0 0 1 0 7.52
+                        c.42.14.86.24 1.33.24zm-6 1c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z" fill-rule="evenodd">
+                </path>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<div class="left-side-card">
+    <!-- display friends and group chats -->
+    <h6 class="left-side-card-title">Active Chats</h6>
+    <hr class="left-side-card-title-divider" />
+    <div id="active-chats-container">
+
+    </div>
+</div>
+
+<div class="secondary-banner">
+    <!-- display the chatroom name -->
+    <span id="chat-title"> </span>
+</div>
+
+<div class="main-content-container">
+    <!-- display the chat messages -->
+</div>
+
+<div class="input-container">
+    <input type="text" id="message-input" placeholder="Type your message here...">
+    <button id="send-button">Send</button>
+</div>
+
+<div class="right-side-card">
+    <!-- display the create group chat -->
+    <h6 class="left-side-card-title">Create Group Chat</h6> <!-- copy the style from left side card title -->
+    <div id="friends-container">
+
+    </div>
+    <h6 class="left-side-card-title">Group Chat Members</h6>
+    <div id="group-chat-members-container" style="margin-bottom: 50px;">
+    
+    </div>
+    <h6 class="left-side-card-title">Add Friends to Group</h6>
+    <div id="add-friend-to-group-chat-container">
+        
+    </div>
+</div>
+
+<script src="/static/js/libs/socket.io.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // set the username in the cookie
+        let username = "{{ username }}";
+        Cookies.set('username', username);
+
+        // refresh the active chats
+        refreshActiveChats();
+
+        // reset some cookie data every time the page is load
+        Cookies.remove('roomId');
+        Cookies.remove('receiverName');
+
+        // don't show the send button and message input when user hasn't selected a chat
+        let roomId = Cookies.get('roomId');
+        if (!roomId) {
+            $('#chat-title').html("Select a chat to start chatting");
+            $('#send-button').hide();
+            $('#message-input').hide();
+            $('#friends-container').hide();
+            $('#add-friend-to-group-chat-container').hide();
+            $('#group-chat-members-container').hide();
+            $(".left-side-card-title:contains('Create Group Chat')").hide();
+            $(".left-side-card-title:contains('Group Chat Members')").hide();
+            $(".left-side-card-title:contains('Add Friends to Group')").hide();
+        }
+    });
+
+    // initalise the socket, this will invoke the connect function in socket_routes.py
+    const socket = io();
+
+    // listen for incoming message
+    socket.on("incoming", (msg, colour="black") => {
+        addMessage(msg, colour);
+    })
+
+    function send() {
+        let message = $("#message-input").val();
+        $("#message-input").val("");
+        let username = Cookies.get('username');
+        let roomId = Cookies.get('roomId');
+        if (message.trim() == "") {
+            alert("Message cannot be empty");
+        } else {
+            socket.emit("send", username, message, roomId);
+        }
+    }
+
+    $("#send-button").click(function() {
+        send();
+    });
+
+    function addMessage(message, color) {
+        let messageElement = $(`<div class="message" style="color: ${color};">${message}</div>`);
+        $(".main-content-container").append(messageElement);
+    }
+
+    // empty the main content section when the page is loaded
+    // an active chat is a chatroom that the user has joined
+    async function refreshActiveChats() {
+        let activeChatsURL = "{{ url_for('get_active_chats') }}";
+        let res = await axios.post(activeChatsURL, { username: Cookies.get('username') });
+
+        let container = $("#active-chats-container");
+        container.empty();
+
+        if (res.data.no_active_chats) {
+            let row = $(`<div>No active chats yet</div>`);
+            container.append(row);
+        } else {
+            for (let chat of res.data) {
+                let chatElement = $(`<div class="chat">${chat.chatroom_name}</div>`);
+                chatElement.data('chat', chat);
+                container.append(chatElement);
+            }
+        }
+    }
+
+    // click an active chat to initiate a chat
+    // this function joins the chat room with the target user or group chat, and
+    // displays receiver's info or group name in the secondary banner, and
+    // loads history message to the main content container, and
+    // loads the create group chat to the right side card if it is a private chat, or
+    // loads group chat members and add friends to group chat if it is a group chat
+    let currentRoomId = Cookies.get('roomId');
+    $("#active-chats-container").on('click', '.chat', function() {
+        // leave the current chat room if there is one
+        if (currentRoomId) {
+            socket.emit("leave", currentRoomId);
+        }
+        
+        let chat = $(this).data('chat');
+        // store the chatroom id in the cookie
+        // user can now send messages to this chatroom
+        Cookies.set('roomId', chat.chatroom_id);
+
+        // display the chat title
+        // check if the chat is a group chat or not
+        let isGroupChatURL = "{{ url_for('is_group_chat') }}";
+        axios.post(isGroupChatURL, { chatroom_id: chat.chatroom_id })
+            .then(res => {
+                if (res.status == 200) {
+                    let isGroupChat = res.data.is_group_chat;
+
+                    // TODO: if it is a group chat, display the chatroom name as the chat title
+                    // display group related info in the right side card
+                    // TODO: display group chat members and add friends to group chat
+                    if (isGroupChat) {
+                        $('#chat-title').html(`${chat.chatroom_name}`);
+                        refreshGroupChatMembers();
+                        $('#group-chat-members-container').show();
+                        refreshFriendsNotInGroupChat();
+                        $('#add-friend-to-group-chat-container').show();
+                        $(".left-side-card-title:contains('Group Chat Members')").show();
+                        $(".left-side-card-title:contains('Add Friends to Group')").show();
+
+                        $('#friends-container').hide();
+                        $(".left-side-card-title:contains('Create Group Chat')").hide();
+                    } else {
+                        // if it is a private chat, display the receiver's name and online status
+                        let getReceiverNameURL = "{{ url_for('get_receiver_from_chat') }}";
+                        axios.post(getReceiverNameURL, { chatroom_id: chat.chatroom_id, username: Cookies.get('username') })
+                            .then(res => {
+                                if (res.status == 200) {
+                                    let receiverName = res.data.username;
+                                    let onlineStatus = res.data.is_online;
+                                    let statusIndicator = onlineStatus ? '<span class="user-online-indicator"></span>' : '<span class="user-offline-indicator"></span>';
+                                    $('#chat-title').html(`${statusIndicator} ${receiverName}`);
+
+                                    // loads the create group chat to the right side card
+                                    Cookies.set('receiverName', receiverName);
+                                    refreshFriends(receiverName);
+                                    $('#friends-container').show();
+                                    $(".left-side-card-title:contains('Create Group Chat')").show();
+
+                                    // auto refresh the friends every 2 seconds
+                                    setInterval(() => refreshFriends(receiverName), 2000);
+                                } else if (res.status == 404) {
+                                    // can't find the receiver 
+                                    alert(res.data.msg);
+                                }
+                            })
+                    }
+                } else if (res.status == 404) {
+                    // can't find the chat room or other query error
+                    alert(res.data.msg);
+                }
+            })
+    
+        // prepare the main content container to display the messages
+        // fetch messages, and join the room, done in fetch_message function
+        let mainContent = $(".main-content-container");
+        mainContent.empty();
+        socket.emit("fetch_message", chat.chatroom_id);
+
+        $('#send-button').show();
+        $('#message-input').show();
+    });
+    // auto refresh the active chats every 2 seconds
+    setInterval(refreshActiveChats, 2000);
+
+    // get a list of friends except the friend in the current chat 
+    async function refreshFriends(friend_username) {
+        let friendsURL = "{{ url_for('get_friends_except_current_friend') }}";
+        let res = await axios.post(friendsURL, { username: Cookies.get('username'), friend_username });
+
+        let container = $("#friends-container");
+        container.empty();
+
+        if (res.data.no_friends) {
+            let row = $(`<div>No friends can be added yet</div>`);
+            container.append(row);
+        } else {
+            for (let friend of res.data.friends) {
+                let friendElement = $(`<div class="friend">${friend} <button class="add-friend-btn" data-friend-id="${friend}">Add</button></div>`);
+                console.log(friend)
+                container.append(friendElement);
+            }
+        }
+
+        $(".add-friend-btn").click(function() {
+            let friendToAddId = $(this).data("friend-id");
+            let username = Cookies.get('username');
+        
+            socket.emit("create_group_chat", friendToAddId, username, friend_username); // param: friend to add, current user, friend in the current chat
+            alert("Group chat created contains you, " + friendToAddId + ", and " + friend_username);
+        });
+    }    
+
+    async function refreshFriendsNotInGroupChat() {
+        let friendsURL = "{{ url_for('get_friends_not_in_group_chat') }}";
+        let res = await axios.post(friendsURL, { username: Cookies.get('username'), chatroom_id: Cookies.get('roomId')});
+
+        let container = $("#add-friend-to-group-chat-container");
+        container.empty();
+
+        if (res.data.no_friends_not_in_group_chat) {
+            let row = $(`<div>No friends can add to group</div>`);
+            container.append(row);
+        } else {
+            for (let friendName of res.data.friends) {
+                let friendElement = $(`<div class="friend">${friendName} <button class="add-friend-to-group-btn" data-friend-id="${friendName}">Add</button></div>`);
+                container.append(friendElement);
+            }
+        }
+
+        $(".add-friend-to-group-btn").click(function() {
+            let friendId = $(this).data("friend-id");
+            let roomId = Cookies.get('roomId');
+        
+            socket.emit("add_friend_to_group_chat", friendId, roomId);
+            alert(friendId + " is added to the group chat.");
+        });
+    }
+    setInterval(refreshFriendsNotInGroupChat, 2000);
+
+    // get a list of group chat members except the current user
+    async function refreshGroupChatMembers() {
+        let groupChatMembersURL = "{{ url_for('get_group_chat_members') }}";
+        let res = await axios.post(groupChatMembersURL, { chatroom_id: Cookies.get('roomId'), username: Cookies.get('username')});
+
+        let container = $("#group-chat-members-container");
+        container.empty();
+
+        if (res.data.no_members) {
+            let row = $(`<div>Failed to find group members</div>`);
+            container.append(row);
+        } else {
+            for (let member of res.data.members) {
+                let memberElement = $(`<div class="group-member">${member}</div>`);
+                container.append(memberElement);
+            }
+        }
+    }
+    setInterval(refreshGroupChatMembers, 2000);
+
+</script>
+{% endblock %}

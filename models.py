@@ -31,7 +31,33 @@ class User(Base):
     # in other words we've mapped the username Python object property to an SQL column of type String 
     username: Mapped[str] = mapped_column(String, primary_key=True)
     password: Mapped[str] = mapped_column(String)
+    is_online: Mapped[bool] = mapped_column(sqlalchemy.Boolean, default=False)
+    permission: Mapped[int] = mapped_column(sqlalchemy.Integer) #~
+    """0 = student, 1 = academics, 2 = staff, 3 = admin"""
     
+    def to_dict(self):
+        return {
+            "username": self.username,
+            "password": self.password,
+            "is_online": self.is_online,
+            "permission": self.permission
+        }
+
+class Article(Base):
+    __tablename__ = 'articles'
+    id : Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
+    title : Mapped[str] = mapped_column(String)
+    content : Mapped[str] = mapped_column(String)
+    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)
+    comments: Mapped[str] = mapped_column(sqlalchemy.Integer, ForeignKey('comments.id'), primary_key=True)
+
+class Comment(Base):
+    __tablename__ = 'comments'
+    id = Column(sqlalchemy.Integer, primary_key=True)
+    content : Mapped[str] = mapped_column(String)
+    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)
+    article_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('articles.id'), primary_key=True)
+
 # relative entity to store the friendship between user and user
 class Friendship(Base):
     __tablename__ = "friendship"
@@ -47,15 +73,59 @@ class Friendship(Base):
             "friend_id": self.friend_id,
             "status": self.status
         }
-
-# stateful counter used to generate the room id
-class Counter():
-    def __init__(self):
-        self.counter = 0
+        
+class Chatroom(Base):
+    __tablename__ = "chatroom"
     
-    def get(self):
-        self.counter += 1
-        return self.counter
+    chatroom_id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
+    chatroom_name: Mapped[str] = mapped_column(String)
+    
+    def to_dict(self):
+        return {
+            "chatroom_id": self.chatroom_id,
+            "chatroom_name": self.chatroom_name
+        }
+    
+class UserGroup(Base):
+    __tablename__ = "user_group"
+
+    group_id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
+    chatroom_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('chatroom.chatroom_id'))    
+    user_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'))
+    
+class Message(Base):
+    __tablename__ = "message"
+    
+    message_id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
+    chatroom_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('chatroom.chatroom_id'))
+    sender: Mapped[str] = mapped_column(String, ForeignKey('user.username'))
+    message: Mapped[str] = mapped_column(String)
+    
+    def to_dict(self):
+        return {
+            "message_id": self.message_id,
+            "chatroom_id": self.chatroom_id,
+            "sender": self.sender,
+            "message": self.message
+        }
+        
+class Counter(Base):
+    __tablename__ = "counter"
+    
+    id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
+    room_counter: Mapped[int] = mapped_column(sqlalchemy.Integer, default=0)
+    user_group_counter: Mapped[int] = mapped_column(sqlalchemy.Integer, default=0)
+    message_counter: Mapped[int] = mapped_column(sqlalchemy.Integer, default=0)
+    
+    
+# stateful counter used to generate the room id
+# class Counter():
+#     def __init__(self):
+#         self.counter = 0
+    
+#     def get(self):
+#         self.counter += 1
+#         return self.counter
 
 # Room class, used to keep track of which username is in which room
 class Room():
@@ -85,4 +155,37 @@ class Room():
         if user not in self.dict.keys():
             return None
         return self.dict[user]
+    
+class ThemeColour():
+    def __init__(self):
+        self.primary_colours: dict = {
+            "black": "#000000", # black
+            "blue": "#007aff", # blue
+            "guava": "#ff2d55" # red
+        }
+        self.secondary_colours: dict = {
+            "black": "#d3d3d3", # grey
+            "blue": "#aad3ff", # light blue
+            "guava": "#ffbeba", # light red
+        }
+        self.tertiary_colours: dict = {
+            "black": "#f2f2f2", # light grey
+            "blue": "#f2f2f2", 
+            "guava": "#f2f2f2"
+        }
+        self.font_colours: dict = {
+            "black": "#ffffff", # white
+            "blue": "#ffffff",
+            "guava": "#ffffff"
+        }
+    
+    def get_primary_colour(self, colour):
+        return self.primary_colours[colour]
+    
+    def get_secondary_colour(self, colour):
+        return self.secondary_colours[colour]
+    
+    def get_font_colour(self, colour):
+        return self.font_colours[colour]
+    
     
