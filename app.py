@@ -33,6 +33,104 @@ theme_colour = "black"
 def index():
     return render_template("index.jinja")
 
+# Knowledge repo page
+@app.route("/knowledge_repository")
+def knowledge_repository():
+    theme_colour = request.args.get("themeColour")
+    if theme_colour is None:
+        theme_colour = "black"
+        
+    colours = ThemeColour();
+    username = get_current_user()
+    articles = db.get_all_articles()
+    return render_template('knowledge_repository.jinja', username=username, theme_colour=theme_colour, 
+                           primary_colour=colours.get_primary_colour(theme_colour), 
+                           secondary_colour=colours.get_secondary_colour(theme_colour),
+                           font_colour=colours.get_font_colour(theme_colour))
+
+@app.route("/get_current_user", methods=["POST"])
+def get_current_user():
+    username = request.json.get("username")
+    if username:
+        return username
+    else:
+        raise(KeyError)
+
+def create_article():
+    user = get_current_user()
+    if not user:
+        return jsonify({"error": "You must be logged in to create an article"}), 401
+    # **Handle JSON request**
+    data = request.get_json()
+    title = data.get("title")
+    content = data.get("content")
+    db.insert_article(title, content, user.username)
+    return jsonify({"success": True})
+
+
+@app.route("/edit_article", methods=["POST"])
+def edit_article():
+    user = get_current_user()
+    if not user:
+        return jsonify({"error": "You must be logged in to edit an article"}), 401
+    # **Handle JSON request**
+    data = request.get_json()
+    article_id = data.get("article_id")
+    title = data.get("title")
+    content = data.get("content")
+    article = db.get_article(article_id)
+    if not article:
+        return jsonify({"error": "Article not found"}), 404
+    if article.author != user.username and not user.is_staff:
+        return jsonify({"error": "You do not have permission to edit this article"}), 403
+    db.update_article(article_id, title, content)
+    return jsonify({"success": True})
+
+@app.route("/delete_article", methods=["POST"])
+def delete_article():
+    user = get_current_user()
+    if not user:
+        return jsonify({"error": "You must be logged in to delete an article"}), 401
+    # **Handle JSON request**
+    data = request.get_json()
+    article_id = data.get("article_id")
+    article = db.get_article(article_id)
+    if not article:
+        return jsonify({"error": "Article not found"}), 404
+    if not user.is_staff:
+        return jsonify({"error": "You do not have permission to delete this article"}), 403
+    db.delete_article(article_id)
+    return jsonify({"success": True})
+
+@app.route("/add_comment", methods=["POST"])
+def add_comment():
+    user = get_current_user()
+    if not user:
+        return jsonify({"error": "You must be logged in to add a comment"}), 401
+    # **Handle JSON request**
+    data = request.get_json()
+    article_id = data.get("article_id")
+    content = data.get("content")
+    db.add_comment(article_id, content, user.username)
+    return jsonify({"success": True})
+
+@app.route("/delete_comment", methods=["POST"])
+def delete_comment():
+    user = get_current_user()
+    if not user:
+        return jsonify({"error": "You must be logged in to delete a comment"}), 401
+    # **Handle JSON request**
+    data = request.get_json()
+    comment_id = data.get("comment_id")
+    comment = db.get_comment(comment_id)
+    if not comment:
+        return jsonify({"error": "Comment not found"}), 404
+    if not user.is_staff:
+        return jsonify({"error": "You do not have permission to delete this comment"}), 403
+    db.delete_comment(comment_id)
+    return jsonify({"success": True})
+
+
 # login page
 @app.route("/login", methods=["GET"])
 def login():    
@@ -41,6 +139,7 @@ def login():
         theme_colour = "black"
         
     colours = ThemeColour();
+    print(theme_colour)
     return render_template("new_login.jinja", theme_colour=theme_colour, 
                            primary_colour=colours.get_primary_colour(theme_colour), 
                            secondary_colour=colours.get_secondary_colour(theme_colour),
@@ -309,4 +408,4 @@ def test_page():
                            font_colour=colours.get_font_colour(theme_colour))
 
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, debug=True)

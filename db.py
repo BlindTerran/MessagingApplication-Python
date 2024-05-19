@@ -26,9 +26,9 @@ Base.metadata.create_all(engine)
 # Base.metadata.create_all(engine, [Counter.__table__])
 
 # inserts a user to the database
-def insert_user(username: str, password: str):
+def insert_user(username: str, password: str, permission=0):
     with Session(engine) as session:
-        user = User(username=username, password=password)
+        user = User(username=username, password=password, permission=permission)
         session.add(user)
         session.commit()
 
@@ -41,7 +41,7 @@ def get_user_status(username: str):
     with Session(engine) as session:
         user = session.get(User, username)
         return user.is_online
-
+#
 def set_user_status(username: str, status: bool):
     with Session(engine) as session:
         user = session.get(User, username)
@@ -299,4 +299,70 @@ def fetch_messages(chatroom_id: int):
     with Session(engine) as session:
         messages = session.query(Message).filter(Message.chatroom_id == chatroom_id).all()
         return messages
-    
+
+def insert_article(title: str, content: str, author: str):
+    """Just make sure author is valid
+
+    Args:
+        title (str): _description_
+        content (str): _description_
+        author (str): _description_
+    """
+    with Session(engine) as session:
+        article = Article(title=title, content=content, author=author)
+        session.add(article)
+        session.commit()
+
+def get_article(article_id: int):
+    with Session(engine) as session:
+        return session.get(Article, article_id)
+
+def get_all_articles():
+    with Session(engine) as session:
+        return session.query(Article).all()
+
+def update_article(article_id: int, title: str, content: str):
+    """ if the article does not exist,
+
+    Args:
+        article_id (int): _description_
+        title (str): _description_
+        content (str): _description_
+    """
+    with Session(engine) as session:
+        article = session.get(Article, article_id)
+        if article:
+            article.title = title
+            article.content = content
+            session.commit()
+        else:
+            pass
+
+def delete_article(article_id: int):
+    with Session(engine) as session:
+        article = session.get(Article, article_id)
+        if article:
+            session.delete(article)
+            session.commit()
+        else:
+            pass
+
+def add_comment(article_id: int, content: str, author: str):
+    with Session(engine) as session:
+        comment = Comment(content=content, author=author, article_id=article_id)
+        session.add(comment)
+        session.commit()
+
+def get_comment(comment_id: int):
+    with Session(engine) as session:
+        return session.get(Comment, comment_id)
+
+def delete_comment(comment_id: int):
+    with Session(engine) as session:
+        comment = session.get(Comment, comment_id)
+        if comment:
+            session.delete(comment)
+            session.commit()
+        else:
+            pass
+
