@@ -258,7 +258,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def get_current_user():\n    username = request.json.get(\"username\")\n    if username:\n        return username\n    else:\n        raise(KeyError)\ndef create_article():\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to create an article\"}), 401",
+        "peekOfCode": "def get_current_user():\n    username = request.args.get(\"username\")\n    if username:\n        return username\n    else:\n        raise(KeyError)\n@app.route(\"/create_article\", methods=[\"POST\"])\ndef create_article():\n    print(\"create article\")\n    user = get_current_user()",
         "detail": "app",
         "documentation": {}
     },
@@ -267,7 +267,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def create_article():\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to create an article\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    title = data.get(\"title\")\n    content = data.get(\"content\")\n    db.insert_article(title, content, user.username)\n    return jsonify({\"success\": True})",
+        "peekOfCode": "def create_article():\n    print(\"create article\")\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to create an article\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    title = data.get(\"title\")\n    content = data.get(\"content\")\n    db.insert_article(title, content, user)",
         "detail": "app",
         "documentation": {}
     },
@@ -339,7 +339,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    password = request.json.get(\"password\")\n    if db.get_user(username) is None:\n        db.insert_user(username, password)\n        return url_for('home', username=username)\n    return \"Error: User already exists.\"\n# handler when a \"404\" error happens",
+        "peekOfCode": "def signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    password = request.json.get(\"password\")\n    theme_colour = request.json.get(\"themeColour\")\n    if db.get_user(username) is None:\n        db.insert_user(username, password)\n        return url_for('home', username=username, theme_colour=theme_colour)\n    return \"Error: User already exists.\"",
         "detail": "app",
         "documentation": {}
     },
@@ -348,7 +348,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def page_not_found(_):\n    return render_template('404.jinja'), 404\n# home page, the chat page\n@app.route(\"/home\")\ndef home():\n    if request.args.get(\"username\") is None:\n        abort(404)\n    username = request.args.get(\"username\")\n    primary_colour = request.args.get(\"primary_colour\")\n    secondary_colour = request.args.get(\"secondary_colour\")",
+        "peekOfCode": "def page_not_found(_):\n    return render_template('404.jinja'), 404\n# home page, the chat page\n@app.route(\"/home\")\ndef home():\n    if request.args.get(\"username\") is None:\n        abort(404)\n    username = request.args.get(\"username\")\n    theme_colour = request.args.get(\"theme_colour\")\n    colours = ThemeColour()",
         "detail": "app",
         "documentation": {}
     },
@@ -357,7 +357,25 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def home():\n    if request.args.get(\"username\") is None:\n        abort(404)\n    username = request.args.get(\"username\")\n    primary_colour = request.args.get(\"primary_colour\")\n    secondary_colour = request.args.get(\"secondary_colour\")\n    font_colour = request.args.get(\"font_colour\")\n    return render_template(\"chat.jinja\", username=username,\n                           primary_colour=primary_colour, secondary_colour=secondary_colour,\n                           font_colour=font_colour)",
+        "peekOfCode": "def home():\n    if request.args.get(\"username\") is None:\n        abort(404)\n    username = request.args.get(\"username\")\n    theme_colour = request.args.get(\"theme_colour\")\n    colours = ThemeColour()\n    primary_colour = request.args.get(\"primary_colour\")\n    secondary_colour = request.args.get(\"secondary_colour\")\n    font_colour = request.args.get(\"font_colour\")\n    return render_template(\"chat.jinja\", username=username, theme_colour=theme_colour,",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "chat",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def chat():\n    username = request.args.get(\"username\")\n    theme_colour = request.args.get(\"theme_colour\")\n    if username is None:\n        abort(404)\n    colours = ThemeColour()\n    return render_template(\"chat.jinja\", username=username, theme_colour=theme_colour, \n                           primary_colour=colours.get_primary_colour(theme_colour),\n                            secondary_colour=colours.get_secondary_colour(theme_colour),\n                            font_colour=colours.get_font_colour(theme_colour))",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "friends",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def friends():\n    username = request.args.get(\"username\")\n    theme_colour = request.args.get(\"theme_colour\")\n    if username is None:\n        abort(404)\n    colours = ThemeColour()\n    return render_template(\"friends.jinja\", username=username, theme_colour=theme_colour, \n                           primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),\n                           font_colour=colours.get_font_colour(theme_colour))",
         "detail": "app",
         "documentation": {}
     },
@@ -474,7 +492,16 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def get_group_chat_members():\n    chatroom_id = request.json.get(\"chatroom_id\")\n    username = request.json.get(\"username\")\n    # a list of member names\n    members = db.get_group_chat_members(chatroom_id, username)\n    if not members:\n        return jsonify({\"no_members\": True})\n    return jsonify({\"members\": members}), 200\n# ==================== TEST PAGE ====================\n# return the page jinja file you want to test",
+        "peekOfCode": "def get_group_chat_members():\n    chatroom_id = request.json.get(\"chatroom_id\")\n    username = request.json.get(\"username\")\n    # a list of member names\n    members = db.get_group_chat_members(chatroom_id, username)\n    if not members:\n        return jsonify({\"no_members\": True})\n    return jsonify({\"members\": members}), 200\n@app.route(\"/get_group_chats\", methods=[\"POST\"])\ndef get_group_chats():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_group_chats",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_group_chats():\n    username = request.json.get(\"username\")\n    group_chats = db.get_group_chats(username)\n    if not group_chats:\n        return jsonify({\"no_group_chats\": True})\n    group_chats_json = []\n    for chat_room in group_chats:\n        group_chats_json.append(chat_room.to_dict())\n    return jsonify(group_chats_json), 200\n# ==================== TEST PAGE ====================",
         "detail": "app",
         "documentation": {}
     },
@@ -483,7 +510,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def test_page():\n    colours = ThemeColour()\n    username = \"tim\" # log in as which user, for testing purposes\n    # return the target page you want to test\n    return render_template('chat.jinja', username=username, primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),\n                           font_colour=colours.get_font_colour(theme_colour))\nif __name__ == '__main__':\n    socketio.run(app, debug=True)",
+        "peekOfCode": "def test_page():\n    colours = ThemeColour()\n    username = \"tim\" # log in as which user, for testing purposes\n    # return the target page you want to test\n    return render_template('friends.jinja', username=username, primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),\n                           font_colour=colours.get_font_colour(theme_colour))\nif __name__ == '__main__':\n    socketio.run(app, debug=True)",
         "detail": "app",
         "documentation": {}
     },
@@ -744,7 +771,7 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def add_user_to_group_chat(chatroom_id: int, user: str):\n    with Session(engine) as session:\n        user_group = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom_id, user_id=user)\n        session.add(user_group)\n        session.commit()\ndef get_active_chats(username: str):\n    with Session(engine) as session:\n        chatrooms = session.query(Chatroom).join(UserGroup).filter(UserGroup.user_id == username).all()\n        return chatrooms\ndef store_message(chatroom_id: int, sender: str, message: str):",
+        "peekOfCode": "def add_user_to_group_chat(chatroom_id: int, user: str):\n    with Session(engine) as session:\n        user_group = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom_id, user_id=user)\n        session.add(user_group)\n        session.commit()\ndef get_active_chats(username: str):\n    with Session(engine) as session:\n        chatrooms = session.query(Chatroom).join(UserGroup).filter(UserGroup.user_id == username).all()\n        return chatrooms\ndef get_group_chats(username: str):",
         "detail": "db",
         "documentation": {}
     },
@@ -753,7 +780,16 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def get_active_chats(username: str):\n    with Session(engine) as session:\n        chatrooms = session.query(Chatroom).join(UserGroup).filter(UserGroup.user_id == username).all()\n        return chatrooms\ndef store_message(chatroom_id: int, sender: str, message: str):\n    with Session(engine) as session:\n        message = Message(\n            message_id=get_message_counter(),\n            chatroom_id=chatroom_id,\n            sender=sender,",
+        "peekOfCode": "def get_active_chats(username: str):\n    with Session(engine) as session:\n        chatrooms = session.query(Chatroom).join(UserGroup).filter(UserGroup.user_id == username).all()\n        return chatrooms\ndef get_group_chats(username: str):\n    with Session(engine) as session:\n        user_group = session.query(UserGroup).filter(UserGroup.user_id == username).all()\n        chatrooms = []\n        for u in user_group:\n            chatroom = session.query(Chatroom).filter(Chatroom.chatroom_id == u.chatroom_id).first()",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_group_chats",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_group_chats(username: str):\n    with Session(engine) as session:\n        user_group = session.query(UserGroup).filter(UserGroup.user_id == username).all()\n        chatrooms = []\n        for u in user_group:\n            chatroom = session.query(Chatroom).filter(Chatroom.chatroom_id == u.chatroom_id).first()\n            if chatroom is not None:\n                chatrooms.append(chatroom)\n        return chatrooms\ndef store_message(chatroom_id: int, sender: str, message: str):",
         "detail": "db",
         "documentation": {}
     },
@@ -771,7 +807,7 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def fetch_messages(chatroom_id: int):\n    with Session(engine) as session:\n        messages = session.query(Message).filter(Message.chatroom_id == chatroom_id).all()\n        return messages\n#~\ndef insert_article(title: str, content: str, author: str):\n    \"\"\"Just make sure author is valid\n    Args:\n        title (str): _description_\n        content (str): _description_",
+        "peekOfCode": "def fetch_messages(chatroom_id: int):\n    with Session(engine) as session:\n        messages = session.query(Message).filter(Message.chatroom_id == chatroom_id).all()\n        return messages\ndef insert_article(title: str, content: str, author: str):\n    \"\"\"Just make sure author is valid\n    Args:\n        title (str): _description_\n        content (str): _description_\n        author (str): _description_",
         "detail": "db",
         "documentation": {}
     },
@@ -852,7 +888,7 @@
         "kind": 5,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "engine = create_engine(\"sqlite:///database/main.db\", echo=False)\n# initializes the database\nBase.metadata.create_all(engine)\n# Base.metadata.drop_all(engine, [Counter.__table__])\n# Base.metadata.create_all(engine, [Counter.__table__])\n# inserts a user to the database\ndef insert_user(username: str, password: str, permission=0):\n    with Session(engine) as session:\n        user = User(username=username, password=password, permission=permission)\n        session.add(user)",
+        "peekOfCode": "engine = create_engine(\"sqlite:///database/main.db\", echo=False)\n# initializes the database\n# Base.metadata.drop_all(engine)\nBase.metadata.create_all(engine)\n# Base.metadata.drop_all(engine, [Counter.__table__])\n# Base.metadata.create_all(engine, [Counter.__table__])\n# inserts a user to the database\ndef insert_user(username: str, password: str, permission=0):\n    with Session(engine) as session:\n        user = User(username=username, password=password, permission=permission)",
         "detail": "db",
         "documentation": {}
     },

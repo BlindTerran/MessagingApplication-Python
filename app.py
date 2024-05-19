@@ -50,13 +50,15 @@ def knowledge_repository():
 
 @app.route("/get_current_user", methods=["POST"])
 def get_current_user():
-    username = request.json.get("username")
+    username = request.args.get("username")
     if username:
         return username
     else:
         raise(KeyError)
 
+@app.route("/create_article", methods=["POST"])
 def create_article():
+    print("create article")
     user = get_current_user()
     if not user:
         return jsonify({"error": "You must be logged in to create an article"}), 401
@@ -64,7 +66,7 @@ def create_article():
     data = request.get_json()
     title = data.get("title")
     content = data.get("content")
-    db.insert_article(title, content, user.username)
+    db.insert_article(title, content, user)
     return jsonify({"success": True})
 
 
