@@ -1,0 +1,26 @@
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 465-111-989
+127.0.0.1 - - [19/May/2024 14:40:57] "GET /socket.io/?EIO=4&transport=polling&t=O-F9oDa HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:40:57] "POST /get_active_chats HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:40:57] "POST /socket.io/?EIO=4&transport=polling&t=O-F9oDj&sid=PxOLGlmaUwK1XHZjAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:40:57] "GET /socket.io/?EIO=4&transport=polling&t=O-F9oDj.0&sid=PxOLGlmaUwK1XHZjAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:40:58] "GET /socket.io/?EIO=4&transport=polling&t=O-F9oE9&sid=PxOLGlmaUwK1XHZjAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:40:58] "GET /socket.io/?EIO=4&transport=websocket&sid=PxOLGlmaUwK1XHZjAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:40:59] "GET /socket.io/?EIO=4&transport=polling&t=O-F9oVQ HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:40:59] "POST /get_active_chats HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:40:59] "POST /socket.io/?EIO=4&transport=polling&t=O-F9oVZ&sid=v7KdSsXa7JxnhlrYAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:40:59] "GET /socket.io/?EIO=4&transport=polling&t=O-F9oVa&sid=v7KdSsXa7JxnhlrYAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:40:59] "GET /socket.io/?EIO=4&transport=polling&t=O-F9oVu&sid=v7KdSsXa7JxnhlrYAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:40:59] "[31m[1mGET /knowledge_repository HTTP/1.1[0m" 415 -
+127.0.0.1 - - [19/May/2024 14:40:59] "GET /socket.io/?EIO=4&transport=websocket&sid=v7KdSsXa7JxnhlrYAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:41:01] "GET /socket.io/?EIO=4&transport=polling&t=O-F9p5l HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:41:01] "POST /get_active_chats HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:41:01] "POST /socket.io/?EIO=4&transport=polling&t=O-F9p5x&sid=cyEZABfJ08YmHmiQAAAE HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:41:01] "GET /socket.io/?EIO=4&transport=polling&t=O-F9p5x.0&sid=cyEZABfJ08YmHmiQAAAE HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:41:01] "GET /socket.io/?EIO=4&transport=polling&t=O-F9p6I&sid=cyEZABfJ08YmHmiQAAAE HTTP/1.1" 200 -
+127.0.0.1 - - [19/May/2024 14:41:02] "[31m[1mGET /knowledge_repository HTTP/1.1[0m" 415 -
+127.0.0.1 - - [19/May/2024 14:41:02] "GET /socket.io/?EIO=4&transport=websocket&sid=cyEZABfJ08YmHmiQAAAE HTTP/1.1" 200 -

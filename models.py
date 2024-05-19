@@ -32,14 +32,32 @@ class User(Base):
     username: Mapped[str] = mapped_column(String, primary_key=True)
     password: Mapped[str] = mapped_column(String)
     is_online: Mapped[bool] = mapped_column(sqlalchemy.Boolean, default=False)
+    permission: Mapped[int] = mapped_column(sqlalchemy.Integer) #~
+    """0 = student, 1 = academics, 2 = staff, 3 = admin"""
     
     def to_dict(self):
         return {
             "username": self.username,
             "password": self.password,
-            "is_online": self.is_online
+            "is_online": self.is_online,
+            "permission": self.permission
         }
-    
+
+class Article(Base):
+    __tablename__ = 'articles'
+    id : Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
+    title : Mapped[str] = mapped_column(String)
+    content : Mapped[str] = mapped_column(String)
+    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)
+    comments: Mapped[str] = mapped_column(sqlalchemy.Integer, ForeignKey('comments.id'), primary_key=True)
+
+class Comment(Base):
+    __tablename__ = 'comments'
+    id = Column(sqlalchemy.Integer, primary_key=True)
+    content : Mapped[str] = mapped_column(String)
+    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)
+    article_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('articles.id'), primary_key=True)
+
 # relative entity to store the friendship between user and user
 class Friendship(Base):
     __tablename__ = "friendship"
@@ -86,7 +104,7 @@ class Message(Base):
     def to_dict(self):
         return {
             "message_id": self.message_id,
-            "conversation_id": self.conversation_id,
+            "chatroom_id": self.chatroom_id,
             "sender": self.sender,
             "message": self.message
         }

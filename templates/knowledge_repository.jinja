@@ -1,0 +1,93 @@
+{% extends 'base.jinja' %}
+
+{% block content %}
+    <h1>Knowledge Repository</h1>
+    <div>
+        <h2>Create Article</h2>
+        <input id="article_title" placeholder="Title"/>
+        <textarea id="article_content" placeholder="Content"></textarea>
+        <button onclick="createArticle()">Create</button>
+    </div>
+    <div>
+        <h2>Articles</h2>
+        {% for article in articles %}
+            <div>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.content }}</p>
+                <p>Author: {{ article.author }}</p>
+                <div>
+                    {% if user.is_staff or article.author == user.username %}
+                        <button onclick="editArticle({{ article.id }})">Edit</button>
+                        <button onclick="deleteArticle({{ article.id }})">Delete</button>
+                    {% endif %}
+                </div>
+                <div>
+                    <h4>Comments</h4>
+                    {% for comment in article.comments %}
+                        <div>
+                            <p>{{ comment.content }}</p>
+                            <p>Author: {{ comment.author }}</p>
+                            {% if user.is_staff %}
+                                <button onclick="deleteComment({{ comment.id }})">Delete</button>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <textarea id="comment_content_{{ article.id }}" placeholder="Add a comment"></textarea>
+                    <button onclick="addComment({{ article.id }})">Add Comment</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        async function createArticle() {
+            let title = document.getElementById('article_title').value;
+            let content = document.getElementById('article_content').value;
+            let response = await axios.post('/create_article', { title: title, content: content });
+            if (response.data.success) {
+                window.location.reload();
+            } else {
+                alert(response.data.error);
+            }
+        }
+
+        async function editArticle(articleId) {
+            let title = prompt('Enter new title:');
+            let content = prompt('Enter new content:');
+            let response = await axios.post('/edit_article', { article_id: articleId, title: title, content: content });
+            if (response.data.success) {
+                window.location.reload();
+            } else {
+                alert(response.data.error);
+            }
+        }
+
+        async function deleteArticle(articleId) {
+            let response = await axios.post('/delete_article', { article_id: articleId });
+            if (response.data.success) {
+                window.location.reload();
+            } else {
+                alert(response.data.error);
+            }
+        }
+
+        async function addComment(articleId) {
+            let content = document.getElementById('comment_content_' + articleId).value;
+            let response = await axios.post('/add_comment', { article_id: articleId, content: content });
+            if (response.data.success) {
+                window.location.reload();
+            } else {
+                alert(response.data.error);
+            }
+        }
+
+        async function deleteComment(commentId) {
+            let response = await axios.post('/delete_comment', { comment_id: commentId });
+            if (response.data.success) {
+                window.location.reload();
+            } else {
+                alert(response.data.error);
+            }
+        }
+    </script>
+{% endblock %}

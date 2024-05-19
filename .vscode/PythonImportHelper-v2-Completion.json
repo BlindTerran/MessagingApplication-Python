@@ -1,0 +1,1048 @@
+[
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "abort",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "SocketIO",
+        "importPath": "flask_socketio",
+        "description": "flask_socketio",
+        "isExtraImport": true,
+        "detail": "flask_socketio",
+        "documentation": {}
+    },
+    {
+        "label": "join_room",
+        "importPath": "flask_socketio",
+        "description": "flask_socketio",
+        "isExtraImport": true,
+        "detail": "flask_socketio",
+        "documentation": {}
+    },
+    {
+        "label": "emit",
+        "importPath": "flask_socketio",
+        "description": "flask_socketio",
+        "isExtraImport": true,
+        "detail": "flask_socketio",
+        "documentation": {}
+    },
+    {
+        "label": "leave_room",
+        "importPath": "flask_socketio",
+        "description": "flask_socketio",
+        "isExtraImport": true,
+        "detail": "flask_socketio",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "db",
+        "description": "db",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Room",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "secrets",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "secrets",
+        "description": "secrets",
+        "detail": "secrets",
+        "documentation": {}
+    },
+    {
+        "label": "socket_routes",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "sqlalchemy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Table",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "DeclarativeBase",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Mapped",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "mapped_column",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "index",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def index():\n    return render_template(\"index.jinja\")\n# Knowledge repo page\n@app.route(\"/knowledge_repository\")\ndef knowledge_repository():\n    theme_colour = request.args.get(\"themeColour\")\n    if theme_colour is None:\n        theme_colour = \"black\"\n    colours = ThemeColour();\n    username = get_current_user()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "knowledge_repository",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def knowledge_repository():\n    theme_colour = request.args.get(\"themeColour\")\n    if theme_colour is None:\n        theme_colour = \"black\"\n    colours = ThemeColour();\n    username = get_current_user()\n    articles = db.get_all_articles()\n    return render_template('knowledge_repository.jinja', username=username, theme_colour=theme_colour, \n                           primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_current_user",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_current_user():\n    username = request.json.get(\"username\")\n    if username:\n        return username\n    else:\n        raise(KeyError)\ndef create_article():\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to create an article\"}), 401",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "create_article",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def create_article():\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to create an article\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    title = data.get(\"title\")\n    content = data.get(\"content\")\n    db.insert_article(title, content, user.username)\n    return jsonify({\"success\": True})",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "edit_article",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def edit_article():\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to edit an article\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    article_id = data.get(\"article_id\")\n    title = data.get(\"title\")\n    content = data.get(\"content\")\n    article = db.get_article(article_id)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "delete_article",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def delete_article():\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to delete an article\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    article_id = data.get(\"article_id\")\n    article = db.get_article(article_id)\n    if not article:\n        return jsonify({\"error\": \"Article not found\"}), 404",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "add_comment",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def add_comment():\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to add a comment\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    article_id = data.get(\"article_id\")\n    content = data.get(\"content\")\n    db.add_comment(article_id, content, user.username)\n    return jsonify({\"success\": True})",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "delete_comment",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def delete_comment():\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to delete a comment\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    comment_id = data.get(\"comment_id\")\n    comment = db.get_comment(comment_id)\n    if not comment:\n        return jsonify({\"error\": \"Comment not found\"}), 404",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "login",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def login():    \n    theme_colour = request.args.get(\"themeColour\")\n    if theme_colour is None:\n        theme_colour = \"black\"\n    colours = ThemeColour();\n    return render_template(\"new_login.jinja\", theme_colour=theme_colour, \n                           primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),\n                           font_colour=colours.get_font_colour(theme_colour))\n# handles a post request when the user clicks the log in button",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "login_user",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def login_user():\n    if not request.is_json:\n        abort(404)\n    # retrieve the user name from the JSON data of the POST request\n    username = request.json.get(\"username\")\n    password = request.json.get(\"password\")\n    theme_colour = request.json.get(\"themeColour\")\n    user =  db.get_user(username)\n    if user is None:\n        return \"Error: User does not exist!\"",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "signup",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def signup():\n    theme_colour = request.args.get(\"themeColour\")\n    if theme_colour is None:\n        theme_colour = \"black\"\n    colours = ThemeColour();\n    return render_template(\"new_signup.jinja\", theme_colour=theme_colour, \n                           primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),\n                           font_colour=colours.get_font_colour(theme_colour))\n# TODO: add theme colour ",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "signup_user",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def signup_user():\n    if not request.is_json:\n        abort(404)\n    username = request.json.get(\"username\")\n    password = request.json.get(\"password\")\n    if db.get_user(username) is None:\n        db.insert_user(username, password)\n        return url_for('home', username=username)\n    return \"Error: User already exists.\"\n# handler when a \"404\" error happens",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "page_not_found",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def page_not_found(_):\n    return render_template('404.jinja'), 404\n# home page, the chat page\n@app.route(\"/home\")\ndef home():\n    if request.args.get(\"username\") is None:\n        abort(404)\n    username = request.args.get(\"username\")\n    primary_colour = request.args.get(\"primary_colour\")\n    secondary_colour = request.args.get(\"secondary_colour\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def home():\n    if request.args.get(\"username\") is None:\n        abort(404)\n    username = request.args.get(\"username\")\n    primary_colour = request.args.get(\"primary_colour\")\n    secondary_colour = request.args.get(\"secondary_colour\")\n    font_colour = request.args.get(\"font_colour\")\n    return render_template(\"chat.jinja\", username=username,\n                           primary_colour=primary_colour, secondary_colour=secondary_colour,\n                           font_colour=font_colour)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "send_friend_request",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def send_friend_request():\n    friend_username = request.json.get(\"friend_username\")\n    username = request.json.get(\"username\")\n    if friend_username is None:\n        return \"Error: The friend field cannot be empty.\"\n    if db.get_user(friend_username) is None:\n        return f\"Error: User [{friend_username}] does not exist.\"\n    if db.is_duplicate_friendship(username, friend_username):\n        return f\"Error: User [{friend_username}] is already your friend or is a pending friend.\"\n    db.send_friend_request(username, friend_username)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "accept_friend_request",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def accept_friend_request():\n    user_id = request.json.get(\"username\")\n    friend_id = request.json.get(\"friend_username\")\n    friendship = db.approve_friend(user_id, friend_id)\n    if friendship is None:\n        return jsonify({\"msg\": \"Friendship does not exist!\"}), 404\n    return jsonify({\"msg\": f\"Successfully accepted friend request from [{friend_id}].\"}), 200\n@app.route(\"/reject_friend_request\", methods=[\"POST\"])\ndef reject_friend_request():\n    user_id = request.json.get(\"username\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "reject_friend_request",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def reject_friend_request():\n    user_id = request.json.get(\"username\")\n    friend_id = request.json.get(\"friend_username\")\n    friendship = db.reject_friend(user_id, friend_id)\n    if friendship is None:\n        return jsonify({\"msg\": \"Friendship does not exist!\"}), 404\n    return jsonify({\"msg\": f\"Successfully rejected friend request from [{friend_id}].\"}), 200\n@app.route(\"/get_incoming_friend_requests\", methods=[\"POST\"])\ndef get_incoming_friend_requests():\n    username = request.json.get(\"username\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_incoming_friend_requests",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_incoming_friend_requests():\n    username = request.json.get(\"username\")\n    incoming_friendships = db.fetch_incoming_friend_requests(username)\n    # if the incoming_friendships list is either empty or None\n    if not incoming_friendships:\n        return jsonify({\"no_incoming_friend_requests\": True})\n    # convert the list of friendship objects to a list of dictionaries\n    incoming_friendships_json = [f.to_dict() for f in incoming_friendships]\n    # parse the list of dictionaries to a json object to the frontend\n    return jsonify(incoming_friendships_json), 200",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_outgoing_friend_requests",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_outgoing_friend_requests():\n    username = request.json.get(\"username\")\n    outgoing_friendships = db.fetch_outgoing_friend_requests(username)\n    if not outgoing_friendships:\n        return jsonify({\"no_outgoing_friend_requests\": True})\n    outgoing_friendships_json = [f.to_dict() for f in outgoing_friendships]\n    return jsonify(outgoing_friendships_json), 200\n@app.route(\"/get_friends\", methods=[\"POST\"])\ndef get_friends():\n    username = request.json.get(\"username\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_friends",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_friends():\n    username = request.json.get(\"username\")\n    friendships = db.get_friends(username)\n    if not friendships:\n        return jsonify({\"no_friends\": True})\n    firends_json = []\n    for f in friendships:\n        if f.friend_id == username:\n            friend_name = f.user_id\n            firends_json.append({\"friend_id\": friend_name})",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "remove_friend",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def remove_friend():\n    username = request.json.get(\"username\")\n    friend_username = request.json.get(\"friend_username\")\n    try:\n        db.remove_friend(username, friend_username)\n        return jsonify({\"msg\": f\"Successfully removed friend.\"}), 200\n    except ValueError as e:\n        return jsonify({\"msg\": str(e)}), 404\n@app.route(\"/get_active_chats\", methods=[\"POST\"])\ndef get_active_chats():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_active_chats",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_active_chats():\n    username = request.json['username']\n    active_chats = db.get_active_chats(username)\n    if not active_chats:\n        return jsonify({\"no_active_chats\": True})\n    active_chats_json = []\n    for chat_room in active_chats:\n        active_chats_json.append(chat_room.to_dict())\n    return jsonify(active_chats_json), 200\n@app.route(\"/get_friends_except_current_friend\", methods=[\"POST\"])",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_friends_except_current_friend",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_friends_except_current_friend():\n    username = request.json.get(\"username\")\n    friend_username = request.json.get(\"friend_username\")\n    friends = db.get_friends_except_current_friend(username, friend_username)\n    if not friends:\n        return jsonify({\"no_friends\": True})\n    return jsonify({\"friends\": friends}), 200\n@app.route(\"/is_group_chat\", methods=[\"POST\"])\ndef is_group_chat():\n    chatroom_id = request.json.get(\"chatroom_id\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "is_group_chat",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def is_group_chat():\n    chatroom_id = request.json.get(\"chatroom_id\")\n    is_group_chat = db.is_group_chat(chatroom_id)\n    if is_group_chat is None:\n        return jsonify({\"msg\": \"Failed to fetch chatroom info.\"}), 404\n    return jsonify({\"is_group_chat\": is_group_chat}), 200\n@app.route(\"/get_receiver_from_chat\", methods=[\"POST\"])\ndef get_receiver_from_chat():\n    chatroom_id = request.json.get(\"chatroom_id\")\n    username = request.json.get(\"username\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_receiver_from_chat",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_receiver_from_chat():\n    chatroom_id = request.json.get(\"chatroom_id\")\n    username = request.json.get(\"username\")\n    receiver_id = db.get_receiver_from_chat(chatroom_id, username)\n    if receiver_id is None:\n        return jsonify({\"msg\": \"Receiver not found.\"}), 404\n    user = db.get_user(receiver_id)\n    return jsonify(user.to_dict()), 200\n@app.route(\"/get_friends_not_in_group_chat\", methods=[\"POST\"])\ndef get_friends_not_in_group_chat():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_friends_not_in_group_chat",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_friends_not_in_group_chat():\n    username = request.json.get(\"username\")\n    chatroom_id = request.json.get(\"chatroom_id\")\n    # a list of friend names that are not in the target group chat\n    friends = db.get_friends_not_in_group_chat(username, chatroom_id)\n    if not friends:\n        return jsonify({\"no_friends_not_in_group_chat\": True})\n    return jsonify({\"friends\": friends}), 200\n# get members except the current user\n@app.route(\"/get_group_chat_members\", methods=[\"POST\"])",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_group_chat_members",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_group_chat_members():\n    chatroom_id = request.json.get(\"chatroom_id\")\n    username = request.json.get(\"username\")\n    # a list of member names\n    members = db.get_group_chat_members(chatroom_id, username)\n    if not members:\n        return jsonify({\"no_members\": True})\n    return jsonify({\"members\": members}), 200\n# ==================== TEST PAGE ====================\n# return the page jinja file you want to test",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "test_page",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def test_page():\n    colours = ThemeColour()\n    username = \"tim\" # log in as which user, for testing purposes\n    # return the target page you want to test\n    return render_template('chat.jinja', username=username, primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),\n                           font_colour=colours.get_font_colour(theme_colour))\nif __name__ == '__main__':\n    socketio.run(app, debug=True)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__)\n# secret key used to sign the session cookie\napp.config['SECRET_KEY'] = secrets.token_hex()\nsocketio = SocketIO(app)\n# don't remove this!!\nimport socket_routes\n# global variable for default theme colour\ntheme_colour = \"black\"\n# index page\n@app.route(\"/\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SECRET_KEY']",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.config['SECRET_KEY'] = secrets.token_hex()\nsocketio = SocketIO(app)\n# don't remove this!!\nimport socket_routes\n# global variable for default theme colour\ntheme_colour = \"black\"\n# index page\n@app.route(\"/\")\ndef index():\n    return render_template(\"index.jinja\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "socketio",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "socketio = SocketIO(app)\n# don't remove this!!\nimport socket_routes\n# global variable for default theme colour\ntheme_colour = \"black\"\n# index page\n@app.route(\"/\")\ndef index():\n    return render_template(\"index.jinja\")\n# Knowledge repo page",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "theme_colour",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "theme_colour = \"black\"\n# index page\n@app.route(\"/\")\ndef index():\n    return render_template(\"index.jinja\")\n# Knowledge repo page\n@app.route(\"/knowledge_repository\")\ndef knowledge_repository():\n    theme_colour = request.args.get(\"themeColour\")\n    if theme_colour is None:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "insert_user",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def insert_user(username: str, password: str, permission=0):\n    with Session(engine) as session:\n        user = User(username=username, password=password, permission=permission)\n        session.add(user)\n        session.commit()\n# gets a user from the database\ndef get_user(username: str):\n    with Session(engine) as session:\n        return session.get(User, username)\ndef get_user_status(username: str):",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_user",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_user(username: str):\n    with Session(engine) as session:\n        return session.get(User, username)\ndef get_user_status(username: str):\n    with Session(engine) as session:\n        user = session.get(User, username)\n        return user.is_online\n#\ndef set_user_status(username: str, status: bool):\n    with Session(engine) as session:",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_user_status",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_user_status(username: str):\n    with Session(engine) as session:\n        user = session.get(User, username)\n        return user.is_online\n#\ndef set_user_status(username: str, status: bool):\n    with Session(engine) as session:\n        user = session.get(User, username)\n        user.is_online = status\n        session.commit()",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "set_user_status",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def set_user_status(username: str, status: bool):\n    with Session(engine) as session:\n        user = session.get(User, username)\n        user.is_online = status\n        session.commit()\ndef send_friend_request(username: str, friend_username: str):\n    with Session(engine) as session:\n        friendship = Friendship(user_id=username, friend_id=friend_username, status=\"pending\")\n        session.add(friendship)\n        session.commit()",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "send_friend_request",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def send_friend_request(username: str, friend_username: str):\n    with Session(engine) as session:\n        friendship = Friendship(user_id=username, friend_id=friend_username, status=\"pending\")\n        session.add(friendship)\n        session.commit()\ndef approve_friend(username: str, friend_username: str):\n    with Session(engine) as session:\n        friendship = session.query(Friendship).filter(\n            (Friendship.user_id == friend_username) & (Friendship.friend_id == username) |\n            (Friendship.user_id == username) & (Friendship.friend_id == friend_username)",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "approve_friend",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def approve_friend(username: str, friend_username: str):\n    with Session(engine) as session:\n        friendship = session.query(Friendship).filter(\n            (Friendship.user_id == friend_username) & (Friendship.friend_id == username) |\n            (Friendship.user_id == username) & (Friendship.friend_id == friend_username)\n        ).first()\n        friendship.status = \"accepted\"\n        session.commit()\n        return friendship\ndef reject_friend(username: str, friend_username: str):",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "reject_friend",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def reject_friend(username: str, friend_username: str):\n    with Session(engine) as session:\n        friendship = session.query(Friendship).filter(\n            (Friendship.user_id == friend_username) & (Friendship.friend_id == username) |\n            (Friendship.user_id == username) & (Friendship.friend_id == friend_username)\n        ).first()\n        friendship.status = \"rejected\"\n        session.commit()\n        return friendship\ndef fetch_incoming_friend_requests(username: str):",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_incoming_friend_requests",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def fetch_incoming_friend_requests(username: str):\n    with Session(engine) as session:\n        incoming_friend_requests = session.query(Friendship).filter(\n            # fetch all incoming friendships either pending or rejected\n            (Friendship.friend_id == username) & (Friendship.status != \"approved\")\n            ).all()\n        return incoming_friend_requests\ndef fetch_outgoing_friend_requests(username: str):\n    with Session(engine) as session:\n        outgoing_friend_requests = session.query(Friendship).filter(",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_outgoing_friend_requests",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def fetch_outgoing_friend_requests(username: str):\n    with Session(engine) as session:\n        outgoing_friend_requests = session.query(Friendship).filter(\n            (Friendship.user_id == username) & (Friendship.status != \"approved\")\n            ).all()\n        return outgoing_friend_requests\n# if a friendship already exists in the database, AND it is not rejected, return True, false otherwise\ndef is_duplicate_friendship(username: str, friend_username: str):\n    with Session(engine) as session:\n        firendship = session.query(Friendship).filter(",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "is_duplicate_friendship",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def is_duplicate_friendship(username: str, friend_username: str):\n    with Session(engine) as session:\n        firendship = session.query(Friendship).filter(\n            ((Friendship.user_id == username) & (Friendship.friend_id == friend_username)) | \n            ((Friendship.user_id == friend_username) & (Friendship.friend_id == username))\n        ).all() \n        for f in firendship:\n            if f.status != \"rejected\":\n                return True\n        return False",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_friends",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_friends(username: str):\n    with Session(engine) as session:\n        friends = session.query(Friendship).filter(\n            ((Friendship.user_id == username) | (Friendship.friend_id == username)) &\n            (Friendship.status == \"accepted\")\n        ).all()\n        return friends\ndef remove_friend(username: str, friend_username: str):\n    with Session(engine) as session:\n        friendship = session.query(Friendship).filter(",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "remove_friend",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def remove_friend(username: str, friend_username: str):\n    with Session(engine) as session:\n        friendship = session.query(Friendship).filter(\n            ((Friendship.user_id == username) & (Friendship.friend_id == friend_username)) | \n            ((Friendship.user_id == friend_username) & (Friendship.friend_id == username))\n        ).first()\n        if friendship is None:\n            raise ValueError(f\"No friendship between {username} and {friend_username}\")\n        session.delete(friendship)\n        session.commit()",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_room_counter",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_room_counter():\n    with Session(engine) as session:\n        counter = session.query(Counter).first()\n        if counter is None:\n            counter = Counter(room_counter=0)\n            session.add(counter)\n            session.commit()\n        counter.room_counter += 1\n        session.commit()\n        return counter.room_counter",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_user_group_counter",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_user_group_counter():\n    with Session(engine) as session:\n        counter = session.query(Counter).first()\n        if counter is None:\n            counter = Counter(user_group_counter=0)\n            session.add(counter)\n            session.commit()\n        counter.user_group_counter += 1\n        session.commit()\n        return counter.user_group_counter",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_message_counter",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_message_counter():\n    with Session(engine) as session:\n        counter = session.query(Counter).first()\n        if counter is None:\n            counter = Counter(message_counter=0)\n            session.add(counter)\n            session.commit()\n        counter.message_counter += 1\n        session.commit()\n        return counter.message_counter",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_private_chatroom_id",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_private_chatroom_id(user1: str, user2: str):\n    with Session(engine) as session:\n        # get the chatrooms that user1 and user2 are in\n        user1_rooms = session.query(UserGroup.chatroom_id).filter(UserGroup.user_id == user1).subquery().select()\n        user2_rooms = session.query(UserGroup.chatroom_id).filter(UserGroup.user_id == user2).subquery().select()\n        if user1_rooms is None or user2_rooms is None:\n            return None\n        # get the chatrooms that only contains 2 users (private chatroom)\n        rooms_contains_two_users = session.query(UserGroup.chatroom_id).group_by(UserGroup.chatroom_id).having(\n            sqlalchemy.func.count(UserGroup.user_id) == 2",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_friends_except_current_friend",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_friends_except_current_friend(username: str, friend_id: str):\n    with Session(engine) as session:\n        friends = session.query(Friendship).filter(\n            ((Friendship.user_id == username) | (Friendship.friend_id == username)) & (Friendship.status == 'accepted')\n        ).all()\n        friends_except_current_friend = []\n        for f in friends:\n            if f.user_id == username:\n                friend = f.friend_id\n            else:",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_receiver_from_chat",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_receiver_from_chat(chatroom_id: int, sender: str):\n    with Session(engine) as session:\n        user_group = session.query(UserGroup).filter(UserGroup.chatroom_id == chatroom_id).filter(UserGroup.user_id != sender).first()\n        return user_group.user_id\ndef is_group_chat(chatroom_id: int):\n    with Session(engine) as session:\n        user_group = session.query(UserGroup).filter(UserGroup.chatroom_id == chatroom_id).all()\n        return len(user_group) > 2\ndef get_friends_not_in_group_chat(chatroom_id: int, username: str):\n    with Session(engine) as session:",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "is_group_chat",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def is_group_chat(chatroom_id: int):\n    with Session(engine) as session:\n        user_group = session.query(UserGroup).filter(UserGroup.chatroom_id == chatroom_id).all()\n        return len(user_group) > 2\ndef get_friends_not_in_group_chat(chatroom_id: int, username: str):\n    with Session(engine) as session:\n        user_group = session.query(UserGroup).filter(UserGroup.chatroom_id == chatroom_id).all()\n        friends = session.query(Friendship).filter(\n            ((Friendship.user_id == username) | (Friendship.friend_id == username)) & (Friendship.status == 'accepted')\n        ).all()",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_friends_not_in_group_chat",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_friends_not_in_group_chat(chatroom_id: int, username: str):\n    with Session(engine) as session:\n        user_group = session.query(UserGroup).filter(UserGroup.chatroom_id == chatroom_id).all()\n        friends = session.query(Friendship).filter(\n            ((Friendship.user_id == username) | (Friendship.friend_id == username)) & (Friendship.status == 'accepted')\n        ).all()\n        friends_not_in_chat = []\n        for f in friends:\n            if f.user_id == username:\n                friend = f.friend_id",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "add_user_to_group_chat",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def add_user_to_group_chat(username: str, chatroom_id: int):\n    with Session(engine) as session:\n        user_group = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom_id, user_id=username)\n        session.add(user_group)\n        session.commit()\ndef create_private_chat_room(user1: str, user2: str):\n    with Session(engine) as session:\n        chatroom = Chatroom(chatroom_id=get_room_counter(), chatroom_name=f\"{user1} and {user2}\")\n        session.add(chatroom)\n        session.commit()",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "create_private_chat_room",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def create_private_chat_room(user1: str, user2: str):\n    with Session(engine) as session:\n        chatroom = Chatroom(chatroom_id=get_room_counter(), chatroom_name=f\"{user1} and {user2}\")\n        session.add(chatroom)\n        session.commit()\n        user_group1 = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom.chatroom_id, user_id=user1)\n        user_group2 = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom.chatroom_id, user_id=user2)\n        session.add(user_group1)\n        session.add(user_group2)\n        session.commit()",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "create_group_chat_room",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def create_group_chat_room(user1: str, user2: str, user3: str):\n    with Session(engine) as session:\n        chatroom_id = get_room_counter()\n        chatroom = Chatroom(chatroom_id=chatroom_id, chatroom_name=f\"Group {user1} {chatroom_id}\")\n        session.add(chatroom)\n        session.commit()\n        user_group1 = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom.chatroom_id, user_id=user1)\n        user_group2 = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom.chatroom_id, user_id=user2)\n        user_group3 = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom.chatroom_id, user_id=user3)\n        session.add(user_group1)",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_group_chat_members",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_group_chat_members(chatroom_id: int, username: str):\n    with Session(engine) as session:\n        user_group = session.query(UserGroup).filter(UserGroup.chatroom_id == chatroom_id).all()\n        members = []\n        for u in user_group:\n            if u.user_id != username:\n                members.append(u.user_id)\n        return members\ndef add_user_to_group_chat(chatroom_id: int, user: str):\n    with Session(engine) as session:",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "add_user_to_group_chat",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def add_user_to_group_chat(chatroom_id: int, user: str):\n    with Session(engine) as session:\n        user_group = UserGroup(group_id=get_user_group_counter(), chatroom_id=chatroom_id, user_id=user)\n        session.add(user_group)\n        session.commit()\ndef get_active_chats(username: str):\n    with Session(engine) as session:\n        chatrooms = session.query(Chatroom).join(UserGroup).filter(UserGroup.user_id == username).all()\n        return chatrooms\ndef store_message(chatroom_id: int, sender: str, message: str):",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_active_chats",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_active_chats(username: str):\n    with Session(engine) as session:\n        chatrooms = session.query(Chatroom).join(UserGroup).filter(UserGroup.user_id == username).all()\n        return chatrooms\ndef store_message(chatroom_id: int, sender: str, message: str):\n    with Session(engine) as session:\n        message = Message(\n            message_id=get_message_counter(),\n            chatroom_id=chatroom_id,\n            sender=sender,",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "store_message",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def store_message(chatroom_id: int, sender: str, message: str):\n    with Session(engine) as session:\n        message = Message(\n            message_id=get_message_counter(),\n            chatroom_id=chatroom_id,\n            sender=sender,\n            message=message\n        )\n        session.add(message)\n        session.commit()",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_messages",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def fetch_messages(chatroom_id: int):\n    with Session(engine) as session:\n        messages = session.query(Message).filter(Message.chatroom_id == chatroom_id).all()\n        return messages\n#~\ndef insert_article(title: str, content: str, author: str):\n    \"\"\"Just make sure author is valid\n    Args:\n        title (str): _description_\n        content (str): _description_",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "insert_article",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def insert_article(title: str, content: str, author: str):\n    \"\"\"Just make sure author is valid\n    Args:\n        title (str): _description_\n        content (str): _description_\n        author (str): _description_\n    \"\"\"\n    with Session(engine) as session:\n        article = Article(title=title, content=content, author=author)\n        session.add(article)",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_article",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_article(article_id: int):\n    with Session(engine) as session:\n        return session.get(Article, article_id)\ndef get_all_articles():\n    with Session(engine) as session:\n        return session.query(Article).all()\ndef update_article(article_id: int, title: str, content: str):\n    \"\"\" if the article does not exist,\n    Args:\n        article_id (int): _description_",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_all_articles",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_all_articles():\n    with Session(engine) as session:\n        return session.query(Article).all()\ndef update_article(article_id: int, title: str, content: str):\n    \"\"\" if the article does not exist,\n    Args:\n        article_id (int): _description_\n        title (str): _description_\n        content (str): _description_\n    \"\"\"",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "update_article",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def update_article(article_id: int, title: str, content: str):\n    \"\"\" if the article does not exist,\n    Args:\n        article_id (int): _description_\n        title (str): _description_\n        content (str): _description_\n    \"\"\"\n    with Session(engine) as session:\n        article = session.get(Article, article_id)\n        if article:",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "delete_article",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def delete_article(article_id: int):\n    with Session(engine) as session:\n        article = session.get(Article, article_id)\n        if article:\n            session.delete(article)\n            session.commit()\n        else:\n            pass\ndef add_comment(article_id: int, content: str, author: str):\n    with Session(engine) as session:",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "add_comment",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def add_comment(article_id: int, content: str, author: str):\n    with Session(engine) as session:\n        comment = Comment(content=content, author=author, article_id=article_id)\n        session.add(comment)\n        session.commit()\ndef get_comment(comment_id: int):\n    with Session(engine) as session:\n        return session.get(Comment, comment_id)\ndef delete_comment(comment_id: int):\n    with Session(engine) as session:",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_comment",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_comment(comment_id: int):\n    with Session(engine) as session:\n        return session.get(Comment, comment_id)\ndef delete_comment(comment_id: int):\n    with Session(engine) as session:\n        comment = session.get(Comment, comment_id)\n        if comment:\n            session.delete(comment)\n            session.commit()\n        else:",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "delete_comment",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def delete_comment(comment_id: int):\n    with Session(engine) as session:\n        comment = session.get(Comment, comment_id)\n        if comment:\n            session.delete(comment)\n            session.commit()\n        else:\n            pass",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "engine = create_engine(\"sqlite:///database/main.db\", echo=False)\n# initializes the database\nBase.metadata.create_all(engine)\n# Base.metadata.drop_all(engine, [Counter.__table__])\n# Base.metadata.create_all(engine, [Counter.__table__])\n# inserts a user to the database\ndef insert_user(username: str, password: str, permission=0):\n    with Session(engine) as session:\n        user = User(username=username, password=password, permission=permission)\n        session.add(user)",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Base(DeclarativeBase):\n    pass\n# model to store user information\nclass User(Base):\n    __tablename__ = \"user\"\n    # looks complicated but basically means\n    # I want a username column of type string,\n    # and I want this column to be my primary key\n    # then accessing john.username -> will give me some data of type string\n    # in other words we've mapped the username Python object property to an SQL column of type String ",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class User(Base):\n    __tablename__ = \"user\"\n    # looks complicated but basically means\n    # I want a username column of type string,\n    # and I want this column to be my primary key\n    # then accessing john.username -> will give me some data of type string\n    # in other words we've mapped the username Python object property to an SQL column of type String \n    username: Mapped[str] = mapped_column(String, primary_key=True)\n    password: Mapped[str] = mapped_column(String)\n    is_online: Mapped[bool] = mapped_column(sqlalchemy.Boolean, default=False)",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Article",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Article(Base):\n    __tablename__ = 'articles'\n    id : Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)\n    title : Mapped[str] = mapped_column(String)\n    content : Mapped[str] = mapped_column(String)\n    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)\n    comments: Mapped[str] = mapped_column(sqlalchemy.Integer, ForeignKey('comments.id'), primary_key=True)\nclass Comment(Base):\n    __tablename__ = 'comments'\n    id = Column(sqlalchemy.Integer, primary_key=True)",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Comment",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Comment(Base):\n    __tablename__ = 'comments'\n    id = Column(sqlalchemy.Integer, primary_key=True)\n    content : Mapped[str] = mapped_column(String)\n    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)\n    article_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('articles.id'), primary_key=True)\n# relative entity to store the friendship between user and user\nclass Friendship(Base):\n    __tablename__ = \"friendship\"\n    # the combination of user_id and friend_id is the primary key, they have to be unique in this table",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Friendship",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Friendship(Base):\n    __tablename__ = \"friendship\"\n    # the combination of user_id and friend_id is the primary key, they have to be unique in this table\n    user_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)\n    friend_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)\n    status: Mapped[str] = mapped_column(String, default=\"pending\")\n    def to_dict(self):\n        return {\n            \"user_id\": self.user_id,\n            \"friend_id\": self.friend_id,",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Chatroom",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Chatroom(Base):\n    __tablename__ = \"chatroom\"\n    chatroom_id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)\n    chatroom_name: Mapped[str] = mapped_column(String)\n    def to_dict(self):\n        return {\n            \"chatroom_id\": self.chatroom_id,\n            \"chatroom_name\": self.chatroom_name\n        }\nclass UserGroup(Base):",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "UserGroup",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class UserGroup(Base):\n    __tablename__ = \"user_group\"\n    group_id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)\n    chatroom_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('chatroom.chatroom_id'))    \n    user_id: Mapped[str] = mapped_column(String, ForeignKey('user.username'))\nclass Message(Base):\n    __tablename__ = \"message\"\n    message_id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)\n    chatroom_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('chatroom.chatroom_id'))\n    sender: Mapped[str] = mapped_column(String, ForeignKey('user.username'))",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Message(Base):\n    __tablename__ = \"message\"\n    message_id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)\n    chatroom_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('chatroom.chatroom_id'))\n    sender: Mapped[str] = mapped_column(String, ForeignKey('user.username'))\n    message: Mapped[str] = mapped_column(String)\n    def to_dict(self):\n        return {\n            \"message_id\": self.message_id,\n            \"chatroom_id\": self.chatroom_id,",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Counter",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Counter(Base):\n    __tablename__ = \"counter\"\n    id: Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)\n    room_counter: Mapped[int] = mapped_column(sqlalchemy.Integer, default=0)\n    user_group_counter: Mapped[int] = mapped_column(sqlalchemy.Integer, default=0)\n    message_counter: Mapped[int] = mapped_column(sqlalchemy.Integer, default=0)\n# stateful counter used to generate the room id\n# class Counter():\n#     def __init__(self):\n#         self.counter = 0",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Room",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Room():\n    def __init__(self):\n        self.counter = Counter()\n        # dictionary that maps the username to the room id\n        # for example self.dict[\"John\"] -> gives you the room id of \n        # the room where John is in\n        self.dict: Dict[str, int] = {}\n    def create_room(self, sender: str, receiver: str) -> int:\n        room_id = self.counter.get()\n        self.dict[sender] = room_id",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "ThemeColour",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class ThemeColour():\n    def __init__(self):\n        self.primary_colours: dict = {\n            \"black\": \"#000000\", # black\n            \"blue\": \"#007aff\", # blue\n            \"guava\": \"#ff2d55\" # red\n        }\n        self.secondary_colours: dict = {\n            \"black\": \"#d3d3d3\", # grey\n            \"blue\": \"#aad3ff\", # light blue",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "get_status",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def get_status(username):\n    if username is None:\n        return\n    return db.get_user_status(username)\n@socketio.on('connect')\ndef connect():\n    username = request.cookies.get(\"username\")\n    db.set_user_status(username, True)\n# automatically called when the user disconnects, close the browser tab, etc\n@socketio.on('disconnect')",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "connect",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def connect():\n    username = request.cookies.get(\"username\")\n    db.set_user_status(username, True)\n# automatically called when the user disconnects, close the browser tab, etc\n@socketio.on('disconnect')\ndef disconnect():    \n    username = request.cookies.get(\"username\")\n    db.set_user_status(username, False)\n# send message event handler\n@socketio.on(\"send\")",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "disconnect",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def disconnect():    \n    username = request.cookies.get(\"username\")\n    db.set_user_status(username, False)\n# send message event handler\n@socketio.on(\"send\")\ndef send(username, message, room_id):\n    join_room(room_id)\n    db.store_message(room_id, username, message)\n    emit(\"incoming\", (f\"{username}: {message}\"), to=int(room_id))\n# join room event handler",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "send",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def send(username, message, room_id):\n    join_room(room_id)\n    db.store_message(room_id, username, message)\n    emit(\"incoming\", (f\"{username}: {message}\"), to=int(room_id))\n# join room event handler\n# sent when the user joins a room\n@socketio.on(\"join\")\ndef join(sender_name, receiver_name):\n    receiver = db.get_user(receiver_name)\n    if receiver is None:",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "join",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def join(sender_name, receiver_name):\n    receiver = db.get_user(receiver_name)\n    if receiver is None:\n        return \"Unknown receiver!\"\n    sender = db.get_user(sender_name)\n    if sender is None:\n        return \"Unknown sender!\"\n    room_id = db.get_private_chatroom_id(sender_name, receiver_name)\n    # if the user is already inside of a room \n    if room_id is not None:",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "create_group_chat",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def create_group_chat(friend_id, username, friend_id_2):\n    room_id = db.create_group_chat_room(username, friend_id, friend_id_2)\n    join_room(room_id)\n    return room_id\n@socketio.on(\"add_friend_to_group_chat\")\ndef add_friend_to_group_chat(friend_id, room_id):\n    db.add_user_to_group_chat(friend_id, room_id)\n# leave room event handler\n@socketio.on(\"leave\")\ndef leave(room_id):",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "add_friend_to_group_chat",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def add_friend_to_group_chat(friend_id, room_id):\n    db.add_user_to_group_chat(friend_id, room_id)\n# leave room event handler\n@socketio.on(\"leave\")\ndef leave(room_id):\n    # emit(\"incoming\", (f\"{username} has left the room.\", \"red\"), to=room_id)\n    leave_room(room_id)\n@socketio.on(\"fetch_message\")\ndef fetchMessage(room_id):\n    join_room(room_id)",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "leave",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def leave(room_id):\n    # emit(\"incoming\", (f\"{username} has left the room.\", \"red\"), to=room_id)\n    leave_room(room_id)\n@socketio.on(\"fetch_message\")\ndef fetchMessage(room_id):\n    join_room(room_id)\n    messages = db.fetch_messages(room_id)\n    for message in messages:\n        emit(\"incoming\", (f\"{message.sender}: {message.message}\"), to=request.sid)",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "fetchMessage",
+        "kind": 2,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "def fetchMessage(room_id):\n    join_room(room_id)\n    messages = db.fetch_messages(room_id)\n    for message in messages:\n        emit(\"incoming\", (f\"{message.sender}: {message.message}\"), to=request.sid)",
+        "detail": "socket_routes",
+        "documentation": {}
+    },
+    {
+        "label": "room",
+        "kind": 5,
+        "importPath": "socket_routes",
+        "description": "socket_routes",
+        "peekOfCode": "room = Room()\n# when the client connects to a socket\n# this event is emitted when the io() function is called in JS\n@socketio.on('get_status')\ndef get_status(username):\n    if username is None:\n        return\n    return db.get_user_status(username)\n@socketio.on('connect')\ndef connect():",
+        "detail": "socket_routes",
+        "documentation": {}
+    }
+]
