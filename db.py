@@ -19,6 +19,7 @@ Path("database") \
 engine = create_engine("sqlite:///database/main.db", echo=False)
 
 # initializes the database
+# Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
 
 # Base.metadata.drop_all(engine, [Counter.__table__])
@@ -273,6 +274,16 @@ def get_active_chats(username: str):
         chatrooms = session.query(Chatroom).join(UserGroup).filter(UserGroup.user_id == username).all()
         return chatrooms
     
+def get_group_chats(username: str):
+    with Session(engine) as session:
+        user_group = session.query(UserGroup).filter(UserGroup.user_id == username).all()
+        chatrooms = []
+        for u in user_group:
+            chatroom = session.query(Chatroom).filter(Chatroom.chatroom_id == u.chatroom_id).first()
+            if chatroom is not None:
+                chatrooms.append(chatroom)
+        return chatrooms
+    
 def store_message(chatroom_id: int, sender: str, message: str):
     with Session(engine) as session:
         message = Message(
@@ -288,3 +299,4 @@ def fetch_messages(chatroom_id: int):
     with Session(engine) as session:
         messages = session.query(Message).filter(Message.chatroom_id == chatroom_id).all()
         return messages
+    

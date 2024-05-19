@@ -66,7 +66,7 @@ def login_user():
     
     colours = ThemeColour();
     # if the login is successful, returns the url for the home page with aquery parameters, username, theme colours
-    return url_for('home', username=request.json.get("username"), 
+    return url_for('home', username=request.json.get("username"), theme_colour=theme_colour,
                    primary_colour=colours.get_primary_colour(theme_colour), 
                    secondary_colour=colours.get_secondary_colour(theme_colour),
                    font_colour=colours.get_font_colour(theme_colour))
@@ -91,10 +91,11 @@ def signup_user():
         abort(404)
     username = request.json.get("username")
     password = request.json.get("password")
+    theme_colour = request.json.get("themeColour")
 
     if db.get_user(username) is None:
         db.insert_user(username, password)
-        return url_for('home', username=username)
+        return url_for('home', username=username, theme_colour=theme_colour)
     return "Error: User already exists."
 
 # handler when a "404" error happens
@@ -108,12 +109,39 @@ def home():
     if request.args.get("username") is None:
         abort(404)
     username = request.args.get("username")
+    theme_colour = request.args.get("theme_colour")
+    colours = ThemeColour()
     primary_colour = request.args.get("primary_colour")
     secondary_colour = request.args.get("secondary_colour")
     font_colour = request.args.get("font_colour")
-    return render_template("chat.jinja", username=username,
-                           primary_colour=primary_colour, secondary_colour=secondary_colour,
-                           font_colour=font_colour)
+    return render_template("chat.jinja", username=username, theme_colour=theme_colour,
+                           primary_colour=colours.get_primary_colour(theme_colour), 
+                           secondary_colour=colours.get_secondary_colour(theme_colour),
+                           font_colour=colours.get_font_colour(theme_colour))
+
+@app.route("/chat")
+def chat():
+    username = request.args.get("username")
+    theme_colour = request.args.get("theme_colour")
+    if username is None:
+        abort(404)
+    colours = ThemeColour()
+    return render_template("chat.jinja", username=username, theme_colour=theme_colour, 
+                           primary_colour=colours.get_primary_colour(theme_colour),
+                            secondary_colour=colours.get_secondary_colour(theme_colour),
+                            font_colour=colours.get_font_colour(theme_colour))
+
+@app.route("/friends")
+def friends():
+    username = request.args.get("username")
+    theme_colour = request.args.get("theme_colour")
+    if username is None:
+        abort(404)
+    colours = ThemeColour()
+    return render_template("friends.jinja", username=username, theme_colour=theme_colour, 
+                           primary_colour=colours.get_primary_colour(theme_colour), 
+                           secondary_colour=colours.get_secondary_colour(theme_colour),
+                           font_colour=colours.get_font_colour(theme_colour))
 
 @app.route("/send_friend_request", methods=["POST"])
 def send_friend_request():
@@ -256,6 +284,17 @@ def get_group_chat_members():
         return jsonify({"no_members": True})
     return jsonify({"members": members}), 200
 
+@app.route("/get_group_chats", methods=["POST"])
+def get_group_chats():
+    username = request.json.get("username")
+    group_chats = db.get_group_chats(username)
+    if not group_chats:
+        return jsonify({"no_group_chats": True})
+    group_chats_json = []
+    for chat_room in group_chats:
+        group_chats_json.append(chat_room.to_dict())
+    return jsonify(group_chats_json), 200
+
     
 # ==================== TEST PAGE ====================
 # return the page jinja file you want to test
@@ -265,7 +304,7 @@ def test_page():
     colours = ThemeColour()
     username = "tim" # log in as which user, for testing purposes
     # return the target page you want to test
-    return render_template('chat.jinja', username=username, primary_colour=colours.get_primary_colour(theme_colour), 
+    return render_template('friends.jinja', username=username, primary_colour=colours.get_primary_colour(theme_colour), 
                            secondary_colour=colours.get_secondary_colour(theme_colour),
                            font_colour=colours.get_font_colour(theme_colour))
 
