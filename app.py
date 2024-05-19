@@ -139,6 +139,7 @@ def login():
         theme_colour = "black"
         
     colours = ThemeColour();
+    print(theme_colour)
     return render_template("new_login.jinja", theme_colour=theme_colour, 
                            primary_colour=colours.get_primary_colour(theme_colour), 
                            secondary_colour=colours.get_secondary_colour(theme_colour),

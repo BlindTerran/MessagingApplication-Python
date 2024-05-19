@@ -144,8 +144,8 @@
     }
 
     async function login() {
-        let loginURL = "{{ url_for('login_user') }}";
-
+        let loginURL = "{{ url_for('login_user',theme_colour=theme_colour) }}";
+        console.log({{theme_colour}})
         let res = await axios.post(loginURL, {
             username: $("#username").val(),
             password: $("#password").val(),

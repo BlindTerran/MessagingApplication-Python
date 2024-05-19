@@ -312,7 +312,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def login():    \n    theme_colour = request.args.get(\"themeColour\")\n    if theme_colour is None:\n        theme_colour = \"black\"\n    colours = ThemeColour();\n    return render_template(\"new_login.jinja\", theme_colour=theme_colour, \n                           primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),\n                           font_colour=colours.get_font_colour(theme_colour))\n# handles a post request when the user clicks the log in button",
+        "peekOfCode": "def login():    \n    theme_colour = request.args.get(\"themeColour\")\n    if theme_colour is None:\n        theme_colour = \"black\"\n    colours = ThemeColour();\n    print(theme_colour)\n    return render_template(\"new_login.jinja\", theme_colour=theme_colour, \n                           primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),\n                           font_colour=colours.get_font_colour(theme_colour))",
         "detail": "app",
         "documentation": {}
     },
