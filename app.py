@@ -6,7 +6,7 @@ the socket event handlers are inside of socket_routes.py
 
 from flask import Flask, render_template, request, abort, url_for, jsonify
 from flask_socketio import SocketIO
-from db import get_user
+from db import check_permission, get_all_articles, get_comment, get_user
 from models import *
 import secrets
 
@@ -42,14 +42,24 @@ def knowledge_repository():
     #     theme_colour = "black"  
     username = request.args.get("username")
     user = get_user(username)
-    print(user)
-    print(username)
-    print(theme_colour)
-    articles = db.get_all_articles()
+    # print(user)
+    # print(username)
+    # print(theme_colour)
+    
+    dictionary = dict() # article : list([comments])
+    
+    articles = get_all_articles()
+    # print(articles)
+    # db.add_comment(1, "233", username)
+    for article in articles:
+        comments = db.get_article_comments(article)
+        # print(f"comments:{comments}")
+        dictionary[article] = comments
+    
     return render_template('knowledge_repository.jinja', user=user, username=username, theme_colour=theme_colour, 
                            primary_colour=colours.get_primary_colour(theme_colour), 
                            secondary_colour=colours.get_secondary_colour(theme_colour),
-                           font_colour=colours.get_font_colour(theme_colour), articles=articles)
+                           font_colour=colours.get_font_colour(theme_colour), articles=articles, dictionary=dictionary)
 
 @app.route("/get_current_user", methods=["POST"])
 def get_current_user():
@@ -59,10 +69,27 @@ def get_current_user():
     else:
         raise(KeyError)
 
+@app.route("/modify_article", methods=["POST"])
+def modify_article():
+    data = request.get_json()
+    username = data.get("username")
+    articleID = data.get("articleID")
+    new_title = data.get("new_title")
+    new_content = data.get("new_content")
+    print(f"username: {username}, id:{articleID}, title:{new_title}, content:{new_content}")
+    original_author = db.get_article(articleID).author
+    current_user = db.get_user(username)
+    print(f"{original_author}, {current_user}")
+    # denied: permission, not author
+    if check_permission(username,original_author) == True:
+        db.update_article(articleID, new_title, new_content)
+        return jsonify({"success": True})
+    else:
+        return jsonify({"fail": False})
+
 @app.route("/create_article", methods=["POST"])
 def create_article():
     print("create article")
-    user = request.json.get("username")
     # print(user)
     # if not user:
     #     return jsonify({"error": "You must be logged in to create an article"}), 401
@@ -71,12 +98,12 @@ def create_article():
     username = data.get("username")
     title = data.get("title")
     content = data.get("content")
-    print(username)
-    print(title)
-    print(content)
-    # print("hi")
-    db.insert_article(title, content, user)
-    return jsonify({"success": True})
+    user = db.get_user(username)
+    if user.permission != 0:
+        db.insert_article(title, content, username)
+        return jsonify({"success": True})
+    else:
+        pass
 
 
 @app.route("/edit_article", methods=["POST"])
@@ -99,47 +126,47 @@ def edit_article():
 
 @app.route("/delete_article", methods=["POST"])
 def delete_article():
-    user = get_current_user()
-    if not user:
-        return jsonify({"error": "You must be logged in to delete an article"}), 401
-    # **Handle JSON request**
     data = request.get_json()
+    username = data.get("username")
     article_id = data.get("article_id")
     article = db.get_article(article_id)
+    original_authorname = article.author
     if not article:
         return jsonify({"error": "Article not found"}), 404
-    if not user.is_staff:
-        return jsonify({"error": "You do not have permission to delete this article"}), 403
-    db.delete_article(article_id)
-    return jsonify({"success": True})
+    if check_permission(username, original_authorname) == True:
+        db.delete_article(article_id)
+        return jsonify({"success": True})
+    else:
+        return jsonify({"fail": False})
 
 @app.route("/add_comment", methods=["POST"])
 def add_comment():
-    user = get_current_user()
-    if not user:
-        return jsonify({"error": "You must be logged in to add a comment"}), 401
-    # **Handle JSON request**
     data = request.get_json()
     article_id = data.get("article_id")
     content = data.get("content")
-    db.add_comment(article_id, content, user.username)
+    username = data.get("username")
+    user = db.get_user(username)
+    if user.permission != 0:
+        db.add_comment(article_id, content, username)
+        return jsonify({"success": True})
+    else:
+        pass
     return jsonify({"success": True})
 
 @app.route("/delete_comment", methods=["POST"])
 def delete_comment():
-    user = get_current_user()
-    if not user:
-        return jsonify({"error": "You must be logged in to delete a comment"}), 401
-    # **Handle JSON request**
     data = request.get_json()
     comment_id = data.get("comment_id")
+    username = data.get("username")
     comment = db.get_comment(comment_id)
+    original_authorname = comment.author
     if not comment:
         return jsonify({"error": "Comment not found"}), 404
-    if not user.is_staff:
-        return jsonify({"error": "You do not have permission to delete this comment"}), 403
-    db.delete_comment(comment_id)
-    return jsonify({"success": True})
+    if check_permission(username, original_authorname) == True:
+        db.delete_comment(comment_id)
+        return jsonify({"success": True})
+    else:
+        return jsonify({"fail": False})
 
 
 # login page
@@ -315,6 +342,7 @@ def get_outgoing_friend_requests():
 def get_friends():
     username = request.json.get("username")
     friendships = db.get_friends(username)
+    print(friendships)
     if not friendships:
         return jsonify({"no_friends": True})
     firends_json = []
@@ -399,6 +427,8 @@ def get_group_chat_members():
 @app.route("/get_group_chats", methods=["POST"])
 def get_group_chats():
     username = request.json.get("username")
+    if db.get_user(username).permission < 0:
+        return jsonify({"error": "Article not found"}), 403
     group_chats = db.get_group_chats(username)
     if not group_chats:
         return jsonify({"no_group_chats": True})

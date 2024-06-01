@@ -33,7 +33,7 @@ class User(Base):
     password: Mapped[str] = mapped_column(String)
     is_online: Mapped[bool] = mapped_column(sqlalchemy.Boolean, default=False)
     permission: Mapped[int] = mapped_column(sqlalchemy.Integer) #~
-    """0 = student, 1 = academics, 2 = staff, 3 = admin"""
+    """-1 = muted, 0 = student, 1 = academics, 2 = staff, 3 = admin"""
     
     def to_dict(self):
         return {
@@ -60,7 +60,7 @@ class Comment(Base):
     content : Mapped[str] = mapped_column(String)
     author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), nullable=False)
     article_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('articles.id'), nullable=False)
-    article = relationship("Article",back_populates="comments")
+    article = relationship("Article",back_populates="comments", uselist=False)
     
 # relative entity to store the friendship between user and user
 class Friendship(Base):

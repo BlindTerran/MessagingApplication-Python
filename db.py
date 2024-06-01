@@ -32,6 +32,35 @@ def insert_user(username: str, password: str, permission=0):
         session.add(user)
         session.commit()
 
+def check_permission(current_username: str, original_authorname: str) -> bool:
+    # print(f"{current_username}, {original_authorname}")
+    current_user = get_user(current_username)
+    original_author = get_user(original_authorname)
+    if current_user.permission < 0:
+        return False
+    elif current_user.username != original_authorname and (current_user.permission == 0):
+        return False
+    else:
+        return True
+
+def mute_user(username: str):
+    """_summary_
+    This function assumes the permission is already checked for the function caller/
+    """
+    with Session(engine) as session:
+        user = session.get(User, username)
+        user.permission = -1
+        session.commit()
+
+def unmute_user(username: str, permission=0):
+    """_summary_
+    This function sets the user to a normal student first, but can also be changed later.
+    """
+    with Session(engine) as session:
+        user = session.get(User, username)
+        user.permission = permission
+        session.commit()
+
 # gets a user from the database
 def get_user(username: str):
     with Session(engine) as session:
@@ -318,9 +347,28 @@ def insert_article(title: str, content: str, author: str):
     comment_id = generate_comment_id()
     print(f"{id}, {title}, {content}, {author}, {comment_id}")        
     with Session(engine) as session:
-        article = Article(id=id, title=title, content=content, author=author,comments=[]) #comment is an empty list
+        article = Article(id=id, title=title, content=content, author=author,comments=[])
         session.add(article)
         session.commit()
+
+
+def update_article(article_id, new_title, new_content):
+    # Retrieve the article from the database
+    print("hi")
+    with Session(engine) as session:
+        article = session.query(Article).filter(Article.id == article_id).first()
+
+        if article:
+            # Update the title and content
+            article.title = new_title
+            article.content = new_content
+
+            # Commit the changes to the database
+            session.commit()
+            print("Article updated successfully.")
+        else:
+            print("Article not found.")
+
 
 def generate_comment_id() -> int:
     id : int = 0
@@ -339,22 +387,9 @@ def get_all_articles():
     with Session(engine) as session:
         return session.query(Article).all()
 
-def update_article(article_id: int, title: str, content: str):
-    """ if the article does not exist,
-
-    Args:
-        article_id (int): _description_
-        title (str): _description_
-        content (str): _description_
-    """
+def get_article_comments(article: Article) -> list[Comment]:
     with Session(engine) as session:
-        article = session.get(Article, article_id)
-        if article:
-            article.title = title
-            article.content = content
-            session.commit()
-        else:
-            pass
+        return session.query(Comment).filter( Comment.article_id == article.id).all()
 
 def delete_article(article_id: int):
     with Session(engine) as session:

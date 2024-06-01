@@ -308,18 +308,6 @@
 </div>
 <script src="/static/js/libs/socket.io.min.js"></script>
 <script>
-    async function createArticle() {
-        let username = "{{ username }}";
-        let title = document.getElementById('article_title').value;
-        let content = document.getElementById('article_content').value;
-        let response = await axios.post('/create_article', { username: username, title: title, content: content});
-        if (response.data.success) {
-            window.location.reload();
-        } else {
-            alert(response.data.error);
-        }
-    }
-
     async function editArticle(articleId) {
         let title = prompt('Enter new title:');
         let content = prompt('Enter new content:');
@@ -332,7 +320,8 @@
     }
 
     async function deleteArticle(articleId) {
-        let response = await axios.post('/delete_article', { article_id: articleId });
+        let username = "{{ username }}";
+        let response = await axios.post('/delete_article', { username: username, article_id: articleId });
         if (response.data.success) {
             window.location.reload();
         } else {
@@ -340,9 +329,35 @@
         }
     }
 
+    async function createArticle() {
+        let username = "{{ username }}";
+        let title = document.getElementById('article_title').value;
+        let content = document.getElementById('article_content').value;
+        let response = await axios.post('/create_article', { username: username, title: title, content: content});
+        if (response.data.success) {
+            window.location.reload();
+        } else {
+            alert(response.data.error);
+        }
+    }
+
+    async function modifyArticle(articleID) {
+        let username = "{{ username }}";
+        let new_title = document.getElementById('new_title_').value;
+        let new_content = document.getElementById('new_content_').value;
+        let response = await axios.post('/modify_article', { articleID: articleID, username: username, new_title: new_title, new_content: new_content});
+        if (response.data.success) {
+            window.location.reload();
+        } 
+        else {
+            alert(response.data.error);
+        }
+    }
+
     async function addComment(articleId) {
-        let content = document.getElementById('comment_content_' + articleId).value;
-        let response = await axios.post('/add_comment', { article_id: articleId, content: content });
+        let username = "{{ username }}";
+        let content = document.getElementById('comment_content_').value;
+        let response = await axios.post('/add_comment', { article_id : articleId, username: username, content: content});
         if (response.data.success) {
             window.location.reload();
         } else {
@@ -351,7 +366,8 @@
     }
 
     async function deleteComment(commentId) {
-        let response = await axios.post('/delete_comment', { comment_id: commentId });
+        let username = "{{ username }}";
+        let response = await axios.post('/delete_comment', { comment_id: commentId, username: username});
         if (response.data.success) {
             window.location.reload();
         } else {
@@ -368,33 +384,24 @@
     </div>
     <div>
         <h2>Articles</h2>
-        {% for article in articles %}
-            <div>
-                <h3>{{ article.title }}</h3>
-                <p>{{ article.content }}</p>
-                <p>Author: {{ article.author }}</p>
-                <div>
-                    {% if user.permission or article.author == user.username %}
-                        <button onclick="editArticle({{ article.id }})">Edit</button>
-                        <button onclick="deleteArticle({{ article.id }})">Delete</button>
-                    {% endif %}
-                </div>
-                <div>
-                    <h4>Comments</h4>
-                    {% for comment in article.comments %}
-                        <div>
-                            <p>{{ comment.content }}</p>
-                            <p>Author: {{ comment.author }}</p>
-                            {% if user.is_staff %}
-                                <button onclick="deleteComment({{ comment.id }})">Delete</button>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                    <textarea id="comment_content_{{ article.id }}" placeholder="Add a comment"></textarea>
-                    <button onclick="addComment({{ article.id }})">Add Comment</button>
-                </div>
-            </div>
+        <ul>
+            {% for article, comments in dictionary.items() %}
+            <li> {{article.id}} | {{ article.title }} : {{article.content}}         
+                <input id="new_title_" placeholder="new title"/>
+                <input id="new_content_" placeholder="new title"/>
+                <button onclick="modifyArticle({{article.id}})">Modify</button> 
+                <button onclick="deleteArticle({{article.id}})">Delete</button> 
+
+            </li>
+                <ul>
+                <textarea id="comment_content_" placeholder="Comment"></textarea><button onclick="addComment({{article.id}})">Comment</button> 
+                {% for eachComment in comments %}
+                <li>{{eachComment.content}}<button onclick="deleteComment({{eachComment.id}})">Delete</button> </li>            </li>
+                {% endfor %}
+                </ul>
         {% endfor %}
+
+        </ul>
     </div>
 
 

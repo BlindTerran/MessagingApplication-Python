@@ -375,6 +375,20 @@
     }
     $("#refresh").click(refreshFriendRequests);
     $(document).ready(refreshFriendRequests);
+    
+    async function checkPermission() {
+        let username = "{{ username }}";
+        let response = await axios.post('/frontend_permission', {username: username});
+        if (response.data.success) {
+            window.location.reload();
+        } 
+        else if (response.data.banned === true) {
+            alert("You are banned!");
+        }
+        else {
+            alert(response.data.error);
+        }
+    }
 
     async function refreshGroups() {
         let groupsURL = "{{ url_for('get_group_chats') }}";

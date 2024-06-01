@@ -97,6 +97,30 @@
         "documentation": {}
     },
     {
+        "label": "check_permission",
+        "importPath": "db",
+        "description": "db",
+        "isExtraImport": true,
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_all_articles",
+        "importPath": "db",
+        "description": "db",
+        "isExtraImport": true,
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_comment",
+        "importPath": "db",
+        "description": "db",
+        "isExtraImport": true,
+        "detail": "db",
+        "documentation": {}
+    },
+    {
         "label": "get_user",
         "importPath": "db",
         "description": "db",
@@ -265,7 +289,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def knowledge_repository():\n    colours = ThemeColour();\n    theme_colour = request.args.get(\"theme_colour\")\n    # if theme_colour is None:\n    #     theme_colour = \"black\"  \n    username = request.args.get(\"username\")\n    user = get_user(username)\n    print(user)\n    print(username)\n    print(theme_colour)",
+        "peekOfCode": "def knowledge_repository():\n    colours = ThemeColour();\n    theme_colour = request.args.get(\"theme_colour\")\n    # if theme_colour is None:\n    #     theme_colour = \"black\"  \n    username = request.args.get(\"username\")\n    user = get_user(username)\n    # print(user)\n    # print(username)\n    # print(theme_colour)",
         "detail": "app",
         "documentation": {}
     },
@@ -274,7 +298,16 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def get_current_user():\n    username = request.args.get(\"username\")\n    if username:\n        return username\n    else:\n        raise(KeyError)\n@app.route(\"/create_article\", methods=[\"POST\"])\ndef create_article():\n    print(\"create article\")\n    user = request.json.get(\"username\")",
+        "peekOfCode": "def get_current_user():\n    username = request.args.get(\"username\")\n    if username:\n        return username\n    else:\n        raise(KeyError)\n@app.route(\"/modify_article\", methods=[\"POST\"])\ndef modify_article():\n    data = request.get_json()\n    username = data.get(\"username\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "modify_article",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def modify_article():\n    data = request.get_json()\n    username = data.get(\"username\")\n    articleID = data.get(\"articleID\")\n    new_title = data.get(\"new_title\")\n    new_content = data.get(\"new_content\")\n    print(f\"username: {username}, id:{articleID}, title:{new_title}, content:{new_content}\")\n    original_author = db.get_article(articleID).author\n    current_user = db.get_user(username)\n    print(f\"{original_author}, {current_user}\")",
         "detail": "app",
         "documentation": {}
     },
@@ -283,7 +316,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def create_article():\n    print(\"create article\")\n    user = request.json.get(\"username\")\n    # print(user)\n    # if not user:\n    #     return jsonify({\"error\": \"You must be logged in to create an article\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    username = data.get(\"username\")\n    title = data.get(\"title\")",
+        "peekOfCode": "def create_article():\n    print(\"create article\")\n    # print(user)\n    # if not user:\n    #     return jsonify({\"error\": \"You must be logged in to create an article\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    username = data.get(\"username\")\n    title = data.get(\"title\")\n    content = data.get(\"content\")",
         "detail": "app",
         "documentation": {}
     },
@@ -301,7 +334,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def delete_article():\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to delete an article\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    article_id = data.get(\"article_id\")\n    article = db.get_article(article_id)\n    if not article:\n        return jsonify({\"error\": \"Article not found\"}), 404",
+        "peekOfCode": "def delete_article():\n    data = request.get_json()\n    username = data.get(\"username\")\n    article_id = data.get(\"article_id\")\n    article = db.get_article(article_id)\n    original_authorname = article.author\n    if not article:\n        return jsonify({\"error\": \"Article not found\"}), 404\n    if check_permission(username, original_authorname) == True:\n        db.delete_article(article_id)",
         "detail": "app",
         "documentation": {}
     },
@@ -310,7 +343,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def add_comment():\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to add a comment\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    article_id = data.get(\"article_id\")\n    content = data.get(\"content\")\n    db.add_comment(article_id, content, user.username)\n    return jsonify({\"success\": True})",
+        "peekOfCode": "def add_comment():\n    data = request.get_json()\n    article_id = data.get(\"article_id\")\n    content = data.get(\"content\")\n    username = data.get(\"username\")\n    user = db.get_user(username)\n    if user.permission != 0:\n        db.add_comment(article_id, content, username)\n        return jsonify({\"success\": True})\n    else:",
         "detail": "app",
         "documentation": {}
     },
@@ -319,7 +352,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def delete_comment():\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to delete a comment\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    comment_id = data.get(\"comment_id\")\n    comment = db.get_comment(comment_id)\n    if not comment:\n        return jsonify({\"error\": \"Comment not found\"}), 404",
+        "peekOfCode": "def delete_comment():\n    data = request.get_json()\n    comment_id = data.get(\"comment_id\")\n    username = data.get(\"username\")\n    comment = db.get_comment(comment_id)\n    original_authorname = comment.author\n    if not comment:\n        return jsonify({\"error\": \"Comment not found\"}), 404\n    if check_permission(username, original_authorname) == True:\n        db.delete_comment(comment_id)",
         "detail": "app",
         "documentation": {}
     },
@@ -445,7 +478,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def get_friends():\n    username = request.json.get(\"username\")\n    friendships = db.get_friends(username)\n    if not friendships:\n        return jsonify({\"no_friends\": True})\n    firends_json = []\n    for f in friendships:\n        if f.friend_id == username:\n            friend_name = f.user_id\n            firends_json.append({\"friend_id\": friend_name})",
+        "peekOfCode": "def get_friends():\n    username = request.json.get(\"username\")\n    friendships = db.get_friends(username)\n    print(friendships)\n    if not friendships:\n        return jsonify({\"no_friends\": True})\n    firends_json = []\n    for f in friendships:\n        if f.friend_id == username:\n            friend_name = f.user_id",
         "detail": "app",
         "documentation": {}
     },
@@ -517,7 +550,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def get_group_chats():\n    username = request.json.get(\"username\")\n    group_chats = db.get_group_chats(username)\n    if not group_chats:\n        return jsonify({\"no_group_chats\": True})\n    group_chats_json = []\n    for chat_room in group_chats:\n        group_chats_json.append(chat_room.to_dict())\n    return jsonify(group_chats_json), 200\n# ==================== TEST PAGE ====================",
+        "peekOfCode": "def get_group_chats():\n    username = request.json.get(\"username\")\n    if db.get_user(username).permission < 0:\n        return jsonify({\"error\": \"Article not found\"}), 403\n    group_chats = db.get_group_chats(username)\n    if not group_chats:\n        return jsonify({\"no_group_chats\": True})\n    group_chats_json = []\n    for chat_room in group_chats:\n        group_chats_json.append(chat_room.to_dict())",
         "detail": "app",
         "documentation": {}
     },
@@ -562,7 +595,34 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def insert_user(username: str, password: str, permission=0):\n    with Session(engine) as session:\n        user = User(username=username, password=password, permission=permission)\n        session.add(user)\n        session.commit()\n# gets a user from the database\ndef get_user(username: str):\n    with Session(engine) as session:\n        return session.get(User, username)\ndef get_user_status(username: str):",
+        "peekOfCode": "def insert_user(username: str, password: str, permission=0):\n    with Session(engine) as session:\n        user = User(username=username, password=password, permission=permission)\n        session.add(user)\n        session.commit()\ndef check_permission(current_username: str, original_authorname: str) -> bool:\n    # print(f\"{current_username}, {original_authorname}\")\n    current_user = get_user(current_username)\n    original_author = get_user(original_authorname)\n    if current_user.permission < 0:",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "check_permission",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def check_permission(current_username: str, original_authorname: str) -> bool:\n    # print(f\"{current_username}, {original_authorname}\")\n    current_user = get_user(current_username)\n    original_author = get_user(original_authorname)\n    if current_user.permission < 0:\n        return False\n    elif current_user.username != original_authorname and (current_user.permission == 0):\n        return False\n    else:\n        return True",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "mute_user",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def mute_user(username: str):\n    \"\"\"_summary_\n    This function assumes the permission is already checked for the function caller/\n    \"\"\"\n    with Session(engine) as session:\n        user = session.get(User, username)\n        user.permission = -1\n        session.commit()\ndef unmute_user(username: str, permission=0):\n    \"\"\"_summary_",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "unmute_user",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def unmute_user(username: str, permission=0):\n    \"\"\"_summary_\n    This function sets the user to a normal student first, but can also be changed later.\n    \"\"\"\n    with Session(engine) as session:\n        user = session.get(User, username)\n        user.permission = permission\n        session.commit()\n# gets a user from the database\ndef get_user(username: str):",
         "detail": "db",
         "documentation": {}
     },
@@ -828,6 +888,15 @@
         "documentation": {}
     },
     {
+        "label": "update_article",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def update_article(article_id, new_title, new_content):\n    # Retrieve the article from the database\n    print(\"hi\")\n    with Session(engine) as session:\n        article = session.query(Article).filter(Article.id == article_id).first()\n        if article:\n            # Update the title and content\n            article.title = new_title\n            article.content = new_content\n            # Commit the changes to the database",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
         "label": "generate_comment_id",
         "kind": 2,
         "importPath": "db",
@@ -841,7 +910,7 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def get_article(article_id: int):\n    with Session(engine) as session:\n        return session.get(Article, article_id)\ndef get_all_articles():\n    with Session(engine) as session:\n        return session.query(Article).all()\ndef update_article(article_id: int, title: str, content: str):\n    \"\"\" if the article does not exist,\n    Args:\n        article_id (int): _description_",
+        "peekOfCode": "def get_article(article_id: int):\n    with Session(engine) as session:\n        return session.get(Article, article_id)\ndef get_all_articles():\n    with Session(engine) as session:\n        return session.query(Article).all()\ndef get_article_comments(article: Article) -> list[Comment]:\n    with Session(engine) as session:\n        return session.query(Comment).filter( Comment.article_id == article.id).all()\ndef delete_article(article_id: int):",
         "detail": "db",
         "documentation": {}
     },
@@ -850,16 +919,16 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def get_all_articles():\n    with Session(engine) as session:\n        return session.query(Article).all()\ndef update_article(article_id: int, title: str, content: str):\n    \"\"\" if the article does not exist,\n    Args:\n        article_id (int): _description_\n        title (str): _description_\n        content (str): _description_\n    \"\"\"",
+        "peekOfCode": "def get_all_articles():\n    with Session(engine) as session:\n        return session.query(Article).all()\ndef get_article_comments(article: Article) -> list[Comment]:\n    with Session(engine) as session:\n        return session.query(Comment).filter( Comment.article_id == article.id).all()\ndef delete_article(article_id: int):\n    with Session(engine) as session:\n        article = session.get(Article, article_id)\n        if article:",
         "detail": "db",
         "documentation": {}
     },
     {
-        "label": "update_article",
+        "label": "get_article_comments",
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def update_article(article_id: int, title: str, content: str):\n    \"\"\" if the article does not exist,\n    Args:\n        article_id (int): _description_\n        title (str): _description_\n        content (str): _description_\n    \"\"\"\n    with Session(engine) as session:\n        article = session.get(Article, article_id)\n        if article:",
+        "peekOfCode": "def get_article_comments(article: Article) -> list[Comment]:\n    with Session(engine) as session:\n        return session.query(Comment).filter( Comment.article_id == article.id).all()\ndef delete_article(article_id: int):\n    with Session(engine) as session:\n        article = session.get(Article, article_id)\n        if article:\n            session.delete(article)\n            session.commit()\n        else:",
         "detail": "db",
         "documentation": {}
     },
@@ -940,7 +1009,7 @@
         "kind": 6,
         "importPath": "models",
         "description": "models",
-        "peekOfCode": "class Comment(Base):\n    __tablename__ = 'comments'\n    id = Column(sqlalchemy.Integer, primary_key=True)\n    content : Mapped[str] = mapped_column(String)\n    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), nullable=False)\n    article_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('articles.id'), nullable=False)\n    article = relationship(\"Article\",back_populates=\"comments\")\n# relative entity to store the friendship between user and user\nclass Friendship(Base):\n    __tablename__ = \"friendship\"",
+        "peekOfCode": "class Comment(Base):\n    __tablename__ = 'comments'\n    id = Column(sqlalchemy.Integer, primary_key=True)\n    content : Mapped[str] = mapped_column(String)\n    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), nullable=False)\n    article_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('articles.id'), nullable=False)\n    article = relationship(\"Article\",back_populates=\"comments\", uselist=False)\n# relative entity to store the friendship between user and user\nclass Friendship(Base):\n    __tablename__ = \"friendship\"",
         "detail": "models",
         "documentation": {}
     },
