@@ -1,43 +1,364 @@
 {% extends 'base.jinja' %}
 
 {% block content %}
+<style>
+    .left-sidebar {
+        position: relative;
+        top: 0px;
+        left: 0px;
+        width: 5.5vw;
+        height: 100vh;
+        background-color: {{primary_colour}};
+        display: flex;
+        justify-content: center;
+    }
+    .banner {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        top: 0%;
+        left: 5.5vw; 
+        width: 94.5vw;
+        height: 7vh;
+        background-color: {{secondary_colour}}; 
+    }
+    .user-name {
+        color: {{font_colour}};
+        padding-right: 2vw;
+    }
+    .logo-text {
+        font-size: 1.4vw;
+        font-weight: 600;
+        font-family: 'Roboto', sans-serif;
+        color: {{primary_colour}};
+        line-height: 7vh;
+        padding-top: 1vh;
+        padding-left: 2vw;
+    }
+    .divider-vertical {
+        position: absolute;
+        top: 2vh;
+        left: 11.5vw;
+        width: 3px;
+        height: 3vh;
+        background-color: {{primary_colour}};
+        border-radius: 2px;
+    }
+    .title-text {
+        font-size: 1.4vw;
+        font-weight: 500;
+        font-family: 'Roboto', sans-serif;
+        color: {{primary_colour}};
+        line-height: 7vh;
+        padding-left: 1.5vw;
+    }
+    .icon-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start; 
+        height: 100%; 
+        position: absolute; 
+        top: 0; 
+    }
+    .knowledge-repo-icon, .chat-icon, .friends-icon {
+        color: #ffffff;
+        fill: #ffffff;
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+        align-self: center;
+        margin: 2vh 0;  /* the vertical gap between icons */
+    }
+    .knowledge-repo-icon {
+        top: 10vh;
+        margin-top: 9vh;
+    }
+    .chat-icon {
+        top: 16vh;
+    }
+    .friends-icon {
+        top: 22.6vh;
+        width: 25px;
+        height: 26px;
+        align-items: center;
+    }
+    .indicator-bar {
+        position: absolute;
+        top: 7.5%; 
+        left: -20px; /* how far the indicator bar is from the friends icon */
+        width: 5px;
+        height: 5.5%; /* 70% of the height of the friends icon container */
+        background-color: #ffffff;
+    } /* hard coded*/
+    .chat-icon-container {
+        position: relative;
+    }
+
+    .left-side-card {
+        position: absolute;
+        top: 7vh;
+        left: 5.5vw;
+        width: 20vw;
+        height: 93vh;
+        border-right: 1px solid #e0e0e0;
+    }
+    .left-side-card-title {
+        margin-bottom: 1vh;
+        margin-left: 2vw;
+        margin-top: 2vh;
+    }
+    .left-side-card-title-divider {
+        width: 100%;
+        border: 0;
+        border-top: 1px solid #e0e0e0;
+    }
+    .secondary-banner { /* below the banner, to the right of the left side card */
+        position: absolute;
+        top: 7vh; 
+        left: 25.5vw; 
+        width: 74.5vw;
+        height: 10vh; 
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+    }
+    .main-content-container {
+        position: absolute;
+        top: 17vh;
+        left: 25.5vw;
+        width: 54.5vw;
+        height: 66vh;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .right-side-card {
+        position: absolute;
+        top: 17vh;
+        left: 80vw; 
+        width: 20vw;
+        height: 83vh;
+        border-left: 1px solid #e0e0e0;
+    }
+    /* the chat will be fetched and appended to active chats container */
+    .chat {
+        padding-left: 2vw;
+        padding-right: 2vw;
+        z-index: 1000; 
+        position: relative;
+    }
+    .chat:hover {
+        background-color: #f2f2f2;
+    }
+    #active-chats-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    #chat-title {
+        font-size: 1.5em;
+        font-weight: 500;
+        font-family: 'Roboto', sans-serif;
+        padding-left: 3vw;
+    }
+    .user-online-indicator {
+        width: 10px;
+        height: 10px;
+        background-color: green;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .user-offline-indicator {
+        width: 10px;
+        height: 10px;
+        background-color: grey;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    #message-input {
+        position: absolute;
+        top: 83vh; 
+        left: 25.5vw;
+        width: 54.5vw;
+        height: 10vh; 
+        border: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    #send-button {
+        position: absolute;
+        top: 93vh; 
+        left: 25.5vw;
+        width: 54.5vw;
+        height: 7vh; 
+        border: none;
+        background-color: {{primary_colour}}; 
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 1px;
+        cursor: pointer;
+    }
+    #friends-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .friend {
+        padding-left: 2vw;
+        padding-right: 2vw;
+        z-index: 1000; 
+        position: relative;
+    }
+    #add-friend-to-group-chat-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .divider-horizontal {
+        width: 100%;                /* Make the divider take the full width of the container */
+        height: 2px;                /* Set the height of the divider */
+        background-color: #d3d3d3;  /* Set the color of the divider */
+        border-radius: 2px;         /* Optional: add rounded corners */
+        margin: 300px 0;             /* Add some vertical space around the divider */
+    }
+    
+      
+</style>
+
+<div class="banner">
+    <div>
+        <span class="logo-text text-center">WisdomExch</span>
+        <div class="divider-vertical"></div>
+        <span class="title-text">Knowledge repository (Student)</span>
+    </div>
+    <span class="user-name">Logged in as: {{username}}</span>
+</div>
 <div class="left-sidebar">
-    <!-- svg icon, generated by Uizard -->
     <div class="icon-container">
-        <a href=" 'knowledge_repository', username=username, theme_colour=theme_colour) }}">
-            <svg class="knowledge-repo-icon" viewBox="0 0 24 24">
-                <path d="M0 0h24v24H0V0z" fill="none"></path>
-                <path d="M15 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.89 2 1.99 2
-                        H19c1.1 0 2-.9 2-2V9l-6-6zM8 17c-.55 0-1-.45-1-1s.45-1 
-                        1-1 1 .45 1 1-.45 1-1 1zm0-4c-.55 0-1-.45-1-1s.45-1 1-1 
-                        1 .45 1 1-.45 1-1 1zm0-4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 
-                        1 1-.45 1-1 1zm6 1V4.5l5.5 5.5H14z">
-                </path>
-            </svg>
-        </a >
+        <div class="knowledge-container">
+            <div class="indicator-bar"></div>
+            <a href="{{ url_for('knowledge_repository', username=username, theme_colour=theme_colour) }}">
+                <svg class="knowledge-repo-icon" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0V0z" fill="none"></path>
+                    <path d="M15 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.89 2 1.99 2 H19c1.1 0 2-.9 2-2V9l-6-6zM8 17c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm0-4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm0-4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 1V4.5l5.5 5.5H14z"></path>
+                </svg>
+            </a>
+        </div>
         <div class="chat-icon-container">
-        <div class="indicator-bar"></div>
             <a href="{{ url_for('chat', username=username, theme_colour=theme_colour) }}">
                 <svg class="chat-icon" viewBox="0 0 512 512">
-                    <path d="M256 32C114.6 32 0 125.1 0 240c0 49.63 21.35 94.98 56.97 130.7
-                            c-12.5 50.37-54.27 95.27-54.77 95.77c-2.25 2.25-2.875 5.734-1.5 8.734
-                            C1.979 478.2 4.75 480 8 480c66.25 0 115.1-31.76 140.6-51.39
-                            C181.2 440.9 217.6 448 256 448c141.4 0 255.1-93.13 255.1-208S397.4 32 256 32z">
-                    </path>
+                    <path d="M256 32C114.6 32 0 125.1 0 240c0 49.63 21.35 94.98 56.97 130.7c-12.5 50.37-54.27 95.27-54.77 95.77c-2.25 2.25-2.875 5.734-1.5 8.734C1.979 478.2 4.75 480 8 480c66.25 0 115.1-31.76 140.6-51.39C181.2 440.9 217.6 448 256 448c141.4 0 255.1-93.13 255.1-208S397.4 32 256 32z"></path>
                 </svg>
-            </a >
+            </a>
         </div>
         <a href="{{ url_for('friends', username=username, theme_colour=theme_colour) }}">
             <svg class="friends-icon" viewBox="0 0 24 24">
                 <path fill="none" d="M0 0h24v24H0z"></path>
-                <path d="M16.67 13.13C18.04 14.06 19 15.32 19 17v3h4v-3c0-2.18-3.57-3.47-6.33-3.87zM9 4a4 4 0 1 0 0 8 
-                        4 4 0 1 0 0-8zM15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4c-.47 0-.91.1-1.33.24a5.98 5.98 0 0 1 0 7.52
-                        c.42.14.86.24 1.33.24zm-6 1c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z" fill-rule="evenodd">
-                </path>
+                <path d="M16.67 13.13C18.04 14.06 19 15.32 19 17v3h4v-3c0-2.18-3.57-3.47-6.33-3.87zM9 4a4 4 0 1 0 0 8 4 4 0 1 0 0-8zM15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4c-.47 0-.91.1-1.33.24a5.98 5.98 0 0 1 0 7.52c.42.14.86.24 1.33.24zm-6 1c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z" fill-rule="evenodd"></path>
             </svg>
-        </a >
+        </a>
     </div>
 </div>
+
+
+<div class="left-side-card">
+    <!-- display friends and group chats -->
+    <h6 class="left-side-card-title">Posts</h6>
+    <hr class="left-side-card-title-divider" />
+    <div id="active-chats-container">
+
+    </div>
+    <div class="divider-horizontal">----
+    </div>
+</div>
+
+<div class="secondary-banner">
+    <!-- display the chatroom name -->
+    <span id="chat-title"> </span>
+</div>
+
+<div class="main-content-container">
+    <!-- display the chat messages -->
+</div>
+
+
+<div class="right-side-card">
+    <!-- display the create group chat -->
+    <h6 class="left-side-card-title">Create Group Chat</h6> <!-- copy the style from left side card title -->
+    <div id="friends-container">
+
+    </div>
+    <h6 class="left-side-card-title">Group Chat Members</h6>
+    <div id="group-chat-members-container" style="margin-bottom: 50px;">
+    
+    </div>
+    <h6 class="left-side-card-title">Add Friends to Group</h6>
+    <div id="add-friend-to-group-chat-container">
+    
+    </div>
+    <div class="divider-horizontal">----
+    </div>
+
+</div>
+<script src="/static/js/libs/socket.io.min.js"></script>
+<script>
+    async function createArticle() {
+        let username = "{{ username }}";
+        let title = document.getElementById('article_title').value;
+        let content = document.getElementById('article_content').value;
+        let response = await axios.post('/create_article', { username: username, title: title, content: content});
+        if (response.data.success) {
+            window.location.reload();
+        } else {
+            alert(response.data.error);
+        }
+    }
+
+    async function editArticle(articleId) {
+        let title = prompt('Enter new title:');
+        let content = prompt('Enter new content:');
+        let response = await axios.post('/edit_article', { article_id: articleId, title: title, content: content });
+        if (response.data.success) {
+            window.location.reload();
+        } else {
+            alert(response.data.error);
+        }
+    }
+
+    async function deleteArticle(articleId) {
+        let response = await axios.post('/delete_article', { article_id: articleId });
+        if (response.data.success) {
+            window.location.reload();
+        } else {
+            alert(response.data.error);
+        }
+    }
+
+    async function addComment(articleId) {
+        let content = document.getElementById('comment_content_' + articleId).value;
+        let response = await axios.post('/add_comment', { article_id: articleId, content: content });
+        if (response.data.success) {
+            window.location.reload();
+        } else {
+            alert(response.data.error);
+        }
+    }
+
+    async function deleteComment(commentId) {
+        let response = await axios.post('/delete_comment', { comment_id: commentId });
+        if (response.data.success) {
+            window.location.reload();
+        } else {
+            alert(response.data.error);
+        }
+    }
+</script>
     <h1>Knowledge Repository</h1>
     <div>
         <h2>Create Article</h2>
@@ -53,7 +374,7 @@
                 <p>{{ article.content }}</p>
                 <p>Author: {{ article.author }}</p>
                 <div>
-                    {% if user.is_staff or article.author == user.username %}
+                    {% if user.permission or article.author == user.username %}
                         <button onclick="editArticle({{ article.id }})">Edit</button>
                         <button onclick="deleteArticle({{ article.id }})">Delete</button>
                     {% endif %}
@@ -76,55 +397,5 @@
         {% endfor %}
     </div>
 
-    <script>
-        async function createArticle() {
-            let title = document.getElementById('article_title').value;
-            let content = document.getElementById('article_content').value;
-            let response = await axios.post('/create_article', { title: title, content: content });
-            if (response.data.success) {
-                window.location.reload();
-            } else {
-                alert(response.data.error);
-            }
-        }
 
-        async function editArticle(articleId) {
-            let title = prompt('Enter new title:');
-            let content = prompt('Enter new content:');
-            let response = await axios.post('/edit_article', { article_id: articleId, title: title, content: content });
-            if (response.data.success) {
-                window.location.reload();
-            } else {
-                alert(response.data.error);
-            }
-        }
-
-        async function deleteArticle(articleId) {
-            let response = await axios.post('/delete_article', { article_id: articleId });
-            if (response.data.success) {
-                window.location.reload();
-            } else {
-                alert(response.data.error);
-            }
-        }
-
-        async function addComment(articleId) {
-            let content = document.getElementById('comment_content_' + articleId).value;
-            let response = await axios.post('/add_comment', { article_id: articleId, content: content });
-            if (response.data.success) {
-                window.location.reload();
-            } else {
-                alert(response.data.error);
-            }
-        }
-
-        async function deleteComment(commentId) {
-            let response = await axios.post('/delete_comment', { comment_id: commentId });
-            if (response.data.success) {
-                window.location.reload();
-            } else {
-                alert(response.data.error);
-            }
-        }
-    </script>
 {% endblock %}

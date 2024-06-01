@@ -97,6 +97,14 @@
         "documentation": {}
     },
     {
+        "label": "get_user",
+        "importPath": "db",
+        "description": "db",
+        "isExtraImport": true,
+        "detail": "db",
+        "documentation": {}
+    },
+    {
         "label": "*",
         "importPath": "models",
         "description": "models",
@@ -220,6 +228,14 @@
         "documentation": {}
     },
     {
+        "label": "relationship",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
         "label": "Path",
         "importPath": "pathlib",
         "description": "pathlib",
@@ -240,7 +256,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def index():\n    return render_template(\"index.jinja\")\n# Knowledge repo page\n@app.route(\"/knowledge_repository\")\ndef knowledge_repository():\n    theme_colour = request.args.get(\"themeColour\")\n    if theme_colour is None:\n        theme_colour = \"black\"\n    colours = ThemeColour();\n    username = get_current_user()",
+        "peekOfCode": "def index():\n    return render_template(\"index.jinja\")\n# Knowledge repo page\n@app.route(\"/knowledge_repository\")\ndef knowledge_repository():\n    colours = ThemeColour();\n    theme_colour = request.args.get(\"theme_colour\")\n    # if theme_colour is None:\n    #     theme_colour = \"black\"  \n    username = request.args.get(\"username\")",
         "detail": "app",
         "documentation": {}
     },
@@ -249,7 +265,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def knowledge_repository():\n    theme_colour = request.args.get(\"themeColour\")\n    if theme_colour is None:\n        theme_colour = \"black\"\n    colours = ThemeColour();\n    username = get_current_user()\n    articles = db.get_all_articles()\n    return render_template('knowledge_repository.jinja', username=username, theme_colour=theme_colour, \n                           primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),",
+        "peekOfCode": "def knowledge_repository():\n    colours = ThemeColour();\n    theme_colour = request.args.get(\"theme_colour\")\n    # if theme_colour is None:\n    #     theme_colour = \"black\"  \n    username = request.args.get(\"username\")\n    user = get_user(username)\n    print(user)\n    print(username)\n    print(theme_colour)",
         "detail": "app",
         "documentation": {}
     },
@@ -258,7 +274,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def get_current_user():\n    username = request.args.get(\"username\")\n    if username:\n        return username\n    else:\n        raise(KeyError)\n@app.route(\"/create_article\", methods=[\"POST\"])\ndef create_article():\n    print(\"create article\")\n    user = get_current_user()",
+        "peekOfCode": "def get_current_user():\n    username = request.args.get(\"username\")\n    if username:\n        return username\n    else:\n        raise(KeyError)\n@app.route(\"/create_article\", methods=[\"POST\"])\ndef create_article():\n    print(\"create article\")\n    user = request.json.get(\"username\")",
         "detail": "app",
         "documentation": {}
     },
@@ -267,7 +283,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def create_article():\n    print(\"create article\")\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to create an article\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    title = data.get(\"title\")\n    content = data.get(\"content\")\n    db.insert_article(title, content, user)",
+        "peekOfCode": "def create_article():\n    print(\"create article\")\n    user = request.json.get(\"username\")\n    # print(user)\n    # if not user:\n    #     return jsonify({\"error\": \"You must be logged in to create an article\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    username = data.get(\"username\")\n    title = data.get(\"title\")",
         "detail": "app",
         "documentation": {}
     },
@@ -321,7 +337,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def login_user():\n    if not request.is_json:\n        abort(404)\n    # retrieve the user name from the JSON data of the POST request\n    username = request.json.get(\"username\")\n    password = request.json.get(\"password\")\n    theme_colour = request.json.get(\"themeColour\")\n    user =  db.get_user(username)\n    if user is None:\n        return \"Error: User does not exist!\"",
+        "peekOfCode": "def login_user():\n    if not request.is_json:\n        abort(404)\n    # retrieve the user name from the JSON data of the POST request\n    username = request.json.get(\"username\")\n    global current_user\n    current_user = username\n    password = request.json.get(\"password\")\n    theme_colour = request.json.get(\"themeColour\")\n    user =  db.get_user(username)",
         "detail": "app",
         "documentation": {}
     },
@@ -537,7 +553,7 @@
         "kind": 5,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "theme_colour = \"black\"\n# index page\n@app.route(\"/\")\ndef index():\n    return render_template(\"index.jinja\")\n# Knowledge repo page\n@app.route(\"/knowledge_repository\")\ndef knowledge_repository():\n    theme_colour = request.args.get(\"themeColour\")\n    if theme_colour is None:",
+        "peekOfCode": "theme_colour = \"black\"\n# index page\n@app.route(\"/\")\ndef index():\n    return render_template(\"index.jinja\")\n# Knowledge repo page\n@app.route(\"/knowledge_repository\")\ndef knowledge_repository():\n    colours = ThemeColour();\n    theme_colour = request.args.get(\"theme_colour\")",
         "detail": "app",
         "documentation": {}
     },
@@ -807,7 +823,16 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def insert_article(title: str, content: str, author: str):\n    \"\"\"Just make sure author is valid\n    Args:\n        title (str): _description_\n        content (str): _description_\n        author (str): _description_\n    \"\"\"\n    with Session(engine) as session:\n        article = Article(title=title, content=content, author=author)\n        session.add(article)",
+        "peekOfCode": "def insert_article(title: str, content: str, author: str):\n    \"\"\"Just make sure author is valid\n    Args:\n        title (str): _description_\n        content (str): _description_\n        author (str): _description_\n    \"\"\"\n    id : int = 0\n    while get_article(id) != None:\n        id+=1",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "generate_comment_id",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def generate_comment_id() -> int:\n    id : int = 0\n    while get_comment(id) != None:\n        id+=1\n        if get_comment(id) == None:\n            print(\"break\")\n            break\n    return id\ndef get_article(article_id: int):\n    with Session(engine) as session:",
         "detail": "db",
         "documentation": {}
     },
@@ -906,7 +931,7 @@
         "kind": 6,
         "importPath": "models",
         "description": "models",
-        "peekOfCode": "class Article(Base):\n    __tablename__ = 'articles'\n    id : Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)\n    title : Mapped[str] = mapped_column(String)\n    content : Mapped[str] = mapped_column(String)\n    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)\n    comments: Mapped[str] = mapped_column(sqlalchemy.Integer, ForeignKey('comments.id'), primary_key=True)\nclass Comment(Base):\n    __tablename__ = 'comments'\n    id = Column(sqlalchemy.Integer, primary_key=True)",
+        "peekOfCode": "class Article(Base):\n    __tablename__ = 'articles'\n    id : Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)\n    title : Mapped[str] = mapped_column(String)\n    content : Mapped[str] = mapped_column(String)\n    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), nullable=False)\n    #comments: Mapped[str] = mapped_column(sqlalchemy.Integer, ForeignKey('comments.id')) # why is this primary?\n    # Define comments as a relationship to the comments table so it can be nullable\n    comments = relationship(\"Comment\", back_populates=\"article\")\nclass Comment(Base):",
         "detail": "models",
         "documentation": {}
     },
@@ -915,7 +940,7 @@
         "kind": 6,
         "importPath": "models",
         "description": "models",
-        "peekOfCode": "class Comment(Base):\n    __tablename__ = 'comments'\n    id = Column(sqlalchemy.Integer, primary_key=True)\n    content : Mapped[str] = mapped_column(String)\n    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)\n    article_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('articles.id'), primary_key=True)\n# relative entity to store the friendship between user and user\nclass Friendship(Base):\n    __tablename__ = \"friendship\"\n    # the combination of user_id and friend_id is the primary key, they have to be unique in this table",
+        "peekOfCode": "class Comment(Base):\n    __tablename__ = 'comments'\n    id = Column(sqlalchemy.Integer, primary_key=True)\n    content : Mapped[str] = mapped_column(String)\n    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), nullable=False)\n    article_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('articles.id'), nullable=False)\n    article = relationship(\"Article\",back_populates=\"comments\")\n# relative entity to store the friendship between user and user\nclass Friendship(Base):\n    __tablename__ = \"friendship\"",
         "detail": "models",
         "documentation": {}
     },

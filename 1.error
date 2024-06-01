@@ -3,63 +3,72 @@
 [33mPress CTRL+C to quit[0m
  * Restarting with stat
  * Debugger is active!
- * Debugger PIN: 130-696-108
-127.0.0.1 - - [19/May/2024 23:51:56] "GET /socket.io/?EIO=4&transport=polling&t=O-H7v2M HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:56] "POST /socket.io/?EIO=4&transport=polling&t=O-H7vEN&sid=zWj-CEeBkvi2PMqpAAAA HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:56] "GET /socket.io/?EIO=4&transport=polling&t=O-H7vEO&sid=zWj-CEeBkvi2PMqpAAAA HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:57] "GET /friends?username=hash&theme_colour=black HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:57] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:51:57] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:51:57] "[36mGET /static/js/libs/socket.io.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:51:57] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:51:57] "GET /socket.io/?EIO=4&transport=polling&t=O-H7vWU HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:57] "GET /socket.io/?EIO=4&transport=polling&t=O-H7vWd.0&sid=x5_8AAOKEIzK5AtmAAAC HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:58] "POST /socket.io/?EIO=4&transport=polling&t=O-H7vWd&sid=x5_8AAOKEIzK5AtmAAAC HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:58] "POST /get_group_chats HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:58] "POST /get_friends HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:58] "POST /get_incoming_friend_requests HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:58] "GET /socket.io/?EIO=4&transport=polling&t=O-H7vX0&sid=x5_8AAOKEIzK5AtmAAAC HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:58] "POST /get_outgoing_friend_requests HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:59] "GET /socket.io/?EIO=4&transport=websocket&sid=x5_8AAOKEIzK5AtmAAAC HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:59] "GET /chat?username=hash&theme_colour=black HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/socket.io.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:51:59] "GET /socket.io/?EIO=4&transport=polling&t=O-H7vpt HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:59] "POST /get_active_chats HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:59] "GET /socket.io/?EIO=4&transport=polling&t=O-H7vq4&sid=w_Hl7pxGhGBa3_hrAAAE HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:59] "POST /socket.io/?EIO=4&transport=polling&t=O-H7vq3&sid=w_Hl7pxGhGBa3_hrAAAE HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:59] "GET /socket.io/?EIO=4&transport=websocket&sid=w_Hl7pxGhGBa3_hrAAAE HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:59] "GET /knowledge_repository?username=hash&theme_colour=black HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:51:59] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:52:01] "GET /friends?username=hash&theme_colour=black HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:01] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:52:01] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:52:01] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:52:01] "[36mGET /static/js/libs/socket.io.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:52:01] "GET /socket.io/?EIO=4&transport=polling&t=O-H7wQX HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:01] "POST /get_incoming_friend_requests HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:01] "POST /get_friends HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:01] "POST /get_group_chats HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:01] "GET /socket.io/?EIO=4&transport=polling&t=O-H7wQk.0&sid=SK2gz-67w9bBQrOBAAAG HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:01] "POST /socket.io/?EIO=4&transport=polling&t=O-H7wQk&sid=SK2gz-67w9bBQrOBAAAG HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:01] "POST /get_outgoing_friend_requests HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:01] "GET /socket.io/?EIO=4&transport=polling&t=O-H7wR3&sid=SK2gz-67w9bBQrOBAAAG HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:02] "GET /socket.io/?EIO=4&transport=websocket&sid=SK2gz-67w9bBQrOBAAAG HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:03] "GET /chat?username=hash&theme_colour=black HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:03] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:52:03] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:52:03] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:52:03] "[36mGET /static/js/libs/socket.io.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:52:03] "GET /socket.io/?EIO=4&transport=polling&t=O-H7wwR HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:03] "POST /get_active_chats HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:03] "GET /socket.io/?EIO=4&transport=polling&t=O-H7wwe&sid=BlVkIuDg0msfS9onAAAI HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:03] "POST /socket.io/?EIO=4&transport=polling&t=O-H7wwd&sid=BlVkIuDg0msfS9onAAAI HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:04] "GET /socket.io/?EIO=4&transport=websocket&sid=BlVkIuDg0msfS9onAAAI HTTP/1.1" 200 -
-127.0.0.1 - - [19/May/2024 23:52:05] "[33mGET /'knowledge_repository',%20username=username,%20theme_colour=theme_colour)%20}} HTTP/1.1[0m" 404 -
-127.0.0.1 - - [19/May/2024 23:52:05] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:52:05] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [19/May/2024 23:52:05] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+ * Debugger PIN: 887-065-360
+127.0.0.1 - - [01/Jun/2024 13:57:21] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2024 13:57:21] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [01/Jun/2024 13:57:21] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [01/Jun/2024 13:57:21] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [01/Jun/2024 13:57:23] "GET /login?themeColour=blue HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2024 13:57:23] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [01/Jun/2024 13:57:23] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [01/Jun/2024 13:57:23] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [01/Jun/2024 13:57:24] "POST /login/user HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2024 13:57:24] "GET /home?username=hash1&theme_colour=blue&primary_colour=%23007aff&secondary_colour=%23aad3ff&font_colour=%23ffffff HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2024 13:57:24] "[36mGET /static/js/libs/jquery.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [01/Jun/2024 13:57:24] "[36mGET /static/js/libs/axios.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [01/Jun/2024 13:57:24] "[36mGET /static/js/libs/js.cookie.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [01/Jun/2024 13:57:24] "[36mGET /static/js/libs/socket.io.min.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [01/Jun/2024 13:57:24] "GET /socket.io/?EIO=4&transport=polling&t=O_HyUvb HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2024 13:57:24] "POST /get_active_chats HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2024 13:57:24] "POST /socket.io/?EIO=4&transport=polling&t=O_HyUvl&sid=l1Q31fEg3HqZf4j8AAAA HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2024 13:57:24] "GET /socket.io/?EIO=4&transport=polling&t=O_HyUvm&sid=l1Q31fEg3HqZf4j8AAAA HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2024 13:57:24] "GET /socket.io/?EIO=4&transport=polling&t=O_HyUw5&sid=l1Q31fEg3HqZf4j8AAAA HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2024 13:57:25] "GET /socket.io/?EIO=4&transport=websocket&sid=l1Q31fEg3HqZf4j8AAAA HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jun/2024 13:57:25] "[35m[1mGET /knowledge_repository?username=hash1&theme_colour=blue HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask_socketio/__init__.py", line 43, in __call__
+    return super(_SocketIOMiddleware, self).__call__(environ,
+  File "/usr/local/lib/python3.10/dist-packages/engineio/middleware.py", line 74, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/dist-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/mnt/c/Users/76100/OneDrive - The University of Sydney (Students)/Desktop/MessagingApplication-Python/app.py", line 49, in knowledge_repository
+    return render_template('knowledge_repository.jinja', user=user, username=username, theme_colour=theme_colour,
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/usr/local/lib/python3.10/dist-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/mnt/c/Users/76100/OneDrive - The University of Sydney (Students)/Desktop/MessagingApplication-Python/templates/knowledge_repository.jinja", line 1, in top-level template code
+    {% extends 'base.jinja' %}
+  File "/mnt/c/Users/76100/OneDrive - The University of Sydney (Students)/Desktop/MessagingApplication-Python/templates/base.jinja", line 22, in top-level template code
+    {% block content %} {% endblock %}
+  File "/mnt/c/Users/76100/OneDrive - The University of Sydney (Students)/Desktop/MessagingApplication-Python/templates/knowledge_repository.jinja", line 384, in block 'content'
+    {% for comment in article.comments %}
+  File "/usr/local/lib/python3.10/dist-packages/jinja2/environment.py", line 485, in getattr
+    return getattr(obj, attribute)
+  File "/usr/local/lib/python3.10/dist-packages/sqlalchemy/orm/attributes.py", line 566, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+  File "/usr/local/lib/python3.10/dist-packages/sqlalchemy/orm/attributes.py", line 1086, in get
+    value = self._fire_loader_callables(state, key, passive)
+  File "/usr/local/lib/python3.10/dist-packages/sqlalchemy/orm/attributes.py", line 1121, in _fire_loader_callables
+    return self.callable_(state, passive)
+  File "/usr/local/lib/python3.10/dist-packages/sqlalchemy/orm/strategies.py", line 918, in _load_for_state
+    raise orm_exc.DetachedInstanceError(
+sqlalchemy.orm.exc.DetachedInstanceError: Parent instance <Article at 0x7feee9eea770> is not bound to a Session; lazy load operation of attribute 'comments' cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+127.0.0.1 - - [01/Jun/2024 13:57:25] "[36mGET /knowledge_repository?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [01/Jun/2024 13:57:25] "[36mGET /knowledge_repository?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [01/Jun/2024 13:57:25] "[36mGET /knowledge_repository?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -

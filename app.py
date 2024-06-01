@@ -6,7 +6,7 @@ the socket event handlers are inside of socket_routes.py
 
 from flask import Flask, render_template, request, abort, url_for, jsonify
 from flask_socketio import SocketIO
-import db
+from db import get_user
 from models import *
 import secrets
 
@@ -36,17 +36,20 @@ def index():
 # Knowledge repo page
 @app.route("/knowledge_repository")
 def knowledge_repository():
-    theme_colour = request.args.get("themeColour")
-    if theme_colour is None:
-        theme_colour = "black"
-        
     colours = ThemeColour();
-    username = get_current_user()
+    theme_colour = request.args.get("theme_colour")
+    # if theme_colour is None:
+    #     theme_colour = "black"  
+    username = request.args.get("username")
+    user = get_user(username)
+    print(user)
+    print(username)
+    print(theme_colour)
     articles = db.get_all_articles()
-    return render_template('knowledge_repository.jinja', username=username, theme_colour=theme_colour, 
+    return render_template('knowledge_repository.jinja', user=user, username=username, theme_colour=theme_colour, 
                            primary_colour=colours.get_primary_colour(theme_colour), 
                            secondary_colour=colours.get_secondary_colour(theme_colour),
-                           font_colour=colours.get_font_colour(theme_colour))
+                           font_colour=colours.get_font_colour(theme_colour), articles=articles)
 
 @app.route("/get_current_user", methods=["POST"])
 def get_current_user():
@@ -59,13 +62,19 @@ def get_current_user():
 @app.route("/create_article", methods=["POST"])
 def create_article():
     print("create article")
-    user = get_current_user()
-    if not user:
-        return jsonify({"error": "You must be logged in to create an article"}), 401
+    user = request.json.get("username")
+    # print(user)
+    # if not user:
+    #     return jsonify({"error": "You must be logged in to create an article"}), 401
     # **Handle JSON request**
     data = request.get_json()
+    username = data.get("username")
     title = data.get("title")
     content = data.get("content")
+    print(username)
+    print(title)
+    print(content)
+    # print("hi")
     db.insert_article(title, content, user)
     return jsonify({"success": True})
 
@@ -155,6 +164,8 @@ def login_user():
 
     # retrieve the user name from the JSON data of the POST request
     username = request.json.get("username")
+    global current_user
+    current_user = username
     password = request.json.get("password")
     theme_colour = request.json.get("themeColour")
 

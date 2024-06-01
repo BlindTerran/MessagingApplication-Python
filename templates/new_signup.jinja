@@ -123,19 +123,12 @@
     <span class="title-text">Sign Up</span>
 </div>
 
-{% comment %} <div class="body-card">
-
-     ================== TESTING BUTTON ================== <br>
-     THE BACKEND HAS A TEST_PAGE HANDLER THAT RETURNS A URL TO REDIRECT TO YOUR DEFINED PAGE <br>
-     CHANGE THE RETURN VALUE IN APP.PY TO TEST A DIFFERENT PAGE
-    <button onclick="window.location.href='{{ url_for('test_page') }}'">Go to Test Page</button> <br>
-     ====== REMOVE THIS CHUNK IF NO LONGER NEEDED ==========
-
-    <div class="body-title">Sign Up</div>
-    <input id="username" class="username-input-box" type="text" placeholder="Enter your username"> 
-    <input id="password" class="password-input-box" type="password" placeholder="Enter your password">
-    <button class="signup-button" onclick="signup()">Sign Up</button>
-</div> {% endcomment %}
+<div class="body-card">
+   <div class="body-title">Sign Up</div>
+   <input id="username" class="username-input-box" type="text" placeholder="Enter your username"> 
+   <input id="password" class="password-input-box" type="password" placeholder="Enter your password">
+   <button class="signup-button" onclick="signup()">Sign Up</button>
+</div>
 
 <script>
         function isValidURL(string) {

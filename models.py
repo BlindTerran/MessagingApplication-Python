@@ -11,7 +11,7 @@ or use SQLite, if you're not into fancy ORMs (but be mindful of Injection attack
 '''
 
 from sqlalchemy import Column, Table, String, ForeignKey
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from typing import Dict
 import sqlalchemy
 import db
@@ -48,16 +48,20 @@ class Article(Base):
     id : Mapped[int] = mapped_column(sqlalchemy.Integer, primary_key=True)
     title : Mapped[str] = mapped_column(String)
     content : Mapped[str] = mapped_column(String)
-    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)
-    comments: Mapped[str] = mapped_column(sqlalchemy.Integer, ForeignKey('comments.id'), primary_key=True)
+    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), nullable=False)
+    #comments: Mapped[str] = mapped_column(sqlalchemy.Integer, ForeignKey('comments.id')) # why is this primary?
+    # Define comments as a relationship to the comments table so it can be nullable
+    comments = relationship("Comment", back_populates="article")
+
 
 class Comment(Base):
     __tablename__ = 'comments'
     id = Column(sqlalchemy.Integer, primary_key=True)
     content : Mapped[str] = mapped_column(String)
-    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), primary_key=True)
-    article_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('articles.id'), primary_key=True)
-
+    author: Mapped[str] = mapped_column(String, ForeignKey('user.username'), nullable=False)
+    article_id: Mapped[int] = mapped_column(sqlalchemy.Integer, ForeignKey('articles.id'), nullable=False)
+    article = relationship("Article",back_populates="comments")
+    
 # relative entity to store the friendship between user and user
 class Friendship(Base):
     __tablename__ = "friendship"

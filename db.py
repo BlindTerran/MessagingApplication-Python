@@ -308,10 +308,28 @@ def insert_article(title: str, content: str, author: str):
         content (str): _description_
         author (str): _description_
     """
+    id : int = 0
+    while get_article(id) != None:
+        id+=1
+        if get_article(id) == None:
+            print("break")
+            break
+    print(f"article id: {id}")
+    comment_id = generate_comment_id()
+    print(f"{id}, {title}, {content}, {author}, {comment_id}")        
     with Session(engine) as session:
-        article = Article(title=title, content=content, author=author)
+        article = Article(id=id, title=title, content=content, author=author,comments=[]) #comment is an empty list
         session.add(article)
         session.commit()
+
+def generate_comment_id() -> int:
+    id : int = 0
+    while get_comment(id) != None:
+        id+=1
+        if get_comment(id) == None:
+            print("break")
+            break
+    return id
 
 def get_article(article_id: int):
     with Session(engine) as session:
