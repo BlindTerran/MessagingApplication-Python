@@ -6,7 +6,7 @@ the socket event handlers are inside of socket_routes.py
 
 from flask import Flask, render_template, request, abort, url_for, jsonify
 from flask_socketio import SocketIO
-from db import check_permission, get_all_articles, get_comment, get_user
+from db import check_permission, get_all_articles, get_all_users, get_comment, get_user
 from models import *
 import secrets
 
@@ -85,21 +85,17 @@ def modify_article():
         db.update_article(articleID, new_title, new_content)
         return jsonify({"success": True})
     else:
-        return jsonify({"fail": False})
+        return jsonify({"fail": True})
 
 @app.route("/create_article", methods=["POST"])
 def create_article():
     print("create article")
-    # print(user)
-    # if not user:
-    #     return jsonify({"error": "You must be logged in to create an article"}), 401
-    # **Handle JSON request**
     data = request.get_json()
     username = data.get("username")
     title = data.get("title")
     content = data.get("content")
     user = db.get_user(username)
-    if user.permission != 0:
+    if user.permission >= 0:
         db.insert_article(title, content, username)
         return jsonify({"success": True})
     else:
@@ -108,18 +104,15 @@ def create_article():
 
 @app.route("/edit_article", methods=["POST"])
 def edit_article():
-    user = get_current_user()
-    if not user:
-        return jsonify({"error": "You must be logged in to edit an article"}), 401
-    # **Handle JSON request**
     data = request.get_json()
+    username = data.get("username")
     article_id = data.get("article_id")
     title = data.get("title")
     content = data.get("content")
     article = db.get_article(article_id)
     if not article:
         return jsonify({"error": "Article not found"}), 404
-    if article.author != user.username and not user.is_staff:
+    if article.author != username and db.get_user(username).permission < 1:
         return jsonify({"error": "You do not have permission to edit this article"}), 403
     db.update_article(article_id, title, content)
     return jsonify({"success": True})
@@ -146,12 +139,12 @@ def add_comment():
     content = data.get("content")
     username = data.get("username")
     user = db.get_user(username)
-    if user.permission != 0:
+    if user.permission >= 0:
         db.add_comment(article_id, content, username)
         return jsonify({"success": True})
     else:
         pass
-    return jsonify({"success": True})
+    return jsonify({"success": True}), 403
 
 @app.route("/delete_comment", methods=["POST"])
 def delete_comment():
@@ -204,8 +197,17 @@ def login_user():
         return "Error: Password does not match!"
     
     colours = ThemeColour();
+    # db.remove_all_chatrooms()
     # if the login is successful, returns the url for the home page with aquery parameters, username, theme colours
-    return url_for('home', username=request.json.get("username"), theme_colour=theme_colour,
+    # for staff
+    if user.permission >= 1:
+        return url_for('staff',username=request.json.get("username"), theme_colour=theme_colour,
+                   primary_colour=colours.get_primary_colour(theme_colour), 
+                   secondary_colour=colours.get_secondary_colour(theme_colour),
+                   font_colour=colours.get_font_colour(theme_colour))
+    # for student
+    else:
+        return url_for('home', username=request.json.get("username"), theme_colour=theme_colour,
                    primary_colour=colours.get_primary_colour(theme_colour), 
                    secondary_colour=colours.get_secondary_colour(theme_colour),
                    font_colour=colours.get_font_colour(theme_colour))
@@ -258,6 +260,47 @@ def home():
                            secondary_colour=colours.get_secondary_colour(theme_colour),
                            font_colour=colours.get_font_colour(theme_colour))
 
+@app.route("/staff")
+def staff():
+    if request.args.get("username") is None:
+        abort(404)
+    username = request.args.get("username")
+    theme_colour = request.args.get("theme_colour")
+    colours = ThemeColour()
+    primary_colour = request.args.get("primary_colour")
+    secondary_colour = request.args.get("secondary_colour")
+    font_colour = request.args.get("font_colour")
+    
+    article_dict = dict() # article : list([comments])
+    articles = get_all_articles()
+    for article in articles:
+        comments = db.get_article_comments(article)
+        article_dict[article] = comments
+
+    user_dict = dict()
+    all_users = get_all_users()
+    for user in all_users:
+        user_dict[user.username] = user.permission
+    
+    return render_template("staff.jinja", username=username, user_dict=user_dict, article_dict=article_dict,theme_colour=theme_colour,
+                           primary_colour=colours.get_primary_colour(theme_colour), 
+                           secondary_colour=colours.get_secondary_colour(theme_colour),
+                           font_colour=colours.get_font_colour(theme_colour))
+
+@app.route("/mute_user", methods=["POST"])
+def mute_user():
+    data = request.get_json()
+    username = data.get("username")
+    db.mute_user(username)
+    return jsonify({"success": True})
+
+@app.route("/unmute_user", methods=["POST"])
+def unmute_user():
+    data = request.get_json()
+    username = data.get("username")
+    db.unmute_user(username)
+    return jsonify({"success": True})
+
 @app.route("/chat")
 def chat():
     username = request.args.get("username")
@@ -265,7 +308,11 @@ def chat():
     if username is None:
         abort(404)
     colours = ThemeColour()
-    return render_template("chat.jinja", username=username, theme_colour=theme_colour, 
+    # if db.get_user(username).permission < 0:
+    #     return jsonify({"msg": "You are muted and cannot open a chat!"}), 403
+    permission = db.get_user(username).permission
+    print(permission)
+    return render_template("chat.jinja", username=username, permission=permission, theme_colour=theme_colour, 
                            primary_colour=colours.get_primary_colour(theme_colour),
                             secondary_colour=colours.get_secondary_colour(theme_colour),
                             font_colour=colours.get_font_colour(theme_colour))
@@ -277,7 +324,8 @@ def friends():
     if username is None:
         abort(404)
     colours = ThemeColour()
-    return render_template("friends.jinja", username=username, theme_colour=theme_colour, 
+    permission = db.get_user(username).permission
+    return render_template("friends.jinja", username=username, permission=permission, theme_colour=theme_colour, 
                            primary_colour=colours.get_primary_colour(theme_colour), 
                            secondary_colour=colours.get_secondary_colour(theme_colour),
                            font_colour=colours.get_font_colour(theme_colour))
@@ -427,8 +475,8 @@ def get_group_chat_members():
 @app.route("/get_group_chats", methods=["POST"])
 def get_group_chats():
     username = request.json.get("username")
-    if db.get_user(username).permission < 0:
-        return jsonify({"error": "Article not found"}), 403
+    # if db.get_user(username).permission < 0:
+    #     return jsonify({"error": "Article not found"}), 403
     group_chats = db.get_group_chats(username)
     if not group_chats:
         return jsonify({"no_group_chats": True})

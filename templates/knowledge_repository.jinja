@@ -272,11 +272,18 @@
     <h6 class="left-side-card-title">Posts</h6>
     <hr class="left-side-card-title-divider" />
     <div id="active-chats-container">
-
+        {% for article, comments in dictionary.items() %}
+            <li>{{ article.title }} : {{ article.content }}</li>
+            <ul>
+                {% for eachComment in comments %}
+                    <li>{{ eachComment.content }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
     </div>
-    <div class="divider-horizontal">----
-    </div>
+    <div class="divider-horizontal">----</div>
 </div>
+
 
 <div class="secondary-banner">
     <!-- display the chatroom name -->
@@ -290,17 +297,9 @@
 
 <div class="right-side-card">
     <!-- display the create group chat -->
-    <h6 class="left-side-card-title">Create Group Chat</h6> <!-- copy the style from left side card title -->
+    <h6 class="left-side-card-title">right side card</h6> <!-- copy the style from left side card title -->
     <div id="friends-container">
 
-    </div>
-    <h6 class="left-side-card-title">Group Chat Members</h6>
-    <div id="group-chat-members-container" style="margin-bottom: 50px;">
-    
-    </div>
-    <h6 class="left-side-card-title">Add Friends to Group</h6>
-    <div id="add-friend-to-group-chat-container">
-    
     </div>
     <div class="divider-horizontal">----
     </div>
@@ -361,6 +360,7 @@
         if (response.data.success) {
             window.location.reload();
         } else {
+            console.log("123");
             alert(response.data.error);
         }
     }
@@ -399,8 +399,7 @@
                 <li>{{eachComment.content}}<button onclick="deleteComment({{eachComment.id}})">Delete</button> </li>            </li>
                 {% endfor %}
                 </ul>
-        {% endfor %}
-
+            {% endfor %}
         </ul>
     </div>
 

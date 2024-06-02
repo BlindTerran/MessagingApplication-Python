@@ -404,7 +404,11 @@
         if (currentRoomId) {
             socket.emit("leave", currentRoomId);
         }
-        
+        let permission = {{ permission }};
+        if (permission < 0){
+            alert("You are banned!");
+            return;
+        }
         let chat = $(this).data('chat');
         // store the chatroom id in the cookie
         // user can now send messages to this chatroom

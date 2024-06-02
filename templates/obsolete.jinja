@@ -3,3 +3,23 @@ THE BACKEND HAS A TEST_PAGE HANDLER THAT RETURNS A URL TO REDIRECT TO YOUR DEFIN
 CHANGE THE RETURN VALUE IN APP.PY TO TEST A DIFFERENT PAGE
 <button onclick="window.location.href='{{ url_for('test_page') }}'">Go to Test Page</button> <br>
 ====== REMOVE THIS CHUNK IF NO LONGER NEEDED ==========
+
+<div>
+    {% if user.permission or article.author == user.username %}
+        <button onclick="editArticle({{ article.id }})">Edit</button>
+        <button onclick="deleteArticle({{ article.id }})">Delete</button>
+    {% endif %}
+</div>
+
+async function checkPermission() {
+    let username = "{{ username }}";
+    let permission = await axios.post('/username_permission', { username: username});
+    let response 
+
+    if (permission >= 0) {
+        window.location.reload();
+    }
+    else {
+        alert("You are banned!");
+    }
+}

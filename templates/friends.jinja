@@ -225,8 +225,12 @@
 
     function joinRoom(receiver) {
         let username = Cookies.get('username');
+        let banned = {{ permission }};
+        if(banned < 0){
+            alert("403 You are banned!");
+            return;
+        }
         socket.emit("join", username, receiver);
-        
         // redirect to the chat page
         let themeColour = "{{ theme_colour }}";
         window.location.href = `{{ url_for('chat') }}?username=${username}&theme_colour=${themeColour}`;
@@ -376,19 +380,6 @@
     $("#refresh").click(refreshFriendRequests);
     $(document).ready(refreshFriendRequests);
     
-    async function checkPermission() {
-        let username = "{{ username }}";
-        let response = await axios.post('/frontend_permission', {username: username});
-        if (response.data.success) {
-            window.location.reload();
-        } 
-        else if (response.data.banned === true) {
-            alert("You are banned!");
-        }
-        else {
-            alert(response.data.error);
-        }
-    }
 
     async function refreshGroups() {
         let groupsURL = "{{ url_for('get_group_chats') }}";

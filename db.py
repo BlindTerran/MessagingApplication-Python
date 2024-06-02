@@ -3,7 +3,7 @@ db
 database file, containing all the logic to interface with the sql database
 '''
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, delete
 from sqlalchemy.orm import Session
 from models import *
 
@@ -49,7 +49,10 @@ def mute_user(username: str):
     """
     with Session(engine) as session:
         user = session.get(User, username)
-        user.permission = -1
+        if user.permission == 0:
+            user.permission = -1
+        else:
+            user.permission *= -1
         session.commit()
 
 def unmute_user(username: str, permission=0):
@@ -58,8 +61,23 @@ def unmute_user(username: str, permission=0):
     """
     with Session(engine) as session:
         user = session.get(User, username)
-        user.permission = permission
+        if user.permission == -1:
+            user.permission = 0
+        else:
+            user.permission *= -1
         session.commit()
+
+
+def remove_all_chatrooms():
+    # Create a new session
+    with Session(engine) as session:
+        # Execute a delete statement to remove all records from the chatroom table
+        session.execute(delete(Chatroom))
+        
+        # Commit the transaction to apply changes
+        session.commit()
+
+    print("All chatrooms have been removed.")
 
 # gets a user from the database
 def get_user(username: str):
@@ -383,6 +401,10 @@ def get_article(article_id: int):
     with Session(engine) as session:
         return session.get(Article, article_id)
 
+def get_all_users():
+    with Session(engine) as session:
+        return session.query(User).all()
+
 def get_all_articles():
     with Session(engine) as session:
         return session.query(Article).all()
@@ -392,7 +414,9 @@ def get_article_comments(article: Article) -> list[Comment]:
         return session.query(Comment).filter( Comment.article_id == article.id).all()
 
 def delete_article(article_id: int):
+    """ Have to delete the related comments first"""
     with Session(engine) as session:
+        session.execute(delete(Comment).where(Comment.article_id == article_id))
         article = session.get(Article, article_id)
         if article:
             session.delete(article)

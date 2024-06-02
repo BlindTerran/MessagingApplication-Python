@@ -113,6 +113,14 @@
         "documentation": {}
     },
     {
+        "label": "get_all_users",
+        "importPath": "db",
+        "description": "db",
+        "isExtraImport": true,
+        "detail": "db",
+        "documentation": {}
+    },
+    {
         "label": "get_comment",
         "importPath": "db",
         "description": "db",
@@ -181,6 +189,14 @@
     },
     {
         "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "delete",
         "importPath": "sqlalchemy",
         "description": "sqlalchemy",
         "isExtraImport": true,
@@ -316,7 +332,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def create_article():\n    print(\"create article\")\n    # print(user)\n    # if not user:\n    #     return jsonify({\"error\": \"You must be logged in to create an article\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    username = data.get(\"username\")\n    title = data.get(\"title\")\n    content = data.get(\"content\")",
+        "peekOfCode": "def create_article():\n    print(\"create article\")\n    data = request.get_json()\n    username = data.get(\"username\")\n    title = data.get(\"title\")\n    content = data.get(\"content\")\n    user = db.get_user(username)\n    if user.permission >= 0:\n        db.insert_article(title, content, username)\n        return jsonify({\"success\": True})",
         "detail": "app",
         "documentation": {}
     },
@@ -325,7 +341,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def edit_article():\n    user = get_current_user()\n    if not user:\n        return jsonify({\"error\": \"You must be logged in to edit an article\"}), 401\n    # **Handle JSON request**\n    data = request.get_json()\n    article_id = data.get(\"article_id\")\n    title = data.get(\"title\")\n    content = data.get(\"content\")\n    article = db.get_article(article_id)",
+        "peekOfCode": "def edit_article():\n    data = request.get_json()\n    username = data.get(\"username\")\n    article_id = data.get(\"article_id\")\n    title = data.get(\"title\")\n    content = data.get(\"content\")\n    article = db.get_article(article_id)\n    if not article:\n        return jsonify({\"error\": \"Article not found\"}), 404\n    if article.author != username and db.get_user(username).permission < 1:",
         "detail": "app",
         "documentation": {}
     },
@@ -343,7 +359,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def add_comment():\n    data = request.get_json()\n    article_id = data.get(\"article_id\")\n    content = data.get(\"content\")\n    username = data.get(\"username\")\n    user = db.get_user(username)\n    if user.permission != 0:\n        db.add_comment(article_id, content, username)\n        return jsonify({\"success\": True})\n    else:",
+        "peekOfCode": "def add_comment():\n    data = request.get_json()\n    article_id = data.get(\"article_id\")\n    content = data.get(\"content\")\n    username = data.get(\"username\")\n    user = db.get_user(username)\n    if user.permission >= 0:\n        db.add_comment(article_id, content, username)\n        return jsonify({\"success\": True})\n    else:",
         "detail": "app",
         "documentation": {}
     },
@@ -411,11 +427,38 @@
         "documentation": {}
     },
     {
+        "label": "staff",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def staff():\n    if request.args.get(\"username\") is None:\n        abort(404)\n    username = request.args.get(\"username\")\n    theme_colour = request.args.get(\"theme_colour\")\n    colours = ThemeColour()\n    primary_colour = request.args.get(\"primary_colour\")\n    secondary_colour = request.args.get(\"secondary_colour\")\n    font_colour = request.args.get(\"font_colour\")\n    article_dict = dict() # article : list([comments])",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "mute_user",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def mute_user():\n    data = request.get_json()\n    username = data.get(\"username\")\n    db.mute_user(username)\n    return jsonify({\"success\": True})\n@app.route(\"/unmute_user\", methods=[\"POST\"])\ndef unmute_user():\n    data = request.get_json()\n    username = data.get(\"username\")\n    db.unmute_user(username)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "unmute_user",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def unmute_user():\n    data = request.get_json()\n    username = data.get(\"username\")\n    db.unmute_user(username)\n    return jsonify({\"success\": True})\n@app.route(\"/chat\")\ndef chat():\n    username = request.args.get(\"username\")\n    theme_colour = request.args.get(\"theme_colour\")\n    if username is None:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
         "label": "chat",
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def chat():\n    username = request.args.get(\"username\")\n    theme_colour = request.args.get(\"theme_colour\")\n    if username is None:\n        abort(404)\n    colours = ThemeColour()\n    return render_template(\"chat.jinja\", username=username, theme_colour=theme_colour, \n                           primary_colour=colours.get_primary_colour(theme_colour),\n                            secondary_colour=colours.get_secondary_colour(theme_colour),\n                            font_colour=colours.get_font_colour(theme_colour))",
+        "peekOfCode": "def chat():\n    username = request.args.get(\"username\")\n    theme_colour = request.args.get(\"theme_colour\")\n    if username is None:\n        abort(404)\n    colours = ThemeColour()\n    # if db.get_user(username).permission < 0:\n    #     return jsonify({\"msg\": \"You are muted and cannot open a chat!\"}), 403\n    permission = db.get_user(username).permission\n    print(permission)",
         "detail": "app",
         "documentation": {}
     },
@@ -424,7 +467,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def friends():\n    username = request.args.get(\"username\")\n    theme_colour = request.args.get(\"theme_colour\")\n    if username is None:\n        abort(404)\n    colours = ThemeColour()\n    return render_template(\"friends.jinja\", username=username, theme_colour=theme_colour, \n                           primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),\n                           font_colour=colours.get_font_colour(theme_colour))",
+        "peekOfCode": "def friends():\n    username = request.args.get(\"username\")\n    theme_colour = request.args.get(\"theme_colour\")\n    if username is None:\n        abort(404)\n    colours = ThemeColour()\n    permission = db.get_user(username).permission\n    return render_template(\"friends.jinja\", username=username, permission=permission, theme_colour=theme_colour, \n                           primary_colour=colours.get_primary_colour(theme_colour), \n                           secondary_colour=colours.get_secondary_colour(theme_colour),",
         "detail": "app",
         "documentation": {}
     },
@@ -550,7 +593,7 @@
         "kind": 2,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "def get_group_chats():\n    username = request.json.get(\"username\")\n    if db.get_user(username).permission < 0:\n        return jsonify({\"error\": \"Article not found\"}), 403\n    group_chats = db.get_group_chats(username)\n    if not group_chats:\n        return jsonify({\"no_group_chats\": True})\n    group_chats_json = []\n    for chat_room in group_chats:\n        group_chats_json.append(chat_room.to_dict())",
+        "peekOfCode": "def get_group_chats():\n    username = request.json.get(\"username\")\n    # if db.get_user(username).permission < 0:\n    #     return jsonify({\"error\": \"Article not found\"}), 403\n    group_chats = db.get_group_chats(username)\n    if not group_chats:\n        return jsonify({\"no_group_chats\": True})\n    group_chats_json = []\n    for chat_room in group_chats:\n        group_chats_json.append(chat_room.to_dict())",
         "detail": "app",
         "documentation": {}
     },
@@ -613,7 +656,7 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def mute_user(username: str):\n    \"\"\"_summary_\n    This function assumes the permission is already checked for the function caller/\n    \"\"\"\n    with Session(engine) as session:\n        user = session.get(User, username)\n        user.permission = -1\n        session.commit()\ndef unmute_user(username: str, permission=0):\n    \"\"\"_summary_",
+        "peekOfCode": "def mute_user(username: str):\n    \"\"\"_summary_\n    This function assumes the permission is already checked for the function caller/\n    \"\"\"\n    with Session(engine) as session:\n        user = session.get(User, username)\n        if user.permission == 0:\n            user.permission = -1\n        else:\n            user.permission *= -1",
         "detail": "db",
         "documentation": {}
     },
@@ -622,7 +665,16 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def unmute_user(username: str, permission=0):\n    \"\"\"_summary_\n    This function sets the user to a normal student first, but can also be changed later.\n    \"\"\"\n    with Session(engine) as session:\n        user = session.get(User, username)\n        user.permission = permission\n        session.commit()\n# gets a user from the database\ndef get_user(username: str):",
+        "peekOfCode": "def unmute_user(username: str, permission=0):\n    \"\"\"_summary_\n    This function sets the user to a normal student first, but can also be changed later.\n    \"\"\"\n    with Session(engine) as session:\n        user = session.get(User, username)\n        if user.permission == -1:\n            user.permission = 0\n        else:\n            user.permission *= -1",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "remove_all_chatrooms",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def remove_all_chatrooms():\n    # Create a new session\n    with Session(engine) as session:\n        # Execute a delete statement to remove all records from the chatroom table\n        session.execute(delete(Chatroom))\n        # Commit the transaction to apply changes\n        session.commit()\n    print(\"All chatrooms have been removed.\")\n# gets a user from the database\ndef get_user(username: str):",
         "detail": "db",
         "documentation": {}
     },
@@ -910,7 +962,16 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def get_article(article_id: int):\n    with Session(engine) as session:\n        return session.get(Article, article_id)\ndef get_all_articles():\n    with Session(engine) as session:\n        return session.query(Article).all()\ndef get_article_comments(article: Article) -> list[Comment]:\n    with Session(engine) as session:\n        return session.query(Comment).filter( Comment.article_id == article.id).all()\ndef delete_article(article_id: int):",
+        "peekOfCode": "def get_article(article_id: int):\n    with Session(engine) as session:\n        return session.get(Article, article_id)\ndef get_all_users():\n    with Session(engine) as session:\n        return session.query(User).all()\ndef get_all_articles():\n    with Session(engine) as session:\n        return session.query(Article).all()\ndef get_article_comments(article: Article) -> list[Comment]:",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "get_all_users",
+        "kind": 2,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "def get_all_users():\n    with Session(engine) as session:\n        return session.query(User).all()\ndef get_all_articles():\n    with Session(engine) as session:\n        return session.query(Article).all()\ndef get_article_comments(article: Article) -> list[Comment]:\n    with Session(engine) as session:\n        return session.query(Comment).filter( Comment.article_id == article.id).all()\ndef delete_article(article_id: int):",
         "detail": "db",
         "documentation": {}
     },
@@ -919,7 +980,7 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def get_all_articles():\n    with Session(engine) as session:\n        return session.query(Article).all()\ndef get_article_comments(article: Article) -> list[Comment]:\n    with Session(engine) as session:\n        return session.query(Comment).filter( Comment.article_id == article.id).all()\ndef delete_article(article_id: int):\n    with Session(engine) as session:\n        article = session.get(Article, article_id)\n        if article:",
+        "peekOfCode": "def get_all_articles():\n    with Session(engine) as session:\n        return session.query(Article).all()\ndef get_article_comments(article: Article) -> list[Comment]:\n    with Session(engine) as session:\n        return session.query(Comment).filter( Comment.article_id == article.id).all()\ndef delete_article(article_id: int):\n    \"\"\" Have to delete the related comments first\"\"\"\n    with Session(engine) as session:\n        session.execute(delete(Comment).where(Comment.article_id == article_id))",
         "detail": "db",
         "documentation": {}
     },
@@ -928,7 +989,7 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def get_article_comments(article: Article) -> list[Comment]:\n    with Session(engine) as session:\n        return session.query(Comment).filter( Comment.article_id == article.id).all()\ndef delete_article(article_id: int):\n    with Session(engine) as session:\n        article = session.get(Article, article_id)\n        if article:\n            session.delete(article)\n            session.commit()\n        else:",
+        "peekOfCode": "def get_article_comments(article: Article) -> list[Comment]:\n    with Session(engine) as session:\n        return session.query(Comment).filter( Comment.article_id == article.id).all()\ndef delete_article(article_id: int):\n    \"\"\" Have to delete the related comments first\"\"\"\n    with Session(engine) as session:\n        session.execute(delete(Comment).where(Comment.article_id == article_id))\n        article = session.get(Article, article_id)\n        if article:\n            session.delete(article)",
         "detail": "db",
         "documentation": {}
     },
@@ -937,7 +998,7 @@
         "kind": 2,
         "importPath": "db",
         "description": "db",
-        "peekOfCode": "def delete_article(article_id: int):\n    with Session(engine) as session:\n        article = session.get(Article, article_id)\n        if article:\n            session.delete(article)\n            session.commit()\n        else:\n            pass\ndef add_comment(article_id: int, content: str, author: str):\n    with Session(engine) as session:",
+        "peekOfCode": "def delete_article(article_id: int):\n    \"\"\" Have to delete the related comments first\"\"\"\n    with Session(engine) as session:\n        session.execute(delete(Comment).where(Comment.article_id == article_id))\n        article = session.get(Article, article_id)\n        if article:\n            session.delete(article)\n            session.commit()\n        else:\n            pass",
         "detail": "db",
         "documentation": {}
     },
